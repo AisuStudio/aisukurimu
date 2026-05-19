@@ -1,180 +1,215 @@
-/* ---------------------------------------------------------------
-   aisukurimu — global styles
-   Loads fonts, sets base reset, base typography, base link styles.
-   Pages and components compose on top of these tokens.
-   --------------------------------------------------------------- */
+/* ===============================================================
+   aisukurimu — global styles · Brand v2 (dark-mode, terminal-editorial)
+   Source of truth: design/00-brand-foundation.md, design/01-styletile.html
+   @font-face declarations live in Base.astro so url() values can be
+   templated with the Astro `base` config (subpath deploy).
+   =============================================================== */
 
-@import "./tokens.css";
+:root {
+  /* -- Color tokens (verified from XD) -- */
+  --ak-bg-dark:               #161633;
+  --ak-blueberry-p:           #26247B;
+  --ak-raspberry-h:           #DB4752;
+  --ak-lemon-accent:          #D7FF00;
+  --ak-vanilla-bg:            #F7F4F0;
+  --ak-strawberry-container:  #EDCED4;
+  --ak-hazelnut-container:    #E3DBD0;
+  --placeholder-image:        #00D8FF;
 
-/*
-  Self-hosted @font-face declarations live inline in Base.astro instead of
-  here — their url() values need to include the Astro `base` config so they
-  resolve correctly under github.io subpath deployment.
-*/
+  /* -- Spacing scale -- */
+  --sp-xs:  0.25rem;
+  --sp-sm:  0.5rem;
+  --sp-md:  1rem;
+  --sp-lg:  1.5rem;
+  --sp-xl:  2rem;
+  --sp-2xl: 3rem;
+  --sp-3xl: 4rem;
+  --sp-4xl: 6rem;
 
-/* -- Reset / base -- */
+  /* -- Layout -- */
+  --container-max: 1200px;
+  --gutter: 24px;
+}
+
+/* ---------- Reset / base ---------- */
 
 *,
 *::before,
-*::after {
-  box-sizing: border-box;
-}
+*::after { box-sizing: border-box; }
 
-html {
-  -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
-}
-
+html,
 body {
   margin: 0;
   padding: 0;
-  font-family: var(--ak-font-body);
-  font-size: var(--ak-size-body);
-  line-height: 1.6;
-  color: var(--ak-ink);
-  background: var(--ak-vanilla-bg);
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  background: var(--ak-bg-dark);
+  color: var(--ak-vanilla-bg);
+}
+
+body {
+  font-family: "Public Sans", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-main {
-  display: block;
-}
-
-img,
-svg {
-  max-width: 100%;
-  height: auto;
-}
-
-a {
-  color: var(--ak-blueberry-p);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color 0.15s ease;
-}
-
-a:hover,
-a:focus-visible {
-  color: var(--ak-raspberry-h);
-}
+img, svg { max-width: 100%; height: auto; display: block; }
 
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--ak-raspberry-h);
+  outline: 2px solid var(--ak-lemon-accent);
   outline-offset: 3px;
-  border-radius: 2px;
 }
 
-/* -- Headings (defaults — pages override per design) -- */
+/* ---------- Character styles (XD) ---------- */
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--ak-font-display);
-  color: var(--ak-blueberry-p);
-  line-height: var(--ak-leading-display);
-  margin: 0 0 var(--ak-space-4);
-}
-
-/* -- Reusable atoms -- */
-
-.ak-container {
-  width: 100%;
-  max-width: var(--ak-container-max);
-  margin: 0 auto;
-  padding: 0 var(--ak-space-5);
-}
-
-@media (min-width: 768px) {
-  .ak-container {
-    padding: 0 var(--ak-space-6);
-  }
-}
-
-.ak-section-title {
-  font-family: var(--ak-font-display);
-  font-size: var(--ak-size-section-mobile);
-  color: var(--ak-raspberry-h);
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
-  margin: 0 0 var(--ak-space-5);
-}
-
-@media (min-width: 768px) {
-  .ak-section-title {
-    font-size: var(--ak-size-section-desktop);
-  }
-}
-
-.ak-eyebrow {
-  font-family: var(--ak-font-mono);
-  font-weight: 700;
-  font-size: var(--ak-size-eyebrow);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--ak-raspberry-h);
-}
-
-.ak-eyebrow-dark {
-  color: var(--ak-lemon-accent);
-}
-
-.ak-caption {
-  font-family: var(--ak-font-body);
-  font-weight: 700;
-  font-size: var(--ak-size-caption);
-  color: var(--ak-raspberry-h);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-/* -- Code blocks (used in exercise prose) -- */
-
-code {
-  font-family: var(--ak-font-mono);
-  font-size: 0.95em;
-  padding: 2px 5px;
-  background: var(--ak-hazelnut-container);
-  border-radius: var(--ak-radius-sm);
-}
-
-pre {
-  font-family: var(--ak-font-mono);
-  background: var(--ak-blueberry-dark);
+.hero-title-vanilla {
+  font-family: "iA Writer Mono S", monospace;
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 64px;
   color: var(--ak-vanilla-bg);
-  padding: var(--ak-space-5);
-  border-radius: var(--ak-radius-md);
-  overflow-x: auto;
-  line-height: 1.5;
-  font-size: 0.9rem;
+  margin: 0;
 }
 
-pre code {
-  background: transparent;
-  color: inherit;
-  padding: 0;
-  border-radius: 0;
+.hero-title-raspberry {
+  font-family: "iA Writer Mono S", monospace;
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 64px;
+  color: var(--ak-raspberry-h);
+  margin: 0;
 }
 
-blockquote {
-  border-left: 4px solid var(--ak-raspberry-h);
-  padding: 0 0 0 var(--ak-space-5);
-  margin: var(--ak-space-5) 0;
-  font-style: italic;
-  color: var(--ak-ink-soft);
+.h1-vanilla {
+  font-family: "iA Writer Mono S", monospace;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 42px;
+  color: var(--ak-vanilla-bg);
+  text-transform: uppercase;
+  margin: 0;
 }
 
-hr {
-  border: none;
-  border-top: 1px solid var(--ak-hazelnut-container);
-  margin: var(--ak-space-7) 0;
+.h2-lemon {
+  font-family: "iA Writer Mono S", monospace;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 32px;
+  color: var(--ak-lemon-accent);
+  text-transform: uppercase;
+  margin: 0;
 }
 
-table {
+.p-big-vanilla {
+  font-family: "Public Sans", sans-serif;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+  color: var(--ak-vanilla-bg);
+  margin: 0;
+}
+
+.p-small-vanilla {
+  font-family: "Public Sans", sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 23px;
+  color: var(--ak-vanilla-bg);
+  margin: 0;
+}
+
+.caption-raspberry {
+  font-family: "Public Sans", sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 23px;
+  color: var(--ak-raspberry-h);
+  margin: 0;
+}
+
+.link-raspberry {
+  font-family: "Public Sans", sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 23px;
+  color: var(--ak-raspberry-h);
+  text-decoration: underline;
+  transition: color .15s;
+}
+.link-raspberry:hover,
+.link-raspberry:focus-visible { color: var(--ak-lemon-accent); }
+
+.nav-item {
+  font-family: "iA Writer Mono S", monospace;
+  font-weight: bold;
+  font-size: 19.2px;
+  line-height: 25px;
+  color: var(--ak-raspberry-h);
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color .15s;
+}
+.nav-item:hover,
+.nav-item:focus-visible { color: var(--ak-lemon-accent); }
+.nav-item.active { text-decoration: underline; }
+.nav-item.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.footer-links-raspberry {
+  font-family: "iA Writer Mono S", monospace;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--ak-raspberry-h);
+  text-decoration: none;
+  transition: color .15s;
+}
+.footer-links-raspberry:hover,
+.footer-links-raspberry:focus-visible { color: var(--ak-lemon-accent); }
+
+/* ---------- Layout primitives ---------- */
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--sp-lg);
+}
+
+.hr-raspberry {
+  /* Constrained to the same 1200px container width as content — keeps the
+     editorial frame consistent instead of going full-bleed to viewport. */
+  border: 0;
+  border-top: 1px solid var(--ak-raspberry-h);
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+/* ---------- Section defaults ---------- */
+
+section { padding: var(--sp-3xl) 0; }
+
+/* ---------- Placeholders (XD mockup markers) ---------- */
+
+.placeholder-image {
+  background: var(--placeholder-image);
+  aspect-ratio: 16 / 9;
   width: 100%;
-  border-collapse: collapse;
+  border: 1px dashed rgba(0,0,0,.15);
 }
+
+.placeholder-circle {
+  background: var(--placeholder-image);
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  border: 1px dashed rgba(0,0,0,.15);
+  margin-left: auto;
+}
+
+/* ---------- Accessibility ---------- */
 
 .sr-only {
   border: 0;
@@ -187,4 +222,14 @@ table {
   clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(50%);
   white-space: nowrap;
+}
+
+/* ---------- Mobile (< 768px) ---------- */
+
+.mobile-toggle { display: none; }
+
+@media (max-width: 768px) {
+  .container { padding: 0 var(--sp-lg); }
+  .mobile-toggle { display: inline-block; }
+  .placeholder-circle { width: 200px; height: 200px; margin: 0 auto; }
 }

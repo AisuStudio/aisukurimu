@@ -1,0 +1,82 @@
+---
+import Base from '../layouts/Base.astro';
+import { LINKEDIN_URL } from '../consts';
+---
+
+<Base title="Über" description="Wer hinter aisukurimu steht — und wohin die Reise geht.">
+  <section class="ueber-page">
+    <div class="container">
+      <h1 class="h1-vanilla">Wer macht das hier</h1>
+      <div class="ueber-grid">
+        <div class="ueber-text">
+          <p class="p-small-vanilla">
+            Hi, ich bin Dominik. Ich glaube daran, dass Technologie kein magisches Rätsel sein
+            sollte, sondern ein Werkzeug, das jeder verstehen kann.
+          </p>
+          <p class="p-small-vanilla">
+            Mit aisukurimu bringe ich Kindern und Neugierigen bei, die unsichtbaren Strukturen
+            hinter den Apps und Spielen zu sehen — und sie nicht nur zu nutzen, sondern zu gestalten.
+          </p>
+          <a class="link-raspberry" href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
+            Finde mich auf LinkedIn
+          </a>
+        </div>
+        <div>
+          <div class="placeholder-circle" role="img" aria-label="Platzhalter für Portrait"></div>
+        </div>
+      </div>
+
+      <hr class="hr-raspberry roadmap-divider" />
+
+      <h2 class="h1-vanilla">Coming Soon / Roadmap</h2>
+      <ul class="roadmap">
+        <li class="p-small-vanilla">Eltern-Info</li>
+        <li class="p-small-vanilla">Lehrer-Material</li>
+        <li class="p-small-vanilla">Ethik-Rahmen</li>
+        <li class="p-small-vanilla">English</li>
+        <li class="p-small-vanilla">PagesCMS</li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .ueber-page { padding: var(--sp-3xl) 0; }
+
+  .ueber-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-xl);
+    align-items: center;
+    margin-top: var(--sp-xl);
+  }
+
+  .ueber-text { display: flex; flex-direction: column; gap: var(--sp-md); }
+
+  .roadmap-divider { margin: var(--sp-3xl) 0; }
+
+  .roadmap {
+    list-style: none;
+    padding: 0;
+    margin: var(--sp-md) 0 0;
+    display: grid;
+    gap: var(--sp-sm);
+  }
+
+  .roadmap li {
+    position: relative;
+    padding-left: var(--sp-lg);
+  }
+  .roadmap li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--ak-raspberry-h);
+    font-family: "iA Writer Mono S", monospace;
+    font-weight: bold;
+  }
+
+  @media (max-width: 768px) {
+    .ueber-grid { grid-template-columns: 1fr; }
+  }
+</style>

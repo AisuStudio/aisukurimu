@@ -1,0 +1,67 @@
+---
+/*
+  ASCII-Aisu mit Idle-Animation.
+  Default-Frame steht 5 Sekunden, dann 1 Sekunde eine zufällige Expression
+  (nie zweimal hintereinander die gleiche), dann wieder default. Loop.
+
+  Pure JS, kein Framework. Mehrere Instanzen auf einer Seite werden über
+  data-attributes selbst-discovert.
+*/
+---
+
+<pre class="ascii-aisu" aria-hidden="true" data-aisu-ascii> (  )
+(  )  )
+———U———
+ \ • •|
+  \ v |
+   \  |
+    \ |
+     \|</pre>
+
+<style>
+  .ascii-aisu {
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 12px;
+    line-height: 1.1;
+    color: var(--ak-vanilla-bg);
+    white-space: pre;
+    margin: 0;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const frames = {
+      default:
+        ` (  )\n(  )  )\n———U———\n \\ • •|\n  \\ v |\n   \\  |\n    \\ |\n     \\|`,
+      blinkLeft:
+        ` (  )\n(  )  )\n———U———\n \\ — •|\n  \\ v |\n   \\  |\n    \\ |\n     \\|`,
+      kiss:
+        ` (  )\n(  )  )\n———U———\n \\ • •|\n  \\ -*|\n   \\  |\n    \\ |\n     \\|`,
+      blinkBoth:
+        ` (  )\n(  )  )\n———U———\n \\ — —|\n  \\ v |\n   \\  |\n    \\ |\n     \\|`,
+      ohhh:
+        ` (  )\n(  )  )\n———U———\n \\ • •|\n  \\ O |\n   \\  |\n    \\ |\n     \\|`,
+    };
+    const expressions = ['blinkLeft', 'kiss', 'blinkBoth', 'ohhh'];
+    const nodes = document.querySelectorAll('[data-aisu-ascii]');
+
+    nodes.forEach((node) => {
+      let last = null;
+      function pick() {
+        const pool = expressions.filter((e) => e !== last);
+        const choice = pool[Math.floor(Math.random() * pool.length)];
+        last = choice;
+        return choice;
+      }
+      function tick() {
+        node.textContent = frames.default;
+        setTimeout(() => {
+          node.textContent = frames[pick()];
+          setTimeout(tick, 1000);
+        }, 5000);
+      }
+      tick();
+    });
+  })();
+</script>

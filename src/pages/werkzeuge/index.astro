@@ -1,0 +1,108 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const tools = (await getCollection('werkzeuge', ({ data }) => data.published !== false))
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const levels: { key: 'basic' | 'medium' | 'advanced'; label: string }[] = [
+  { key: 'basic',    label: 'Basic — fürs erste Mal' },
+  { key: 'medium',   label: 'Medium — wenn du warmgespielt bist' },
+  { key: 'advanced', label: 'Fortgeschritten — für später' },
+];
+
+const priceLabels: Record<string, string> = {
+  free: 'Kostenlos',
+  paid: 'Kostenpflichtig',
+  'school-license': 'Schul-Lizenz',
+};
+---
+
+<Base title="Werkzeuge" description="Alle Werkzeuge im aisukurimu-Kurs, sortiert nach Schwierigkeit.">
+  <section class="werkzeuge-page">
+    <div class="container">
+      <h1 class="h1-vanilla">Werkzeuge</h1>
+      <p class="p-small-vanilla section-intro">
+        Eine Übersicht aller Werkzeuge im Kurs — von „einfach loslegen" bis „wenn du etwas geübt hast".
+      </p>
+
+      {levels.map((lvl) => {
+        const items = tools.filter((t) => t.data.level === lvl.key);
+        if (items.length === 0) return null;
+        return (
+          <div class="level-block">
+            <h2 class="h2-lemon level-label">{lvl.label}</h2>
+            <div class="tool-list">
+              {items.map((t) => (
+                <article class="tool-card">
+                  <h3 class="h2-lemon tool-name">{t.data.name}</h3>
+                  <p class="p-small-vanilla tool-desc">{t.data.description}</p>
+                  <p class="caption-raspberry tool-meta">
+                    {t.data.categories.join(' · ')} — {t.data.platforms.join(' · ')} — {priceLabels[t.data.price]}
+                  </p>
+                  {t.data.aisuTip && (
+                    <p class="tool-tip"><strong>Aisu-Tipp:</strong> {t.data.aisuTip}</p>
+                  )}
+                  {t.data.url && (
+                    <a class="footer-links-raspberry tool-link" href={t.data.url} target="_blank" rel="noopener noreferrer">
+                      {t.data.url.replace(/^https?:\/\//, '').replace(/\/$/, '')} ↗
+                    </a>
+                  )}
+                </article>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .werkzeuge-page { padding: var(--sp-3xl) 0; }
+  .section-intro { max-width: 640px; margin-top: var(--sp-md); }
+
+  .level-block { margin-top: var(--sp-3xl); }
+  .level-label { margin-bottom: var(--sp-lg); }
+
+  .tool-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-lg);
+  }
+
+  .tool-card {
+    border: 1px solid var(--ak-raspberry-h);
+    padding: var(--sp-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-sm);
+  }
+
+  .tool-name {
+    font-size: 19.2px;
+    line-height: 25px;
+    margin: 0 0 var(--sp-xs);
+  }
+
+  .tool-desc { margin: 0; }
+  .tool-meta { margin: 0; }
+
+  .tool-tip {
+    font-family: "Public Sans", sans-serif;
+    font-size: 14px;
+    color: var(--ak-vanilla-bg);
+    margin: var(--sp-sm) 0 0;
+    line-height: 1.5;
+  }
+  .tool-tip strong { color: var(--ak-raspberry-h); }
+
+  .tool-link { margin-top: auto; padding-top: var(--sp-sm); }
+
+  @media (max-width: 1024px) {
+    .tool-list { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .tool-list { grid-template-columns: 1fr; }
+  }
+</style>

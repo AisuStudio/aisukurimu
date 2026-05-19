@@ -1,24 +1,41 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
+/*
+  Header navigation link. Applies the global .nav-item class and .active
+  state when the current pathname starts with the link's resolved path.
+  Internal paths are routed through the base-aware url() helper.
+*/
+import { url } from '../lib/url';
 
-type Props = HTMLAttributes<'a'>;
+interface Props {
+  href: string;
+  external?: boolean;
+  disabled?: boolean;
+  class?: string;
+}
 
-const { href, class: className, ...props } = Astro.props;
-const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
-const subpath = pathname.match(/[^\/]+/g);
-const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
+const { href, external = false, disabled = false, class: extraClass = '' } = Astro.props as Props;
+
+const finalHref = external ? href : url(href);
+const pathname = Astro.url.pathname;
+const home = url('/');
+
+const isActive =
+  !external &&
+  !disabled &&
+  finalHref !== home &&
+  pathname.startsWith(finalHref);
+
+const classList = ['nav-item', extraClass, isActive ? 'active' : '', disabled ? 'disabled' : '']
+  .filter(Boolean)
+  .join(' ');
 ---
 
-<a href={href} class:list={[className, { active: isActive }]} {...props}>
-	<slot />
+<a
+  href={finalHref}
+  class={classList}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+  aria-disabled={disabled ? 'true' : undefined}
+>
+  <slot />
 </a>
-<style>
-	a {
-		display: inline-block;
-		text-decoration: none;
-	}
-	a.active {
-		font-weight: bolder;
-		text-decoration: underline;
-	}
-</style>

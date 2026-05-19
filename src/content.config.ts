@@ -3,64 +3,67 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 /* ---------------------------------------------------------------
-   Content collections — aisukurimu
+   Content collections — Brand v2
 
-   exercises — Übungen/Aufgaben (German MD, English slug filenames)
-   raetsel   — interactive multi-question puzzles
-   tools     — werkzeugkasten entries (one MD per tool)
+   uebungen   — Übungen + Rätsel (Rätsel via subtype)
+   werkzeuge  — Tool entries
+   medien     — Films, books, podcasts, etc.
    --------------------------------------------------------------- */
 
-const exercises = defineCollection({
-	loader: glob({ base: './src/content/exercises', pattern: '**/*.{md,mdx}' }),
+const uebungen = defineCollection({
+	loader: glob({ base: './src/content/uebungen', pattern: '**/*.{md,mdx}' }),
 	schema: z.object({
 		title: z.string(),
-		slug: z.string().optional(),
-		category: z.string(),
-		subcategory: z.string().optional(),
-		difficulty: z.number(),
-		ageMin: z.number(),
-		duration: z.number(),
-		session: z.number().optional(),
-		platforms: z.array(z.string()).default(['mac']),
-		requiredTools: z.array(z.string()).default([]),
+		description: z.string().max(200),
+		category: z.enum(['hacking', 'coding', 'making', 'systemiker']),
+		subtype: z.enum(['exercise', 'raetsel']).default('exercise'),
+		level: z.number().int().min(1).max(3),
+		duration: z.number().int().positive(),
+		platforms: z.array(z.enum(['mac', 'windows', 'linux', 'browser'])).min(1),
+		requiredTools: z.array(z.string()).optional(),
 		tags: z.array(z.string()).default([]),
+		image: z.string().optional(),
 		date: z.coerce.date(),
-		language: z.string().default('de'),
-		description: z.string().optional(),
+		published: z.boolean().default(true),
+		order: z.number().int().optional(),
 	}),
 });
 
-const raetsel = defineCollection({
-	loader: glob({ base: './src/content/raetsel', pattern: '**/*.{md,mdx}' }),
-	schema: z.object({
-		title: z.string(),
-		slug: z.string().optional(),
-		category: z.string().optional(),
-		subcategory: z.string().optional(),
-		difficulty: z.string(),
-		puzzles: z.number(),
-		duration: z.number(),
-		ageMin: z.number(),
-		tags: z.array(z.string()).default([]),
-		date: z.coerce.date(),
-		language: z.string().default('de'),
-		description: z.string().optional(),
-	}),
-});
-
-const tools = defineCollection({
-	loader: glob({ base: './src/content/tools', pattern: '**/*.{md,mdx}' }),
+const werkzeuge = defineCollection({
+	loader: glob({ base: './src/content/werkzeuge', pattern: '**/*.{md,mdx}' }),
 	schema: z.object({
 		name: z.string(),
-		tagline: z.string().optional(),
+		description: z.string().max(280),
 		level: z.enum(['basic', 'medium', 'advanced']),
-		categories: z.array(z.string()),
-		platforms: z.array(z.string()),
+		categories: z.array(z.enum(['coder', 'hacker', 'maker', 'systemiker'])),
+		platforms: z.array(z.enum(['mac', 'windows', 'linux', 'browser'])).min(1),
 		price: z.enum(['free', 'paid', 'school-license']),
+		// `url` is optional in practice — system tools like Terminal/PowerShell
+		// have no homepage. Foundation says required; we deviate.
 		url: z.string().url().optional(),
+		setupGuide: z.string().optional(),
 		aisuTip: z.string().optional(),
-		order: z.number().default(99),
+		image: z.string().optional(),
+		date: z.coerce.date(),
+		published: z.boolean().default(true),
+		order: z.number().int().optional(),
 	}),
 });
 
-export const collections = { exercises, raetsel, tools };
+const medien = defineCollection({
+	loader: glob({ base: './src/content/medien', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({
+		title: z.string(),
+		description: z.string().max(280),
+		type: z.enum(['film', 'serie', 'buch', 'spiel', 'podcast', 'website', 'doku']),
+		fskMin: z.number().int().min(0).optional(),
+		genre: z.array(z.string()).default([]),
+		url: z.string().url().optional(),
+		image: z.string().optional(),
+		aisuTip: z.string().optional(),
+		date: z.coerce.date(),
+		published: z.boolean().default(true),
+	}),
+});
+
+export const collections = { uebungen, werkzeuge, medien };

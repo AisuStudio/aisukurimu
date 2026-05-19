@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ExerciseCard from '../../components/ExerciseCard.astro';
+import { url } from '../../lib/url';
+
+const items = (await getCollection('uebungen', ({ data }) => data.published !== false))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Base title="Übungen" description="Übungen, Aufgaben und Rätsel — von Hacking über Coding bis Systemdenken.">
+  <section class="uebungen-page">
+    <div class="container">
+      <h1 class="h1-vanilla">Übungen</h1>
+      <p class="p-small-vanilla section-intro">
+        Kleine, eigenständige Aufgaben — von „Hallo Brawl Stars" bis „mein Rechner unter der Lupe".
+        Du kannst sie in beliebiger Reihenfolge angehen.
+      </p>
+
+      <div class="cards-grid">
+        {items.map((entry) => (
+          <ExerciseCard
+            href={url(`/uebungen/${entry.id}/`)}
+            title={entry.data.title}
+            description={entry.data.description}
+            category={entry.data.category}
+            level={entry.data.level}
+            image={entry.data.image}
+            tags={entry.data.tags}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .uebungen-page { padding: var(--sp-3xl) 0; }
+
+  .section-intro {
+    max-width: 640px;
+    margin-top: var(--sp-md);
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-lg);
+    margin-top: var(--sp-2xl);
+  }
+
+  @media (max-width: 1024px) {
+    .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .cards-grid { grid-template-columns: 1fr; }
+  }
+</style>

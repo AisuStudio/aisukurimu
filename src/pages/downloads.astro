@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Downloads" description="PDFs, Materialien, Übungsblätter zum Mitnehmen.">
+  <section class="downloads-page">
+    <div class="container">
+      <h1 class="h1-vanilla">Downloads</h1>
+      <p class="p-small-vanilla section-intro">
+        Materialien zu den Übungen — PDFs, Arbeitsblätter, Spickzettel.
+        Druckfreundlich, für Eltern, Lehrer:innen und Kinder.
+      </p>
+
+      <p class="p-big-vanilla coming-soon">Coming Soon</p>
+      <p class="p-small-vanilla">
+        Die Übungs-PDFs werden hier verlinkt, sobald die Übungs-Seiten vollständig sind.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .downloads-page { padding: var(--sp-3xl) 0; }
+  .section-intro { max-width: 640px; margin-top: var(--sp-md); }
+  .coming-soon { margin-top: var(--sp-3xl); color: var(--ak-raspberry-h); }
+</style>

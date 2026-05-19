@@ -1,0 +1,30 @@
+---
+import { getCollection, render } from 'astro:content';
+import Uebung from '../../layouts/Uebung.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('uebungen');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+
+<Uebung
+  title={d.title}
+  description={d.description}
+  category={d.category}
+  level={d.level}
+  duration={d.duration}
+  platforms={d.platforms}
+  tags={d.tags}
+  image={d.image}
+  subtype={d.subtype}
+>
+  <Content />
+</Uebung>

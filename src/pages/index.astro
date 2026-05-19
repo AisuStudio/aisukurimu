@@ -1,159 +1,158 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import Hero from '../components/Hero.astro';
 import ExerciseCard from '../components/ExerciseCard.astro';
 import { LINKEDIN_URL } from '../consts';
 import { url } from '../lib/url';
 
-// Pull the four newest exercises for the preview grid
-const exercises = (await getCollection('exercises'))
+const exercises = (await getCollection('uebungen', ({ data }) => data.published !== false))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 4);
 ---
 
 <Base title="Lerne die Welt wie ein Hacker zu lesen">
-  <Hero
-    eyebrow="Hacking / Coding / Making / Systemisches Denken"
-    headline="Lerne die Welt wie ein Hacker zu lesen"
-    subtitle="Entdecke die unsichtbaren Strukturen hinter der Technik. Wir lernen nicht nur programmieren, sondern verstehen, wie."
-  />
-
-  <section class="ak-container section-block" aria-labelledby="uebungen-title">
-    <h2 id="uebungen-title" class="ak-section-title">Übungen</h2>
-    <p class="section-lead">
-      Kleine, eigenständige Aufgaben — von „Hallo Brawl Stars" bis „mein Rechner unter der Lupe".
-      Du kannst sie in beliebiger Reihenfolge angehen.
-    </p>
-
-    <div class="exercise-grid">
-      {exercises.map((ex) => (
-        <ExerciseCard
-          href={url(`/exercises/${ex.id}/`)}
-          title={ex.data.title}
-          description={ex.data.description}
-          tags={ex.data.tags}
-          meta={`${ex.data.duration} min · ab ${ex.data.ageMin} Jahren`}
-        />
-      ))}
+  {/* ===================== HERO ===================== */}
+  <section class="home-hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <div class="hero-eyebrow">
+            <span class="caption-raspberry">HACKING</span>
+            <span class="caption-raspberry pipe">|</span>
+            <span class="caption-raspberry">CODING MAKING</span>
+            <span class="caption-raspberry pipe">|</span>
+            <span class="caption-raspberry">SYSTEMISCHES</span>
+            <span class="caption-raspberry pipe">|</span>
+            <span class="caption-raspberry">DENKEN</span>
+          </div>
+          <h1 class="hero-title-raspberry">Lerne die Welt wie ein Hacker zu lesen</h1>
+          <p class="hero-lede p-big-vanilla">
+            Entdecke die unsichtbaren Strukturen hinter der Technik. Wir lernen nicht nur
+            programmieren, sondern verstehen, wie Systeme funktionieren, wie sich Code verhält
+            und warum manche Dinge so sind, wie sie sind.
+          </p>
+        </div>
+        <div class="hero-image-slot">
+          <img class="hero-image" src={url('/images/AK_INDEX_SPLASH.jpg')} alt="Aisu im Regen" />
+        </div>
+      </div>
     </div>
-
-    <p class="section-cta">
-      <a href={url('/exercises/')}>Alle Übungen ansehen →</a>
-    </p>
   </section>
 
-  <section class="who-section" aria-labelledby="who-title">
-    <div class="ak-container who-inner">
-      <div class="who-avatar" aria-hidden="true">
-        <img src={url('/logos/AK_Logo_Mob.svg')} alt="" width="160" height="170" />
+  <hr class="hr-raspberry" />
+
+  {/* ===================== ÜBUNGEN ===================== */}
+  <section class="home-uebungen">
+    <div class="container">
+      <h2 class="h1-vanilla">Übungen</h2>
+      <p class="section-intro p-small-vanilla">
+        Kleine, eigenständige Aufgaben — von „Hallo Brawl Stars" bis „mein Rechner unter der Lupe".
+        Du kannst sie in beliebiger Reihenfolge angehen.
+      </p>
+
+      <div class="cards-grid">
+        {exercises.map((entry) => (
+          <ExerciseCard
+            href={url(`/uebungen/${entry.id}/`)}
+            title={entry.data.title}
+            description={entry.data.description}
+            category={entry.data.category}
+            level={entry.data.level}
+            image={entry.data.image}
+            tags={entry.data.tags}
+          />
+        ))}
       </div>
-      <div class="who-text">
-        <h2 id="who-title" class="ak-section-title">Wer macht das hier</h2>
-        <p>
-          Hi, ich bin Dominik. Ich glaube daran, dass Technologie kein magisches Rätsel sein sollte,
-          sondern ein Werkzeug, das jeder verstehen kann. Mit aisukurimu bringe ich Kindern und
-          Neugierigen bei, die unsichtbaren Strukturen hinter den Apps und Spielen zu sehen —
-          und sie nicht nur zu nutzen, sondern zu gestalten.
-        </p>
-        <p>
-          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
-            Finde mich auf LinkedIn ↗
+    </div>
+  </section>
+
+  <hr class="hr-raspberry" />
+
+  {/* ===================== WER MACHT DAS HIER ===================== */}
+  <section class="home-ueber">
+    <div class="container">
+      <h2 class="h1-vanilla">Wer macht das hier</h2>
+      <div class="ueber-grid">
+        <div class="ueber-text">
+          <p class="p-small-vanilla">
+            Hi, ich bin Dominik. Ich glaube daran, dass Technologie kein magisches Rätsel sein sollte,
+            sondern ein Werkzeug, das jeder verstehen kann. Mit aisukurimu bringe ich Kindern und
+            Neugierigen bei, die unsichtbaren Strukturen hinter den Apps und Spielen zu sehen —
+            und sie nicht nur zu nutzen, sondern zu gestalten.
+          </p>
+          <p class="p-small-vanilla">
+            Hier geht es nicht nur um „Code", sondern um die Art und Weise, wie wir Probleme lösen
+            und unsere digitale Umgebung aktiv gestalten, anstatt sie nur zu konsumieren.
+          </p>
+          <a class="link-raspberry" href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
+            Finde mich auf LinkedIn
           </a>
-        </p>
+        </div>
+        <div>
+          <div class="placeholder-circle" role="img" aria-label="Platzhalter für Portrait"></div>
+        </div>
       </div>
     </div>
   </section>
 </Base>
 
 <style>
-  .section-block {
-    padding-top: var(--ak-space-8);
-    padding-bottom: var(--ak-space-8);
-  }
+  /* -- Hero -- */
+  .home-hero { padding: var(--sp-3xl) 0; }
 
-  .section-lead {
-    font-size: 1.1rem;
-    color: var(--ak-ink-soft);
-    margin: 0 0 var(--ak-space-6);
-    max-width: 700px;
-  }
-
-  .exercise-grid {
+  .hero-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--ak-space-5);
-  }
-
-  .section-cta {
-    margin-top: var(--ak-space-6);
-    font-family: var(--ak-font-mono);
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 0.95rem;
-  }
-
-  .section-cta a {
-    color: var(--ak-raspberry-h);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-  }
-  .section-cta a:hover { color: var(--ak-blueberry-p); }
-
-  /* -- "Who's behind this" block -- */
-  .who-section {
-    background: var(--ak-vanilla-bg);
-    padding: var(--ak-space-8) 0;
-  }
-
-  .who-inner {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--ak-space-6);
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-xl);
     align-items: center;
   }
 
-  .who-avatar {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    background: var(--ak-strawberry-container);
+  .hero-eyebrow {
     display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-sm);
+    margin: 0 0 var(--sp-md);
+  }
+  .hero-eyebrow .pipe { color: var(--ak-raspberry-h); }
+
+  .hero-lede { margin-top: var(--sp-lg); }
+
+  .hero-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* -- Übungen section -- */
+  .home-uebungen { padding: var(--sp-3xl) 0; }
+  .section-intro { max-width: 540px; margin-top: var(--sp-md); }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--sp-lg);
+    margin-top: var(--sp-2xl);
+  }
+
+  /* -- Wer macht das hier -- */
+  .home-ueber { padding: var(--sp-3xl) 0; }
+  .ueber-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-xl);
     align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    margin-top: var(--sp-xl);
   }
+  .ueber-text { display: flex; flex-direction: column; gap: var(--sp-md); }
 
-  .who-avatar img {
-    width: 70%;
-    height: auto;
+  /* -- Responsive -- */
+  @media (max-width: 1024px) {
+    .cards-grid { grid-template-columns: repeat(2, 1fr); }
   }
-
-  .who-text p {
-    font-family: var(--ak-font-body);
-    color: var(--ak-blueberry-p);
-    font-size: 1.05rem;
-    line-height: 1.6;
-    margin: 0 0 var(--ak-space-4);
-  }
-
-  @media (min-width: 768px) {
-    .exercise-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    .who-inner {
-      grid-template-columns: 220px 1fr;
-      gap: var(--ak-space-8);
-    }
-    .who-avatar {
-      width: 220px;
-      height: 220px;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .exercise-grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
+  @media (max-width: 768px) {
+    .hero-grid,
+    .ueber-grid { grid-template-columns: 1fr; }
+    .cards-grid { grid-template-columns: 1fr; }
   }
 </style>

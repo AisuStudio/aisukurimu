@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Impressum" description="Anbieterkennzeichnung gemäß § 5 TMG.">
+  <section class="legal-page">
+    <div class="container">
+      <h1 class="h1-vanilla">Impressum</h1>
+      <p class="p-small-vanilla">
+        Angaben gemäß § 5 TMG — werden ergänzt, sobald die Site offiziell live geht.
+      </p>
+
+      <h2 class="h2-lemon">Verantwortlich für den Inhalt</h2>
+      <p class="p-small-vanilla">Dominik Heilig<br />Berlin, Deutschland</p>
+
+      <h2 class="h2-lemon">Kontakt</h2>
+      <p class="p-small-vanilla">
+        <a class="link-raspberry" href="mailto:hi@aisukurimu.com">hi@aisukurimu.com</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal-page { padding: var(--sp-3xl) 0; max-width: 720px; }
+  .legal-page h2 { margin-top: var(--sp-2xl); }
+  .legal-page p { margin: var(--sp-md) 0; }
+</style>

@@ -1,0 +1,215 @@
+---
+/*
+  Layout for a single exercise (or raetsel via subtype).
+  Hero block with eyebrow + raspberry title + vanilla lede + meta strip.
+  Body in container with mono code styling.
+*/
+import Base from './Base.astro';
+import { url } from '../lib/url';
+
+interface Props {
+  title: string;
+  description: string;
+  category: string;
+  level: number;
+  duration: number;
+  platforms: string[];
+  tags?: string[];
+  image?: string;
+  subtype?: 'exercise' | 'raetsel';
+}
+
+const {
+  title, description, category, level, duration, platforms,
+  tags = [], image, subtype = 'exercise',
+} = Astro.props as Props;
+---
+
+<Base title={title} description={description}>
+  <article>
+    <section class="ueb-hero">
+      <div class="container">
+        <p class="caption-raspberry ueb-eyebrow">
+          {subtype === 'raetsel' ? 'Rätsel' : 'Übung'} · {category} · Level {level}
+        </p>
+        <h1 class="hero-title-raspberry ueb-title">{title}</h1>
+        <p class="p-big-vanilla ueb-lede">{description}</p>
+
+        {image && (
+          <img class="ueb-image" src={url(image)} alt="" />
+        )}
+
+        <dl class="ueb-meta">
+          <div><dt>Dauer</dt><dd>{duration} min</dd></div>
+          <div><dt>Plattform</dt><dd>{platforms.join(' · ')}</dd></div>
+          {tags.length > 0 && (
+            <div><dt>Tags</dt><dd>{tags.join(', ')}</dd></div>
+          )}
+        </dl>
+      </div>
+    </section>
+
+    <hr class="hr-raspberry" />
+
+    <section class="ueb-body">
+      <div class="container">
+        <div class="prose">
+          <slot />
+        </div>
+      </div>
+    </section>
+
+    <hr class="hr-raspberry" />
+
+    <section class="ueb-foot">
+      <div class="container">
+        <a class="link-raspberry" href={url('/uebungen/')}>← Alle Übungen</a>
+      </div>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .ueb-hero { padding: var(--sp-3xl) 0 var(--sp-xl); }
+
+  .ueb-eyebrow { margin: 0 0 var(--sp-md); }
+
+  .ueb-title { margin: 0 0 var(--sp-lg); }
+
+  .ueb-lede { margin: 0 0 var(--sp-xl); max-width: 720px; }
+
+  .ueb-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    margin: var(--sp-xl) 0;
+  }
+
+  .ueb-meta {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: var(--sp-xl);
+    margin: 0;
+    justify-content: start;
+  }
+
+  .ueb-meta dt {
+    font-family: "iA Writer Mono S", monospace;
+    font-weight: bold;
+    font-size: 12px;
+    color: var(--ak-raspberry-h);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+  }
+
+  .ueb-meta dd {
+    font-family: "Public Sans", sans-serif;
+    color: var(--ak-vanilla-bg);
+    margin: var(--sp-xs) 0 0;
+  }
+
+  .ueb-body { padding: var(--sp-xl) 0 var(--sp-3xl); }
+  .ueb-foot { padding: var(--sp-xl) 0 var(--sp-3xl); }
+
+  .prose {
+    max-width: 720px;
+    font-family: "Public Sans", sans-serif;
+    font-size: 16px;
+    line-height: 23px;
+    color: var(--ak-vanilla-bg);
+  }
+
+  .prose :global(h1) { display: none; }
+
+  .prose :global(h2) {
+    font-family: "iA Writer Mono S", monospace;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 32px;
+    color: var(--ak-lemon-accent);
+    text-transform: uppercase;
+    margin: var(--sp-2xl) 0 var(--sp-md);
+  }
+
+  .prose :global(h3) {
+    font-family: "iA Writer Mono S", monospace;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--ak-lemon-accent);
+    text-transform: uppercase;
+    margin: var(--sp-xl) 0 var(--sp-sm);
+  }
+
+  .prose :global(p) { margin: 0 0 var(--sp-md); }
+
+  .prose :global(strong) { color: var(--ak-raspberry-h); font-weight: bold; }
+
+  .prose :global(blockquote) {
+    border-left: 4px solid var(--ak-lemon-accent);
+    padding: 0 0 0 var(--sp-md);
+    margin: var(--sp-lg) 0;
+    color: var(--ak-vanilla-bg);
+    font-style: normal;
+  }
+
+  .prose :global(code) {
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 0.95em;
+    background: rgba(247, 244, 240, 0.08);
+    color: var(--ak-vanilla-bg);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+
+  .prose :global(pre) {
+    font-family: "iA Writer Mono S", monospace;
+    background: rgba(247, 244, 240, 0.06);
+    border: 1px solid rgba(219, 71, 82, 0.3);
+    color: var(--ak-vanilla-bg);
+    padding: var(--sp-md);
+    overflow-x: auto;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: var(--sp-md) 0 var(--sp-lg);
+  }
+
+  .prose :global(pre code) {
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: var(--sp-lg);
+    margin: 0 0 var(--sp-md);
+  }
+
+  .prose :global(li) { margin: 0 0 var(--sp-sm); }
+
+  .prose :global(details) {
+    background: rgba(247, 244, 240, 0.04);
+    border: 1px solid var(--ak-raspberry-h);
+    padding: var(--sp-md);
+    margin: var(--sp-md) 0;
+  }
+
+  .prose :global(details summary) {
+    cursor: pointer;
+    font-family: "iA Writer Mono S", monospace;
+    font-weight: bold;
+    color: var(--ak-raspberry-h);
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 768px) {
+    .ueb-meta {
+      grid-template-columns: 1fr;
+      gap: var(--sp-md);
+    }
+  }
+</style>

@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Datenschutz" description="Datenschutzerklärung — was passiert mit deinen Daten auf aisukurimu.">
+  <section class="legal-page">
+    <div class="container">
+      <h1 class="h1-vanilla">Datenschutz</h1>
+      <p class="p-small-vanilla">
+        aisukurimu speichert keine personenbezogenen Daten von Besucher:innen. Es gibt keine Cookies,
+        kein Tracking, kein Google Analytics. Die Site ist statisch und wird über GitHub Pages
+        ausgeliefert; technische Server-Logs erhebt GitHub im Rahmen seiner eigenen Datenschutzerklärung.
+      </p>
+
+      <h2 class="h2-lemon">Externe Inhalte</h2>
+      <p class="p-small-vanilla">
+        Links zu externen Seiten (LinkedIn, GitHub, Tool-Anbieter) öffnen in neuem Tab.
+        Was dort mit deinen Daten passiert, regelt die jeweilige Datenschutzerklärung der Seite.
+      </p>
+
+      <p class="p-small-vanilla">
+        Vollständige Erklärung folgt, sobald die Site auf eigener Domain lebt.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal-page { padding: var(--sp-3xl) 0; max-width: 720px; }
+  .legal-page h2 { margin-top: var(--sp-2xl); }
+  .legal-page p { margin: var(--sp-md) 0; }
+</style>

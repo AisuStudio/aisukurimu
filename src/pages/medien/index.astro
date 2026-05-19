@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const items = (await getCollection('medien', ({ data }) => data.published !== false))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const typeLabels: Record<string, string> = {
+  film: 'Film',
+  serie: 'Serie',
+  buch: 'Buch',
+  spiel: 'Spiel',
+  podcast: 'Podcast',
+  website: 'Website',
+  doku: 'Doku',
+};
+---
+
+<Base title="Medien" description="Filme, Serien, Bücher, Podcasts rund um Hacking, Coding, Systemdenken.">
+  <section class="medien-page">
+    <div class="container">
+      <h1 class="h1-vanilla">Medien</h1>
+      <p class="p-small-vanilla section-intro">
+        Filme, Serien, Bücher — für die Stimmung. Nicht alles ist technisch akkurat,
+        aber alles zahlt auf das Gefühl ein, wie Hacker:innen die Welt sehen.
+      </p>
+
+      <div class="media-list">
+        {items.map((item) => (
+          <article class="media-card">
+            <p class="caption-raspberry media-meta">
+              {typeLabels[item.data.type]}
+              {item.data.fskMin !== undefined && <> · FSK {item.data.fskMin}</>}
+              {item.data.date && <> · {item.data.date.getFullYear()}</>}
+            </p>
+            <h2 class="h2-lemon media-title">{item.data.title}</h2>
+            <p class="p-small-vanilla media-desc">{item.data.description}</p>
+            {item.data.genre.length > 0 && (
+              <p class="caption-raspberry">{item.data.genre.join(', ')}</p>
+            )}
+            {item.data.url && (
+              <a class="footer-links-raspberry" href={item.data.url} target="_blank" rel="noopener noreferrer">
+                Mehr →
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .medien-page { padding: var(--sp-3xl) 0; }
+  .section-intro { max-width: 640px; margin-top: var(--sp-md); }
+
+  .media-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-lg);
+    margin-top: var(--sp-2xl);
+  }
+
+  .media-card {
+    border: 1px solid var(--ak-raspberry-h);
+    padding: var(--sp-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-sm);
+  }
+
+  .media-title {
+    font-size: 19.2px;
+    line-height: 25px;
+    margin: 0 0 var(--sp-xs);
+  }
+  .media-meta, .media-desc { margin: 0; }
+
+  @media (max-width: 768px) {
+    .media-list { grid-template-columns: 1fr; }
+  }
+</style>

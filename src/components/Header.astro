@@ -1,158 +1,175 @@
 ---
 /*
-  Sticky site header with logo on the left, primary navigation on the right.
-  Mobile: nav collapses behind a CSS-only hamburger toggle.
+  Site header — Brand v2.
+  Desktop: 4-column grid: AisuAscii | Wordmark+Tagline | Hauptnav | Meta
+  Mobile: Spalten 1+2 sichtbar, 3+4 ausgeblendet, `=`-Toggle rechts.
+
+  Mobile drawer uses anchor + :target (no JS for MVP); JS-enhancement can
+  swap this out later without changing the component API.
 */
+import AisuAscii from './AisuAscii.astro';
+import HeaderLink from './HeaderLink.astro';
 import { url } from '../lib/url';
+import { LINKEDIN_URL, GITHUB_URL } from '../consts';
 
-const nav = [
-  { href: url('/tools/'),     label: 'Tools' },
-  { href: url('/exercises/'), label: 'Exercises' },
-  { href: url('/raetsel/'),   label: 'Rätsel' },
-  { href: url('/media/'),     label: 'Media' },
-  { href: url('/about/'),     label: 'About' },
-];
-
-const pathname = Astro.url.pathname;
 const home = url('/');
 ---
 
 <header class="site-header">
-  <div class="ak-container header-inner">
-    <a href={home} class="logo" aria-label="aisukurimu — Startseite">
-      <img src={url('/logos/AK_Logo_lockUp_Long.svg')} alt="aisukurimu" width="190" height="64" />
-    </a>
+  <div class="container">
+    <div class="site-header-inner">
 
-    {/* CSS-only mobile toggle: a checkbox controls the menu state */}
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
-    <label for="nav-toggle" class="hamburger" aria-label="Menü öffnen / schließen">
-      <span></span><span></span><span></span>
-    </label>
+      {/* Col 1: ASCII Aisu */}
+      <AisuAscii />
 
-    <nav class="site-nav" aria-label="Hauptnavigation">
-      <ul>
-        {nav.map((item) => {
-          const active = pathname === item.href || (item.href !== home && pathname.startsWith(item.href));
-          return (
-            <li>
-              <a href={item.href} class:list={['nav-link', { active }]}>{item.label}</a>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+      {/* Col 2: Wordmark + Tagline (single click target → home) */}
+      <a class="brand-link" href={home} aria-label="aisukurimu — Digital Literacy for Kids, Startseite">
+        <div class="wordmark-col">
+          <span class="wordmark">
+            <span class="l">Aisu</span>
+            <span class="l">Kurimu</span>
+            <span class="l">.com</span>
+          </span>
+          <span class="tagline">Digital<br />Literacy<br />for Kids</span>
+        </div>
+      </a>
+
+      {/* Col 3: Hauptnav */}
+      <nav class="nav-col" aria-label="Hauptnavigation">
+        <HeaderLink href="/werkzeuge/">Werkzeuge</HeaderLink>
+        <HeaderLink href="/uebungen/">Übungen</HeaderLink>
+        <HeaderLink href="/downloads/">Downloads</HeaderLink>
+        <HeaderLink href="/medien/">Medien</HeaderLink>
+      </nav>
+
+      {/* Col 4: Meta (right-aligned) */}
+      <nav class="nav-col meta" aria-label="Meta-Navigation">
+        <HeaderLink href="/en/" disabled>Switch to English</HeaderLink>
+        <HeaderLink href={LINKEDIN_URL} external>LinkedIn</HeaderLink>
+        <HeaderLink href={GITHUB_URL} external>GitHub</HeaderLink>
+        <HeaderLink href="/ueber/">Über</HeaderLink>
+      </nav>
+
+      {/* Mobile-only ASCII-burger; anchor-based open via :target */}
+      <a class="mobile-toggle" href="#menu" aria-label="Menü öffnen">=</a>
+    </div>
+
+    {/* Mobile drawer — desktop hides it via CSS */}
+    <div id="menu" class="mobile-drawer">
+      <a href="#" class="mobile-close" aria-label="Menü schließen">×</a>
+      <nav class="mobile-nav" aria-label="Mobil-Navigation">
+        <HeaderLink href="/werkzeuge/">Werkzeuge</HeaderLink>
+        <HeaderLink href="/uebungen/">Übungen</HeaderLink>
+        <HeaderLink href="/downloads/">Downloads</HeaderLink>
+        <HeaderLink href="/medien/">Medien</HeaderLink>
+        <HeaderLink href="/en/" disabled>Switch to English</HeaderLink>
+        <HeaderLink href={LINKEDIN_URL} external>LinkedIn</HeaderLink>
+        <HeaderLink href={GITHUB_URL} external>GitHub</HeaderLink>
+        <HeaderLink href="/ueber/">Über</HeaderLink>
+      </nav>
+    </div>
   </div>
 </header>
 
+<hr class="hr-raspberry" />
+
 <style>
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: var(--ak-vanilla-bg);
-    border-bottom: 1px solid rgba(38, 36, 123, 0.06);
+  .site-header { padding: var(--sp-xl) 0; }
+
+  .site-header-inner {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr 1fr;
+    gap: var(--sp-xl);
+    align-items: start;
   }
 
-  .header-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: var(--ak-space-4);
-    padding-bottom: var(--ak-space-4);
-    gap: var(--ak-space-5);
-  }
-
-  .logo {
-    display: inline-flex;
+  /* Wordmark column */
+  .brand-link {
     text-decoration: none;
+    color: inherit;
+    display: block;
   }
-
-  .logo img {
-    height: 40px;
-    width: auto;
-  }
-
-  .site-nav ul {
+  .wordmark-col {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--ak-space-6);
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    flex-direction: column;
+    gap: var(--sp-sm);
   }
-
-  .nav-link {
-    font-family: var(--ak-font-mono);
-    font-weight: 700;
-    font-size: 0.95rem;
-    text-transform: uppercase;
+  .wordmark {
+    font-family: "iA Writer Mono S", monospace;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--ak-vanilla-bg);
+  }
+  .wordmark .l { display: block; }
+  .tagline {
+    font-family: "iA Writer Mono S", monospace;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
     color: var(--ak-raspberry-h);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    padding-bottom: 2px;
-    border-bottom: 2px solid transparent;
+  }
+  .brand-link:hover .wordmark,
+  .brand-link:focus-visible .wordmark,
+  .brand-link:hover .tagline,
+  .brand-link:focus-visible .tagline { color: var(--ak-lemon-accent); }
+
+  /* Nav columns */
+  .nav-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-md);
+  }
+  .nav-col.meta {
+    text-align: right;
+    align-items: flex-end;
   }
 
-  .nav-link:hover,
-  .nav-link:focus-visible {
-    color: var(--ak-blueberry-p);
-    border-bottom-color: var(--ak-blueberry-p);
-  }
-
-  .nav-link.active {
-    border-bottom-color: var(--ak-raspberry-h);
-  }
-
-  /* Hide the mobile toggle by default (desktop) */
-  .nav-toggle,
-  .hamburger {
+  /* Mobile drawer */
+  .mobile-drawer {
     display: none;
   }
+  .mobile-close { display: none; }
 
-  /* -- Mobile layout -- */
-  @media (max-width: 767px) {
-    .hamburger {
-      display: inline-flex;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 28px;
-      height: 22px;
-      cursor: pointer;
+  /* -- Mobile -- */
+  @media (max-width: 768px) {
+    .site-header-inner {
+      grid-template-columns: auto 1fr auto;
+      gap: var(--sp-md);
+      align-items: center;
     }
+    .site-header-inner > .nav-col { display: none; }
 
-    .hamburger span {
+    .mobile-drawer {
       display: block;
-      height: 3px;
-      width: 100%;
-      background: var(--ak-blueberry-p);
-      border-radius: 2px;
+      position: fixed;
+      inset: 0;
+      background: var(--ak-bg-dark);
+      padding: var(--sp-2xl) var(--sp-lg);
+      transform: translateX(100%);
       transition: transform 0.2s ease;
+      z-index: 50;
+      overflow-y: auto;
     }
-
-    .site-nav {
+    .mobile-drawer:target {
+      transform: translateX(0);
+    }
+    .mobile-close {
+      display: inline-block;
+      font-family: "iA Writer Mono S", monospace;
+      font-size: 32px;
+      line-height: 1;
+      color: var(--ak-raspberry-h);
+      text-decoration: none;
       position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: var(--ak-vanilla-bg);
-      border-bottom: 1px solid rgba(38, 36, 123, 0.08);
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.25s ease;
+      top: var(--sp-lg);
+      right: var(--sp-lg);
     }
-
-    .site-nav ul {
+    .mobile-nav {
+      display: flex;
       flex-direction: column;
-      gap: var(--ak-space-4);
-      padding: var(--ak-space-5);
-    }
-
-    .nav-toggle:checked ~ .site-nav {
-      max-height: 400px;
-    }
-
-    .logo img {
-      height: 32px;
+      gap: var(--sp-lg);
+      margin-top: var(--sp-3xl);
     }
   }
 </style>
