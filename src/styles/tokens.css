@@ -17,8 +17,10 @@
   --ak-ink:                   #1A1A2E; /* body text on light bg */
   --ak-ink-soft:              #4B4B66; /* secondary text */
 
-  /* Font stacks */
-  --ak-font-display: "Boldonse", system-ui, sans-serif;
+  /* Font stacks
+     Display + mono share iA Writer Mono — gives the site a unified
+     terminal/typewriter feel for everything except body copy. */
+  --ak-font-display: "iA Writer Mono S", ui-monospace, monospace;
   --ak-font-body:    "Public Sans", system-ui, sans-serif;
   --ak-font-mono:    "iA Writer Mono S", ui-monospace, monospace;
 
