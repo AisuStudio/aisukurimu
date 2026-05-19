@@ -7,7 +7,7 @@ import { url } from '../lib/url';
 
 const exercises = (await getCollection('uebungen', ({ data }) => data.published !== false))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 4);
+  .slice(0, 3);
 ---
 
 <Base title="Lerne die Welt wie ein Hacker zu lesen">
