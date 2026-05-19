@@ -26,8 +26,11 @@ jobs:
 
       # withastro/action handles: setup-node, install deps, run astro build,
       # and upload the dist/ folder as a Pages artifact.
+      # Pin Node 22 explicitly — Astro 6 requires >= 22.12.0.
       - name: Install, build, upload
         uses: withastro/action@v3
+        with:
+          node-version: 22
 
   deploy:
     needs: build
