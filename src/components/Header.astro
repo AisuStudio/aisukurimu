@@ -76,12 +76,17 @@ const home = url('/');
 <style>
   .site-header { padding: var(--sp-xl) 0; }
 
+  /* Editorial 12-column grid: ASCII | Brand | empty | Hauptnav | empty | Meta */
   .site-header-inner {
     display: grid;
-    grid-template-columns: auto 1fr 1fr 1fr;
-    gap: var(--sp-xl);
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 16px;
     align-items: start;
   }
+  .site-header-inner > :global(.ascii-aisu) { grid-column: 1; }
+  .site-header-inner > .brand-link { grid-column: 2; }
+  .site-header-inner > .nav-col:not(.meta) { grid-column: 4 / span 2; }
+  .site-header-inner > .nav-col.meta { grid-column: 11 / span 2; justify-self: end; }
 
   /* Wordmark column */
   .brand-link {
@@ -123,6 +128,11 @@ const home = url('/');
   .nav-col.meta {
     text-align: right;
     align-items: flex-end;
+  }
+  /* Per XD: only Hauptnav is uppercase. Meta column keeps its native
+     casing ("Switch to English", "LinkedIn", "Über"). */
+  .nav-col.meta :global(.nav-item) {
+    text-transform: none;
   }
 
   /* Mobile drawer */

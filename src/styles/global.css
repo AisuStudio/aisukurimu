@@ -146,20 +146,23 @@ button:focus-visible {
 .link-big:focus-visible { color: var(--ak-lemon-accent); }
 
 .nav-item {
-  /* Same 16/24 scale as wordmark and footer-links — one consistent
-     header type-size. */
+  /* Default Vanilla, hover Lemon. Active state on current page jumps
+     to Raspberry + underline (the only place raspberry shows up in nav). */
   font-family: "iA Writer Mono S", monospace;
   font-weight: bold;
   font-size: 16px;
   line-height: 24px;
-  color: var(--ak-raspberry-h);
+  color: var(--ak-vanilla-bg);
   text-transform: uppercase;
   text-decoration: none;
   transition: color .15s;
 }
 .nav-item:hover,
 .nav-item:focus-visible { color: var(--ak-lemon-accent); }
-.nav-item.active { text-decoration: underline; }
+.nav-item.active {
+  color: var(--ak-raspberry-h);
+  text-decoration: underline;
+}
 .nav-item.disabled {
   opacity: 0.5;
   pointer-events: none;
@@ -167,11 +170,13 @@ button:focus-visible {
 }
 
 .footer-links {
+  /* Mirrors .nav-item color behaviour for consistency between header
+     and footer link styling. */
   font-family: "iA Writer Mono S", monospace;
   font-weight: bold;
   font-size: 16px;
   line-height: 24px;
-  color: var(--ak-raspberry-h);
+  color: var(--ak-vanilla-bg);
   text-decoration: none;
   transition: color .15s;
 }
