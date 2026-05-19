@@ -97,20 +97,20 @@ const home = url('/');
   .wordmark-col {
     display: flex;
     flex-direction: column;
-    gap: var(--sp-sm);
+    gap: 16px;
   }
   .wordmark {
     font-family: "iA Writer Mono S", monospace;
     font-weight: bold;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 16px;
     color: var(--ak-vanilla-bg);
   }
   .wordmark .l { display: block; }
   .tagline {
     font-family: "iA Writer Mono S", monospace;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 16px;
     color: var(--ak-raspberry-h);
   }
@@ -119,11 +119,13 @@ const home = url('/');
   .brand-link:hover .tagline,
   .brand-link:focus-visible .tagline { color: var(--ak-lemon-accent); }
 
-  /* Nav columns */
+  /* Nav columns — gap = one line-height (16px), so each item is followed
+     by one empty line (matches the XD spec where nav uses real blank
+     lines rather than inflated line-heights). */
   .nav-col {
     display: flex;
     flex-direction: column;
-    gap: var(--sp-md);
+    gap: 16px;
   }
   .nav-col.meta {
     text-align: right;
