@@ -29,11 +29,11 @@ const {
   <article>
     <section class="ueb-hero">
       <div class="container">
-        <p class="caption-raspberry ueb-eyebrow">
+        <p class="caption ueb-eyebrow">
           {subtype === 'raetsel' ? 'Rätsel' : 'Übung'} · {category} · Level {level}
         </p>
-        <h1 class="hero-title-raspberry ueb-title">{title}</h1>
-        <p class="p-big-vanilla ueb-lede">{description}</p>
+        <h1 class="hero-title-vanilla ueb-title">{title}</h1>
+        <p class="p-big ueb-lede">{description}</p>
 
         {image && (
           <img class="ueb-image" src={url(image)} alt="" />
@@ -63,7 +63,7 @@ const {
 
     <section class="ueb-foot">
       <div class="container">
-        <a class="link-raspberry" href={url('/uebungen/')}>← Alle Übungen</a>
+        <a class="link-big" href={url('/uebungen/')}>← Alle Übungen</a>
       </div>
     </section>
   </article>

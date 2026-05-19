@@ -11,7 +11,7 @@ const items = (await getCollection('uebungen', ({ data }) => data.published !== 
 <Base title="Übungen" description="Übungen, Aufgaben und Rätsel — von Hacking über Coding bis Systemdenken.">
   <section class="uebungen-page">
     <div class="container">
-      <h1 class="h1-vanilla">Übungen</h1>
+      <h1 class="h1-vanilla cursor">Übungen</h1>
       <p class="p-small-vanilla section-intro">
         Kleine, eigenständige Aufgaben — von „Hallo Brawl Stars" bis „mein Rechner unter der Lupe".
         Du kannst sie in beliebiger Reihenfolge angehen.
@@ -49,11 +49,11 @@ const items = (await getCollection('uebungen', ({ data }) => data.published !== 
     margin-top: var(--sp-2xl);
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 900px) {
     .cards-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 720px) {
     .cards-grid { grid-template-columns: 1fr; }
   }
 </style>

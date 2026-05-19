@@ -1,19 +1,19 @@
 /* ===============================================================
-   aisukurimu — global styles · Brand v2 (dark-mode, terminal-editorial)
-   Source of truth: design/00-brand-foundation.md, design/01-styletile.html
+   aisukurimu — global styles · Brand v2 (Foundation Flow 2_04)
+   Source of truth: design/00-brand-foundation.md, Flow 2_04.css
    @font-face declarations live in Base.astro so url() values can be
    templated with the Astro `base` config (subpath deploy).
    =============================================================== */
 
 :root {
-  /* -- Color tokens (verified from XD) -- */
-  --ak-bg-dark:               #161633;
-  --ak-blueberry-p:           #26247B;
+  /* -- Color tokens (XD Flow 2_04) -- */
+  --ak-bg-dark:               #211A1B;
+  --ak-container:             #3E3637;
   --ak-raspberry-h:           #DB4752;
   --ak-lemon-accent:          #D7FF00;
   --ak-vanilla-bg:            #F7F4F0;
+  --ak-hazelnut:              #B4ACA1;
   --ak-strawberry-container:  #EDCED4;
-  --ak-hazelnut-container:    #E3DBD0;
   --placeholder-image:        #00D8FF;
 
   /* -- Spacing scale -- */
@@ -61,7 +61,7 @@ button:focus-visible {
   outline-offset: 3px;
 }
 
-/* ---------- Character styles (XD) ---------- */
+/* ---------- Character styles (XD Flow 2_04) ---------- */
 
 .hero-title-vanilla {
   font-family: "iA Writer Mono S", monospace;
@@ -69,15 +69,6 @@ button:focus-visible {
   font-size: 48px;
   line-height: 64px;
   color: var(--ak-vanilla-bg);
-  margin: 0;
-}
-
-.hero-title-raspberry {
-  font-family: "iA Writer Mono S", monospace;
-  font-weight: bold;
-  font-size: 48px;
-  line-height: 64px;
-  color: var(--ak-raspberry-h);
   margin: 0;
 }
 
@@ -91,7 +82,21 @@ button:focus-visible {
   margin: 0;
 }
 
-.h2-lemon {
+/* Blinking cursor variant — append `cursor` class on a section H1
+   to get the "Übungen_" typewriter feel. */
+.h1-vanilla.cursor::after {
+  content: "_";
+  display: inline-block;
+  margin-left: 0.1em;
+  color: var(--ak-vanilla-bg);
+  animation: ak-blink 1s steps(2) infinite;
+}
+
+@keyframes ak-blink {
+  50% { opacity: 0; }
+}
+
+.h2-lcontainer {
   font-family: "iA Writer Mono S", monospace;
   font-weight: bold;
   font-size: 24px;
@@ -101,12 +106,12 @@ button:focus-visible {
   margin: 0;
 }
 
-.p-big-vanilla {
+.p-big {
   font-family: "Public Sans", sans-serif;
   font-weight: normal;
   font-size: 24px;
   line-height: 28px;
-  color: var(--ak-vanilla-bg);
+  color: var(--ak-hazelnut);
   margin: 0;
 }
 
@@ -119,32 +124,32 @@ button:focus-visible {
   margin: 0;
 }
 
-.caption-raspberry {
+.caption {
   font-family: "Public Sans", sans-serif;
   font-weight: bold;
   font-size: 12px;
   line-height: 23px;
-  color: var(--ak-raspberry-h);
+  color: var(--ak-hazelnut);
   margin: 0;
 }
 
-.link-raspberry {
+.link-big {
   font-family: "Public Sans", sans-serif;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 24px;
   line-height: 23px;
   color: var(--ak-raspberry-h);
   text-decoration: underline;
   transition: color .15s;
 }
-.link-raspberry:hover,
-.link-raspberry:focus-visible { color: var(--ak-lemon-accent); }
+.link-big:hover,
+.link-big:focus-visible { color: var(--ak-lemon-accent); }
 
 .nav-item {
   font-family: "iA Writer Mono S", monospace;
   font-weight: bold;
-  font-size: 19.2px;
-  line-height: 25px;
+  font-size: 16px;
+  line-height: 24px;
   color: var(--ak-raspberry-h);
   text-transform: uppercase;
   text-decoration: none;
@@ -159,17 +164,17 @@ button:focus-visible {
   cursor: not-allowed;
 }
 
-.footer-links-raspberry {
+.footer-links {
   font-family: "iA Writer Mono S", monospace;
   font-weight: bold;
   font-size: 16px;
-  line-height: 20px;
+  line-height: 24px;
   color: var(--ak-raspberry-h);
   text-decoration: none;
   transition: color .15s;
 }
-.footer-links-raspberry:hover,
-.footer-links-raspberry:focus-visible { color: var(--ak-lemon-accent); }
+.footer-links:hover,
+.footer-links:focus-visible { color: var(--ak-lemon-accent); }
 
 /* ---------- Layout primitives ---------- */
 
@@ -180,15 +185,11 @@ button:focus-visible {
 }
 
 .hr-raspberry {
-  /* Constrained to the same 1200px container width as content — keeps the
-     editorial frame consistent instead of going full-bleed to viewport. */
   border: 0;
   border-top: 1px solid var(--ak-raspberry-h);
   max-width: var(--container-max);
   margin: 0 auto;
 }
-
-/* ---------- Section defaults ---------- */
 
 section { padding: var(--sp-3xl) 0; }
 

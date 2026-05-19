@@ -21,7 +21,7 @@ const priceLabels: Record<string, string> = {
 <Base title="Werkzeuge" description="Alle Werkzeuge im aisukurimu-Kurs, sortiert nach Schwierigkeit.">
   <section class="werkzeuge-page">
     <div class="container">
-      <h1 class="h1-vanilla">Werkzeuge</h1>
+      <h1 class="h1-vanilla cursor">Werkzeuge</h1>
       <p class="p-small-vanilla section-intro">
         Eine Übersicht aller Werkzeuge im Kurs — von „einfach loslegen" bis „wenn du etwas geübt hast".
       </p>
@@ -31,20 +31,20 @@ const priceLabels: Record<string, string> = {
         if (items.length === 0) return null;
         return (
           <div class="level-block">
-            <h2 class="h2-lemon level-label">{lvl.label}</h2>
+            <h2 class="h2-lcontainer level-label">{lvl.label}</h2>
             <div class="tool-list">
               {items.map((t) => (
                 <article class="tool-card">
-                  <h3 class="h2-lemon tool-name">{t.data.name}</h3>
+                  <h3 class="h2-lcontainer tool-name">{t.data.name}</h3>
                   <p class="p-small-vanilla tool-desc">{t.data.description}</p>
-                  <p class="caption-raspberry tool-meta">
+                  <p class="caption tool-meta">
                     {t.data.categories.join(' · ')} — {t.data.platforms.join(' · ')} — {priceLabels[t.data.price]}
                   </p>
                   {t.data.aisuTip && (
                     <p class="tool-tip"><strong>Aisu-Tipp:</strong> {t.data.aisuTip}</p>
                   )}
                   {t.data.url && (
-                    <a class="footer-links-raspberry tool-link" href={t.data.url} target="_blank" rel="noopener noreferrer">
+                    <a class="footer-links tool-link" href={t.data.url} target="_blank" rel="noopener noreferrer">
                       {t.data.url.replace(/^https?:\/\//, '').replace(/\/$/, '')} ↗
                     </a>
                   )}

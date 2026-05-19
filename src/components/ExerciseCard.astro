@@ -27,12 +27,12 @@ const imageSrc = image ? url(image) : null;
     <div class="ex-image placeholder-image" role="img" aria-label="Platzhalter"></div>
   )}
   <div class="ex-body">
-    <h3 class="h2-lemon ex-caption">{title}</h3>
+    <h3 class="h2-lcontainer ex-caption">{title}</h3>
     <p class="p-small-vanilla ex-desc">{description}</p>
     {tags.length > 0 && (
-      <p class="caption-raspberry ex-tags">{tags.slice(0, 4).join(', ')}</p>
+      <p class="caption ex-tags">{tags.slice(0, 4).join(', ')}</p>
     )}
-    <p class="caption-raspberry ex-meta">{category} · Level {level}</p>
+    <p class="caption ex-meta">{category} · Level {level}</p>
   </div>
 </a>
 
@@ -40,12 +40,11 @@ const imageSrc = image ? url(image) : null;
   .ex-card {
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--ak-raspberry-h);
+    background: var(--ak-container);
     text-decoration: none;
     color: inherit;
     overflow: hidden;
     transition: transform 0.18s ease;
-    background: transparent;
   }
 
   .ex-card:hover,
@@ -67,7 +66,7 @@ const imageSrc = image ? url(image) : null;
     gap: var(--sp-md);
   }
 
-  /* Smaller variant of h2-lemon for use inside cards */
+  /* Smaller variant of h2-lcontainer for use inside cards */
   .ex-caption {
     font-size: 16px;
     line-height: 20px;

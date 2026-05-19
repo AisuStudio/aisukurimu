@@ -17,16 +17,16 @@ const exercises = (await getCollection('uebungen', ({ data }) => data.published 
       <div class="hero-grid">
         <div class="hero-text">
           <div class="hero-eyebrow">
-            <span class="caption-raspberry">HACKING</span>
-            <span class="caption-raspberry pipe">|</span>
-            <span class="caption-raspberry">CODING MAKING</span>
-            <span class="caption-raspberry pipe">|</span>
-            <span class="caption-raspberry">SYSTEMISCHES</span>
-            <span class="caption-raspberry pipe">|</span>
-            <span class="caption-raspberry">DENKEN</span>
+            <span class="caption">HACKING</span>
+            <span class="caption pipe">|</span>
+            <span class="caption">CODING MAKING</span>
+            <span class="caption pipe">|</span>
+            <span class="caption">SYSTEMISCHES</span>
+            <span class="caption pipe">|</span>
+            <span class="caption">DENKEN</span>
           </div>
-          <h1 class="hero-title-raspberry">Lerne die Welt wie ein Hacker zu lesen</h1>
-          <p class="hero-lede p-big-vanilla">
+          <h1 class="hero-title-vanilla">Lerne die Welt wie ein Hacker zu lesen</h1>
+          <p class="hero-lede p-big">
             Entdecke die unsichtbaren Strukturen hinter der Technik. Wir lernen nicht nur
             programmieren, sondern verstehen, wie Systeme funktionieren, wie sich Code verhält
             und warum manche Dinge so sind, wie sie sind.
@@ -44,7 +44,7 @@ const exercises = (await getCollection('uebungen', ({ data }) => data.published 
   {/* ===================== ÜBUNGEN ===================== */}
   <section class="home-uebungen">
     <div class="container">
-      <h2 class="h1-vanilla">Übungen</h2>
+      <h2 class="h1-vanilla cursor">Übungen</h2>
       <p class="section-intro p-small-vanilla">
         Kleine, eigenständige Aufgaben — von „Hallo Brawl Stars" bis „mein Rechner unter der Lupe".
         Du kannst sie in beliebiger Reihenfolge angehen.
@@ -63,6 +63,10 @@ const exercises = (await getCollection('uebungen', ({ data }) => data.published 
           />
         ))}
       </div>
+
+      <p class="cta-row">
+        <a class="link-big" href={url('/uebungen/')}>Alle Übungen</a>
+      </p>
     </div>
   </section>
 
@@ -71,7 +75,7 @@ const exercises = (await getCollection('uebungen', ({ data }) => data.published 
   {/* ===================== WER MACHT DAS HIER ===================== */}
   <section class="home-ueber">
     <div class="container">
-      <h2 class="h1-vanilla">Wer macht das hier</h2>
+      <h2 class="h1-vanilla cursor">Wer macht das hier?</h2>
       <div class="ueber-grid">
         <div class="ueber-text">
           <p class="p-small-vanilla">
@@ -84,7 +88,7 @@ const exercises = (await getCollection('uebungen', ({ data }) => data.published 
             Hier geht es nicht nur um „Code", sondern um die Art und Weise, wie wir Probleme lösen
             und unsere digitale Umgebung aktiv gestalten, anstatt sie nur zu konsumieren.
           </p>
-          <a class="link-raspberry" href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
+          <a class="link-big" href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
             Finde mich auf LinkedIn
           </a>
         </div>
@@ -130,9 +134,13 @@ const exercises = (await getCollection('uebungen', ({ data }) => data.published 
 
   .cards-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--sp-lg);
     margin-top: var(--sp-2xl);
+  }
+
+  .cta-row {
+    margin: var(--sp-2xl) 0 0;
   }
 
   /* -- Wer macht das hier -- */
@@ -146,11 +154,11 @@ const exercises = (await getCollection('uebungen', ({ data }) => data.published 
   }
   .ueber-text { display: flex; flex-direction: column; gap: var(--sp-md); }
 
-  /* -- Responsive -- */
-  @media (max-width: 1024px) {
+  /* -- Responsive — keep 2-col grids alive longer, collapse only at true mobile -- */
+  @media (max-width: 900px) {
     .cards-grid { grid-template-columns: repeat(2, 1fr); }
   }
-  @media (max-width: 768px) {
+  @media (max-width: 720px) {
     .hero-grid,
     .ueber-grid { grid-template-columns: 1fr; }
     .cards-grid { grid-template-columns: 1fr; }
