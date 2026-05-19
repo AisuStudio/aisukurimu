@@ -12,6 +12,7 @@ duration: 90
 requiredTools: [thonny, terminal, powershell]
 platforms: [mac, windows]
 tags: [python, api, json, http, f-string, for-loop, brawlstars]
+image: /images/AK_EX_0001.png
 date: 2026-05-18
 language: de
 ---
