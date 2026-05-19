@@ -97,16 +97,16 @@ const home = url('/');
   .wordmark {
     font-family: "iA Writer Mono S", monospace;
     font-weight: bold;
-    font-size: 24px;
-    line-height: 32px;
+    font-size: 16px;
+    line-height: 20px;
     color: var(--ak-vanilla-bg);
   }
   .wordmark .l { display: block; }
   .tagline {
     font-family: "iA Writer Mono S", monospace;
     font-weight: bold;
-    font-size: 24px;
-    line-height: 32px;
+    font-size: 12px;
+    line-height: 16px;
     color: var(--ak-raspberry-h);
   }
   .brand-link:hover .wordmark,
@@ -131,10 +131,8 @@ const home = url('/');
   }
   .mobile-close { display: none; }
 
-  /* -- Mobile / Tablet — switch to drawer earlier now that nav-item is 24px;
-        "SWITCH TO ENGLISH" no longer fits comfortably in a 4-col grid
-        below ~1024px. -- */
-  @media (max-width: 1024px) {
+  /* -- Mobile -- */
+  @media (max-width: 768px) {
     .site-header-inner {
       grid-template-columns: auto 1fr auto;
       gap: var(--sp-md);
