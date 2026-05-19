@@ -1,0 +1,122 @@
+---
+import Base from '../../layouts/Base.astro';
+
+// Curated short list — full filterable widget arrives in a later phase.
+const films = [
+  { title: 'WarGames', year: 1983, fsk: 12, note: 'Der Klassiker. Junge Hacker, Pentagon, fast Atomkrieg.' },
+  { title: 'Hackers', year: 1995, fsk: 12, note: 'Stylischer Cyberpunk-Kult.' },
+  { title: 'Sneakers', year: 1992, fsk: 12, note: 'Ethical-Hacking-Team unter Druck.' },
+  { title: 'The Matrix', year: 1999, fsk: 16, note: 'Wenn die Welt selbst ein System ist.' },
+  { title: 'Mr. Robot', year: 2015, fsk: 16, note: 'TV-Serie. Hochgenau, Stimmung dunkler.' },
+  { title: 'Citizenfour', year: 2014, fsk: 12, note: 'Doku, Snowden. Echte Hacker-Welt.' },
+];
+---
+
+<Base
+  title="Medien"
+  description="Filme, Serien und Bücher rund um Hacking, Coding und systemisches Denken."
+>
+  <header class="page-head ak-container">
+    <p class="ak-eyebrow">Medien</p>
+    <h1 class="ak-section-title page-title">Media</h1>
+    <p class="page-lead">
+      Filme, die für die Stimmung gemeint sind — nicht alles ist technisch akkurat,
+      aber alles zahlt auf das Gefühl ein, wie Hacker:innen die Welt sehen.
+      <strong>Die interaktive Filter-Liste folgt bald.</strong>
+    </p>
+  </header>
+
+  <section class="ak-container films">
+    <ul class="films-list">
+      {films.map((f) => (
+        <li class="film-row">
+          <div class="film-meta">
+            <span class="film-year">{f.year}</span>
+            <span class="film-fsk">FSK {f.fsk}</span>
+          </div>
+          <h2 class="film-title">{f.title}</h2>
+          <p class="film-note">{f.note}</p>
+        </li>
+      ))}
+    </ul>
+
+    <aside class="soon">
+      <p>
+        <strong>Was noch kommt:</strong> Die volle Liste mit 24 Filmen, filterbar nach FSK und
+        Genre, dazu Hacker-Bücher (Kevin Mitnick, Cliff Stoll), Doku-Empfehlungen und
+        Podcasts.
+      </p>
+    </aside>
+  </section>
+</Base>
+
+<style>
+  .page-head {
+    padding-top: var(--ak-space-7);
+    padding-bottom: var(--ak-space-5);
+  }
+  .page-title { margin: var(--ak-space-2) 0 var(--ak-space-3); }
+  .page-lead {
+    font-size: 1.1rem;
+    color: var(--ak-ink-soft);
+    max-width: 700px;
+    margin: 0;
+  }
+
+  .films { padding-bottom: var(--ak-space-8); }
+
+  .films-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--ak-space-4);
+  }
+
+  .film-row {
+    background: var(--ak-hazelnut-container);
+    border-radius: var(--ak-radius-md);
+    padding: var(--ak-space-4) var(--ak-space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--ak-space-2);
+  }
+
+  .film-meta {
+    display: flex;
+    gap: var(--ak-space-3);
+    font-family: var(--ak-font-mono);
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--ak-raspberry-h);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .film-title {
+    font-family: var(--ak-font-display);
+    color: var(--ak-blueberry-p);
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  .film-note {
+    margin: 0;
+    color: var(--ak-ink);
+    font-size: 0.95rem;
+  }
+
+  .soon {
+    margin-top: var(--ak-space-6);
+    padding: var(--ak-space-5);
+    background: var(--ak-strawberry-container);
+    color: var(--ak-blueberry-p);
+    border-radius: var(--ak-radius-md);
+    font-size: 0.95rem;
+  }
+
+  @media (min-width: 768px) {
+    .films-list { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

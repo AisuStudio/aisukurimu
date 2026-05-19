@@ -1,0 +1,50 @@
+/* ---------------------------------------------------------------
+   aisukurimu — brand tokens
+   All visual values flow from here. Components reference vars only.
+   --------------------------------------------------------------- */
+
+:root {
+  /* Brand colors — verified from Adobe XD export */
+  --ak-blueberry-p:           #26247B;
+  --ak-blueberry-dark:        #1A1860; /* darker variant for code-block bg */
+  --ak-raspberry-h:           #DB4752;
+  --ak-lemon-accent:          #D7FF00;
+  --ak-strawberry-container:  #EDCED4;
+  --ak-hazelnut-container:    #E3DBD0;
+  --ak-vanilla-bg:            #F7F4F0;
+
+  /* Ink (text) colors */
+  --ak-ink:                   #1A1A2E; /* body text on light bg */
+  --ak-ink-soft:              #4B4B66; /* secondary text */
+
+  /* Font stacks */
+  --ak-font-display: "Boldonse", system-ui, sans-serif;
+  --ak-font-body:    "Public Sans", system-ui, sans-serif;
+  --ak-font-mono:    "iA Writer Mono S", ui-monospace, monospace;
+
+  /* Spacing scale */
+  --ak-space-1: 0.25rem;
+  --ak-space-2: 0.5rem;
+  --ak-space-3: 0.75rem;
+  --ak-space-4: 1rem;
+  --ak-space-5: 1.5rem;
+  --ak-space-6: 2rem;
+  --ak-space-7: 3rem;
+  --ak-space-8: 4rem;
+  --ak-space-9: 6rem;
+
+  /* Layout */
+  --ak-container-max: 1200px;
+  --ak-radius-sm: 6px;
+  --ak-radius-md: 12px;
+  --ak-radius-lg: 20px;
+
+  /* Type scale */
+  --ak-size-hero-mobile:   2rem;     /* 32px */
+  --ak-size-hero-desktop:  3.5rem;   /* 56px */
+  --ak-size-section-mobile:  1.5rem; /* 24px */
+  --ak-size-section-desktop: 2rem;   /* 32px */
+  --ak-size-eyebrow: 0.875rem;       /* 14px */
+  --ak-size-body: 1rem;              /* 16px */
+  --ak-size-caption: 0.75rem;        /* 12px */
+}

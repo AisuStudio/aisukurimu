@@ -1,0 +1,100 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const series = (await getCollection('raetsel'))
+  .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+---
+
+<Base
+  title="Rätsel"
+  description="Rätsel zu Hacking, Sicherheit und systemischem Denken — für Einsteiger:innen."
+>
+  <header class="page-head ak-container">
+    <p class="ak-eyebrow">Rätsel</p>
+    <h1 class="ak-section-title page-title">Rätsel</h1>
+    <p class="page-lead">
+      Kurze Multiple-Choice-Rätsel zum Aufwärmen. Du brauchst kein Vorwissen —
+      Klick einfach durch und schau, was du schon weißt.
+    </p>
+  </header>
+
+  <section class="ak-container">
+    <ul class="series-list">
+      {series.map((s) => (
+        <li>
+          <a class="series-card" href={`/raetsel/${s.id}/`}>
+            <p class="series-eyebrow">{s.data.difficulty} · {s.data.puzzles} Rätsel · {s.data.duration} min</p>
+            <h2 class="series-title">{s.data.title}</h2>
+            <p class="series-tags">{s.data.tags.slice(0, 4).join(' · ')}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .page-head {
+    padding-top: var(--ak-space-7);
+    padding-bottom: var(--ak-space-5);
+  }
+  .page-title { margin: var(--ak-space-2) 0 var(--ak-space-3); }
+  .page-lead {
+    font-size: 1.1rem;
+    color: var(--ak-ink-soft);
+    max-width: 700px;
+    margin: 0;
+  }
+
+  .series-list {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 var(--ak-space-8);
+    display: grid;
+    gap: var(--ak-space-5);
+  }
+
+  .series-card {
+    display: block;
+    background: var(--ak-hazelnut-container);
+    border-radius: var(--ak-radius-md);
+    padding: var(--ak-space-5);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .series-card:hover,
+  .series-card:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(38, 36, 123, 0.1);
+  }
+
+  .series-eyebrow {
+    font-family: var(--ak-font-mono);
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--ak-raspberry-h);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 var(--ak-space-2);
+  }
+
+  .series-title {
+    font-family: var(--ak-font-display);
+    color: var(--ak-blueberry-p);
+    font-size: 1.4rem;
+    margin: 0 0 var(--ak-space-2);
+  }
+
+  .series-tags {
+    margin: 0;
+    color: var(--ak-ink-soft);
+    font-size: 0.9rem;
+  }
+
+  @media (min-width: 768px) {
+    .series-list { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

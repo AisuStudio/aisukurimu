@@ -1,0 +1,59 @@
+---
+/*
+  Base layout: HTML scaffolding, head meta, global CSS, header/footer.
+  All pages compose by wrapping their content in <Base>.
+*/
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = SITE_DESCRIPTION } = Astro.props as Props;
+const fullTitle = title ? `${title} — ${SITE_TITLE}` : `${SITE_TITLE} — ${SITE_DESCRIPTION}`;
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/logos/AK_Logo_Mob.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Zum Inhalt springen</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <style>
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+      }
+      .skip-link:focus {
+        left: var(--ak-space-4);
+        top: var(--ak-space-4);
+        background: var(--ak-vanilla-bg);
+        color: var(--ak-blueberry-p);
+        padding: var(--ak-space-2) var(--ak-space-4);
+        z-index: 100;
+        border-radius: var(--ak-radius-sm);
+      }
+    </style>
+  </body>
+</html>

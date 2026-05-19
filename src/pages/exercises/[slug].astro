@@ -1,0 +1,186 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const exercises = await getCollection('exercises');
+  return exercises.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, description, category, difficulty, ageMin, duration, platforms, tags } = entry.data;
+---
+
+<Base title={title} description={description ?? ''}>
+  <article class="exercise">
+    <header class="ex-header ak-container">
+      <p class="ak-eyebrow">Übung · {category}</p>
+      <h1 class="ex-title">{title}</h1>
+      <dl class="ex-meta">
+        <div><dt>Dauer</dt><dd>{duration} min</dd></div>
+        <div><dt>Stufe</dt><dd>{difficulty}</dd></div>
+        <div><dt>Ab</dt><dd>{ageMin} Jahren</dd></div>
+        <div><dt>Plattform</dt><dd>{platforms.join(' · ')}</dd></div>
+      </dl>
+      {tags.length > 0 && (
+        <ul class="ex-tags" aria-label="Tags">
+          {tags.map((t) => <li>{t}</li>)}
+        </ul>
+      )}
+    </header>
+
+    <div class="ak-container prose">
+      <Content />
+    </div>
+
+    <nav class="ak-container ex-foot" aria-label="Weiter">
+      <a href="/exercises/">← Zurück zur Übersicht</a>
+    </nav>
+  </article>
+</Base>
+
+<style>
+  .ex-header {
+    padding-top: var(--ak-space-7);
+    padding-bottom: var(--ak-space-5);
+    border-bottom: 1px solid var(--ak-hazelnut-container);
+    margin-bottom: var(--ak-space-6);
+  }
+
+  .ex-title {
+    font-family: var(--ak-font-display);
+    color: var(--ak-blueberry-p);
+    font-size: 2rem;
+    line-height: 1.15;
+    margin: var(--ak-space-2) 0 var(--ak-space-5);
+  }
+
+  @media (min-width: 768px) {
+    .ex-title { font-size: 2.5rem; }
+  }
+
+  .ex-meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--ak-space-3);
+    margin: 0 0 var(--ak-space-5);
+  }
+
+  @media (min-width: 640px) {
+    .ex-meta { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .ex-meta div {
+    background: var(--ak-hazelnut-container);
+    border-radius: var(--ak-radius-sm);
+    padding: var(--ak-space-3);
+  }
+
+  .ex-meta dt {
+    font-family: var(--ak-font-mono);
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--ak-raspberry-h);
+    letter-spacing: 0.04em;
+    margin: 0 0 2px;
+  }
+
+  .ex-meta dd {
+    font-family: var(--ak-font-body);
+    font-weight: 500;
+    color: var(--ak-blueberry-p);
+    margin: 0;
+  }
+
+  .ex-tags {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ak-space-2);
+  }
+
+  .ex-tags li {
+    font-family: var(--ak-font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 2px 8px;
+    background: var(--ak-vanilla-bg);
+    color: var(--ak-blueberry-p);
+    border-radius: 999px;
+    border: 1px solid var(--ak-hazelnut-container);
+  }
+
+  .prose {
+    max-width: 720px;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ak-ink);
+  }
+
+  .prose :global(h1) { display: none; } /* H1 is in our header already */
+
+  .prose :global(h2) {
+    font-family: var(--ak-font-display);
+    color: var(--ak-blueberry-p);
+    font-size: 1.5rem;
+    margin: var(--ak-space-7) 0 var(--ak-space-3);
+  }
+
+  .prose :global(h3) {
+    font-family: var(--ak-font-display);
+    color: var(--ak-blueberry-p);
+    font-size: 1.2rem;
+    margin: var(--ak-space-6) 0 var(--ak-space-3);
+  }
+
+  .prose :global(p) {
+    margin: 0 0 var(--ak-space-4);
+  }
+
+  .prose :global(strong) { color: var(--ak-raspberry-h); }
+  .prose :global(em) { color: var(--ak-ink-soft); }
+
+  .prose :global(blockquote) {
+    background: var(--ak-strawberry-container);
+    border-left: 4px solid var(--ak-raspberry-h);
+    border-radius: var(--ak-radius-sm);
+    padding: var(--ak-space-4);
+    margin: var(--ak-space-5) 0;
+    color: var(--ak-blueberry-p);
+    font-style: normal;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: 1.5rem;
+    margin: 0 0 var(--ak-space-4);
+  }
+
+  .prose :global(li) {
+    margin: 0 0 var(--ak-space-2);
+  }
+
+  .ex-foot {
+    margin-top: var(--ak-space-8);
+    padding-top: var(--ak-space-5);
+    border-top: 1px solid var(--ak-hazelnut-container);
+  }
+
+  .ex-foot a {
+    font-family: var(--ak-font-mono);
+    font-weight: 700;
+    color: var(--ak-raspberry-h);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+  }
+</style>

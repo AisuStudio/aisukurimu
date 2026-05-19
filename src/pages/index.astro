@@ -1,49 +1,158 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import ExerciseCard from '../components/ExerciseCard.astro';
+import { LINKEDIN_URL } from '../consts';
+
+// Pull the four newest exercises for the preview grid
+const exercises = (await getCollection('exercises'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 4);
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<Base title="Lerne die Welt wie ein Hacker zu lesen">
+  <Hero
+    eyebrow="Hacking / Coding / Making / Systemisches Denken"
+    headline="Lerne die Welt wie ein Hacker zu lesen"
+    subtitle="Entdecke die unsichtbaren Strukturen hinter der Technik. Wir lernen nicht nur programmieren, sondern verstehen, wie."
+  />
+
+  <section class="ak-container section-block" aria-labelledby="uebungen-title">
+    <h2 id="uebungen-title" class="ak-section-title">Übungen</h2>
+    <p class="section-lead">
+      Kleine, eigenständige Aufgaben — von „Hallo Brawl Stars" bis „mein Rechner unter der Lupe".
+      Du kannst sie in beliebiger Reihenfolge angehen.
+    </p>
+
+    <div class="exercise-grid">
+      {exercises.map((ex) => (
+        <ExerciseCard
+          href={`/exercises/${ex.id}/`}
+          title={ex.data.title}
+          description={ex.data.description}
+          tags={ex.data.tags}
+          meta={`${ex.data.duration} min · ab ${ex.data.ageMin} Jahren`}
+        />
+      ))}
+    </div>
+
+    <p class="section-cta">
+      <a href="/exercises/">Alle Übungen ansehen →</a>
+    </p>
+  </section>
+
+  <section class="who-section" aria-labelledby="who-title">
+    <div class="ak-container who-inner">
+      <div class="who-avatar" aria-hidden="true">
+        <img src="/logos/AK_Logo_Mob.svg" alt="" width="160" height="170" />
+      </div>
+      <div class="who-text">
+        <h2 id="who-title" class="ak-section-title">Wer macht das hier</h2>
+        <p>
+          Hi, ich bin Dominik. Ich glaube daran, dass Technologie kein magisches Rätsel sein sollte,
+          sondern ein Werkzeug, das jeder verstehen kann. Mit aisukurimu bringe ich Kindern und
+          Neugierigen bei, die unsichtbaren Strukturen hinter den Apps und Spielen zu sehen —
+          und sie nicht nur zu nutzen, sondern zu gestalten.
+        </p>
+        <p>
+          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
+            Finde mich auf LinkedIn ↗
+          </a>
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .section-block {
+    padding-top: var(--ak-space-8);
+    padding-bottom: var(--ak-space-8);
+  }
+
+  .section-lead {
+    font-size: 1.1rem;
+    color: var(--ak-ink-soft);
+    margin: 0 0 var(--ak-space-6);
+    max-width: 700px;
+  }
+
+  .exercise-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--ak-space-5);
+  }
+
+  .section-cta {
+    margin-top: var(--ak-space-6);
+    font-family: var(--ak-font-mono);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+  }
+
+  .section-cta a {
+    color: var(--ak-raspberry-h);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+  .section-cta a:hover { color: var(--ak-blueberry-p); }
+
+  /* -- "Who's behind this" block -- */
+  .who-section {
+    background: var(--ak-vanilla-bg);
+    padding: var(--ak-space-8) 0;
+  }
+
+  .who-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--ak-space-6);
+    align-items: center;
+  }
+
+  .who-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: var(--ak-strawberry-container);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .who-avatar img {
+    width: 70%;
+    height: auto;
+  }
+
+  .who-text p {
+    font-family: var(--ak-font-body);
+    color: var(--ak-blueberry-p);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0 0 var(--ak-space-4);
+  }
+
+  @media (min-width: 768px) {
+    .exercise-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .who-inner {
+      grid-template-columns: 220px 1fr;
+      gap: var(--ak-space-8);
+    }
+    .who-avatar {
+      width: 220px;
+      height: 220px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .exercise-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

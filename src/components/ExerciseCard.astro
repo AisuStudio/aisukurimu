@@ -1,0 +1,110 @@
+---
+/*
+  Card for an exercise. Hazelnut background, raspberry eyebrow,
+  blueberry title, tag chips.
+*/
+
+interface Props {
+  href: string;
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  tags?: string[];
+  meta?: string;
+}
+
+const {
+  href,
+  eyebrow = 'Übungs-Blog',
+  title,
+  description,
+  tags = [],
+  meta,
+} = Astro.props as Props;
+---
+
+<a class="ex-card" href={href}>
+  <p class="ex-eyebrow">{eyebrow}</p>
+  <h3 class="ex-title">{title}</h3>
+  {description && <p class="ex-desc">{description}</p>}
+  {tags.length > 0 && (
+    <ul class="ex-tags" aria-label="Tags">
+      {tags.slice(0, 4).map((t) => <li>{t}</li>)}
+    </ul>
+  )}
+  {meta && <p class="ex-meta">{meta}</p>}
+</a>
+
+<style>
+  .ex-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ak-space-3);
+    padding: var(--ak-space-5);
+    background: var(--ak-hazelnut-container);
+    border-radius: var(--ak-radius-md);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    height: 100%;
+  }
+
+  .ex-card:hover,
+  .ex-card:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(38, 36, 123, 0.1);
+  }
+
+  .ex-eyebrow {
+    font-family: var(--ak-font-mono);
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--ak-raspberry-h);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+  }
+
+  .ex-title {
+    font-family: var(--ak-font-display);
+    color: var(--ak-blueberry-p);
+    font-size: 1.25rem;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .ex-desc {
+    font-family: var(--ak-font-body);
+    font-size: 0.95rem;
+    color: var(--ak-ink);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .ex-tags {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ak-space-2);
+  }
+
+  .ex-tags li {
+    font-family: var(--ak-font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 2px 8px;
+    background: var(--ak-vanilla-bg);
+    color: var(--ak-blueberry-p);
+    border-radius: 999px;
+  }
+
+  .ex-meta {
+    font-family: var(--ak-font-body);
+    font-size: 0.8rem;
+    color: var(--ak-ink-soft);
+    margin: auto 0 0;
+  }
+</style>

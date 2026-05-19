@@ -1,0 +1,160 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('raetsel');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, description, difficulty, puzzles, duration, ageMin, tags } = entry.data;
+---
+
+<Base title={title} description={description ?? ''}>
+  <article class="raetsel">
+    <header class="r-header ak-container">
+      <p class="ak-eyebrow">Rätsel-Serie</p>
+      <h1 class="r-title">{title}</h1>
+      <dl class="r-meta">
+        <div><dt>Stufe</dt><dd>{difficulty}</dd></div>
+        <div><dt>Rätsel</dt><dd>{puzzles}</dd></div>
+        <div><dt>Dauer</dt><dd>{duration} min</dd></div>
+        <div><dt>Ab</dt><dd>{ageMin} Jahren</dd></div>
+      </dl>
+    </header>
+
+    <div class="ak-container prose">
+      <Content />
+    </div>
+
+    <nav class="ak-container r-foot" aria-label="Weiter">
+      <a href="/raetsel/">← Zurück zur Rätsel-Übersicht</a>
+    </nav>
+  </article>
+</Base>
+
+<style>
+  .r-header {
+    padding-top: var(--ak-space-7);
+    padding-bottom: var(--ak-space-5);
+    border-bottom: 1px solid var(--ak-hazelnut-container);
+    margin-bottom: var(--ak-space-6);
+  }
+
+  .r-title {
+    font-family: var(--ak-font-display);
+    color: var(--ak-blueberry-p);
+    font-size: 2rem;
+    line-height: 1.15;
+    margin: var(--ak-space-2) 0 var(--ak-space-5);
+  }
+
+  @media (min-width: 768px) {
+    .r-title { font-size: 2.5rem; }
+  }
+
+  .r-meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--ak-space-3);
+    margin: 0;
+  }
+
+  @media (min-width: 640px) {
+    .r-meta { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .r-meta div {
+    background: var(--ak-hazelnut-container);
+    border-radius: var(--ak-radius-sm);
+    padding: var(--ak-space-3);
+  }
+
+  .r-meta dt {
+    font-family: var(--ak-font-mono);
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--ak-raspberry-h);
+    letter-spacing: 0.04em;
+    margin: 0 0 2px;
+  }
+
+  .r-meta dd {
+    font-family: var(--ak-font-body);
+    font-weight: 500;
+    color: var(--ak-blueberry-p);
+    margin: 0;
+  }
+
+  .prose {
+    max-width: 720px;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ak-ink);
+  }
+
+  .prose :global(h1) { display: none; }
+
+  .prose :global(h2) {
+    font-family: var(--ak-font-display);
+    color: var(--ak-blueberry-p);
+    font-size: 1.4rem;
+    margin: var(--ak-space-7) 0 var(--ak-space-3);
+  }
+
+  .prose :global(p) {
+    margin: 0 0 var(--ak-space-3);
+  }
+
+  .prose :global(strong) { color: var(--ak-raspberry-h); }
+
+  /* The MD uses HTML <details> for puzzle solutions */
+  .prose :global(details) {
+    background: var(--ak-strawberry-container);
+    border-radius: var(--ak-radius-sm);
+    padding: var(--ak-space-3) var(--ak-space-4);
+    margin: var(--ak-space-3) 0 var(--ak-space-5);
+    color: var(--ak-blueberry-p);
+  }
+
+  .prose :global(details summary) {
+    cursor: pointer;
+    font-family: var(--ak-font-mono);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.85rem;
+    color: var(--ak-raspberry-h);
+  }
+
+  .prose :global(details summary strong) { color: inherit; }
+
+  .prose :global(ul) {
+    padding-left: 1.5rem;
+    margin: 0 0 var(--ak-space-3);
+  }
+
+  .prose :global(li) { margin: 0 0 var(--ak-space-2); }
+
+  .r-foot {
+    margin-top: var(--ak-space-8);
+    padding-top: var(--ak-space-5);
+    border-top: 1px solid var(--ak-hazelnut-container);
+  }
+
+  .r-foot a {
+    font-family: var(--ak-font-mono);
+    font-weight: 700;
+    color: var(--ak-raspberry-h);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+  }
+</style>

@@ -1,5 +1,6 @@
-// Place any global data in this file.
-// You can import this data from anywhere in your site by using the `import` keyword.
+// Site-wide constants
 
-export const SITE_TITLE = 'Astro Blog';
-export const SITE_DESCRIPTION = 'Welcome to my website!';
+export const SITE_TITLE = 'aisukurimu';
+export const SITE_DESCRIPTION = 'Lerne die Welt wie ein Hacker zu lesen — Hacking, Coding, Making und systemisches Denken für Kinder ab 10.';
+export const SITE_TAGLINE = 'Lerne die Welt wie ein Hacker zu lesen';
+export const LINKEDIN_URL = 'https://www.linkedin.com/in/dominik-heilig/';
