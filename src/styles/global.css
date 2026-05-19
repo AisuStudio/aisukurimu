@@ -184,9 +184,11 @@ button:focus-visible {
   padding: 0 var(--sp-lg);
 }
 
-.hr-raspberry {
+.hr {
+  /* Hairline divider in hazelnut. Constrained to 1200px container width
+     so the editorial frame stays consistent. Color-neutral class name. */
   border: 0;
-  border-top: 1px solid var(--ak-raspberry-h);
+  border-top: 1px solid var(--ak-hazelnut);
   max-width: var(--container-max);
   margin: 0 auto;
 }
