@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import { url } from '../../lib/url';
 
 export async function getStaticPaths() {
   const entries = await getCollection('raetsel');
@@ -33,7 +34,7 @@ const { title, description, difficulty, puzzles, duration, ageMin, tags } = entr
     </div>
 
     <nav class="ak-container r-foot" aria-label="Weiter">
-      <a href="/raetsel/">← Zurück zur Rätsel-Übersicht</a>
+      <a href={url('/raetsel/')}>← Zurück zur Rätsel-Übersicht</a>
     </nav>
   </article>
 </Base>

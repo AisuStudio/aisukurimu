@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import ExerciseCard from '../../components/ExerciseCard.astro';
 import FilterChips from '../../components/FilterChips.astro';
+import { url } from '../../lib/url';
 
 const exercises = (await getCollection('exercises'))
   .sort((a, b) => (a.data.session ?? 99) - (b.data.session ?? 99));
@@ -34,7 +35,7 @@ const filters = [
     <div class="grid">
       {exercises.map((ex) => (
         <ExerciseCard
-          href={`/exercises/${ex.id}/`}
+          href={url(`/exercises/${ex.id}/`)}
           title={ex.data.title}
           description={ex.data.description}
           tags={ex.data.tags}

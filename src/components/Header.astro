@@ -3,22 +3,24 @@
   Sticky site header with logo on the left, primary navigation on the right.
   Mobile: nav collapses behind a CSS-only hamburger toggle.
 */
+import { url } from '../lib/url';
 
 const nav = [
-  { href: '/tools/',     label: 'Tools' },
-  { href: '/exercises/', label: 'Exercises' },
-  { href: '/raetsel/',   label: 'Rätsel' },
-  { href: '/media/',     label: 'Media' },
-  { href: '/about/',     label: 'About' },
+  { href: url('/tools/'),     label: 'Tools' },
+  { href: url('/exercises/'), label: 'Exercises' },
+  { href: url('/raetsel/'),   label: 'Rätsel' },
+  { href: url('/media/'),     label: 'Media' },
+  { href: url('/about/'),     label: 'About' },
 ];
 
 const pathname = Astro.url.pathname;
+const home = url('/');
 ---
 
 <header class="site-header">
   <div class="ak-container header-inner">
-    <a href="/" class="logo" aria-label="aisukurimu — Startseite">
-      <img src="/logos/AK_Logo_lockUp_Long.svg" alt="aisukurimu" width="190" height="64" />
+    <a href={home} class="logo" aria-label="aisukurimu — Startseite">
+      <img src={url('/logos/AK_Logo_lockUp_Long.svg')} alt="aisukurimu" width="190" height="64" />
     </a>
 
     {/* CSS-only mobile toggle: a checkbox controls the menu state */}
@@ -30,7 +32,7 @@ const pathname = Astro.url.pathname;
     <nav class="site-nav" aria-label="Hauptnavigation">
       <ul>
         {nav.map((item) => {
-          const active = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+          const active = pathname === item.href || (item.href !== home && pathname.startsWith(item.href));
           return (
             <li>
               <a href={item.href} class:list={['nav-link', { active }]}>{item.label}</a>

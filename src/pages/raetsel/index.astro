@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import { url } from '../../lib/url';
 
 const series = (await getCollection('raetsel'))
   .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
@@ -23,7 +24,7 @@ const series = (await getCollection('raetsel'))
     <ul class="series-list">
       {series.map((s) => (
         <li>
-          <a class="series-card" href={`/raetsel/${s.id}/`}>
+          <a class="series-card" href={url(`/raetsel/${s.id}/`)}>
             <p class="series-eyebrow">{s.data.difficulty} · {s.data.puzzles} Rätsel · {s.data.duration} min</p>
             <h2 class="series-title">{s.data.title}</h2>
             <p class="series-tags">{s.data.tags.slice(0, 4).join(' · ')}</p>

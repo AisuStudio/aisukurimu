@@ -4,6 +4,7 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import ExerciseCard from '../components/ExerciseCard.astro';
 import { LINKEDIN_URL } from '../consts';
+import { url } from '../lib/url';
 
 // Pull the four newest exercises for the preview grid
 const exercises = (await getCollection('exercises'))
@@ -28,7 +29,7 @@ const exercises = (await getCollection('exercises'))
     <div class="exercise-grid">
       {exercises.map((ex) => (
         <ExerciseCard
-          href={`/exercises/${ex.id}/`}
+          href={url(`/exercises/${ex.id}/`)}
           title={ex.data.title}
           description={ex.data.description}
           tags={ex.data.tags}
@@ -38,14 +39,14 @@ const exercises = (await getCollection('exercises'))
     </div>
 
     <p class="section-cta">
-      <a href="/exercises/">Alle Übungen ansehen →</a>
+      <a href={url('/exercises/')}>Alle Übungen ansehen →</a>
     </p>
   </section>
 
   <section class="who-section" aria-labelledby="who-title">
     <div class="ak-container who-inner">
       <div class="who-avatar" aria-hidden="true">
-        <img src="/logos/AK_Logo_Mob.svg" alt="" width="160" height="170" />
+        <img src={url('/logos/AK_Logo_Mob.svg')} alt="" width="160" height="170" />
       </div>
       <div class="who-text">
         <h2 id="who-title" class="ak-section-title">Wer macht das hier</h2>

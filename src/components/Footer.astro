@@ -4,6 +4,7 @@
   Background: Strawberry container per XD design.
 */
 import { LINKEDIN_URL } from '../consts';
+import { url } from '../lib/url';
 
 const year = new Date().getFullYear();
 
@@ -11,18 +12,18 @@ const columns = [
   {
     title: 'Plattform',
     links: [
-      { href: '/tools/',     label: 'Tools' },
-      { href: '/exercises/', label: 'Exercises' },
-      { href: '/raetsel/',   label: 'Rätsel' },
-      { href: '/media/',     label: 'Media' },
+      { href: url('/tools/'),     label: 'Tools' },
+      { href: url('/exercises/'), label: 'Exercises' },
+      { href: url('/raetsel/'),   label: 'Rätsel' },
+      { href: url('/media/'),     label: 'Media' },
     ],
   },
   {
     title: 'Info',
     links: [
-      { href: '/about/',       label: 'About' },
-      { href: '/impressum/',   label: 'Impressum' },
-      { href: '/datenschutz/', label: 'Datenschutz' },
+      { href: url('/about/'),       label: 'About' },
+      { href: url('/impressum/'),   label: 'Impressum' },
+      { href: url('/datenschutz/'), label: 'Datenschutz' },
       { href: 'mailto:hi@aisukurimu.com', label: 'Kontakt' },
     ],
   },
@@ -30,7 +31,7 @@ const columns = [
     title: 'More',
     links: [
       { href: LINKEDIN_URL, label: 'LinkedIn', external: true },
-      { href: 'https://github.com/', label: 'GitHub', external: true },
+      { href: 'https://github.com/AisuStudio/aisukurimu', label: 'GitHub', external: true },
     ],
   },
 ];
@@ -39,7 +40,7 @@ const columns = [
 <footer class="site-footer">
   <div class="ak-container footer-inner">
     <div class="footer-mark">
-      <img src="/logos/AK_Logo_Mob.svg" alt="aisukurimu" width="64" height="69" />
+      <img src={url('/logos/AK_Logo_Mob.svg')} alt="aisukurimu" width="64" height="69" />
     </div>
 
     <div class="footer-cols">
