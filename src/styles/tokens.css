@@ -39,6 +39,10 @@
   --ak-radius-md: 12px;
   --ak-radius-lg: 20px;
 
+  /* Line-heights — Boldonse needs more air than its 1.0 default */
+  --ak-leading-display: 1.2;
+  --ak-leading-body:    1.6;
+
   /* Type scale */
   --ak-size-hero-mobile:   2rem;     /* 32px */
   --ak-size-hero-desktop:  3.5rem;   /* 56px */

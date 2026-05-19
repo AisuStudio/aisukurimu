@@ -73,7 +73,7 @@ button:focus-visible {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--ak-font-display);
   color: var(--ak-blueberry-p);
-  line-height: 1.15;
+  line-height: var(--ak-leading-display);
   margin: 0 0 var(--ak-space-4);
 }
 
