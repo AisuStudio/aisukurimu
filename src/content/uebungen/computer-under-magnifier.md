@@ -12,6 +12,7 @@ duration: 45
 requiredTools: [terminal, powershell]
 platforms: [mac, windows]
 tags: [terminal, powershell, sysctl, processes, pipe, redirect]
+image: /images/AK_EX_0008.png
 date: 2026-05-18
 language: de
 ---

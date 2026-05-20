@@ -12,6 +12,7 @@ duration: 25
 requiredTools: [terminal, powershell]
 platforms: [mac, windows]
 tags: [terminal, powershell, commands, whoami, hostname, date, uptime]
+image: /images/AK_EX_0007.png
 date: 2026-05-18
 language: de
 ---

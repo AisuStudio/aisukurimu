@@ -11,6 +11,7 @@ puzzles: 12
 duration: 20
 ageMin: 10
 tags: [security-literacy, hacking, systems-thinking, beginner, multiple-choice]
+image: /images/AK_Riddle_0001.png
 date: 2026-05-18
 language: de
 ---

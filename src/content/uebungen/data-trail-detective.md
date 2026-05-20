@@ -12,6 +12,7 @@ duration: 45
 requiredTools: [thonny, browser]
 platforms: [mac, windows]
 tags: [python, dictionary, file-write, privacy, security-literacy, app-store]
+image: /images/AK_EX_0006.png
 date: 2026-05-18
 language: de
 ---
