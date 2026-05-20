@@ -93,7 +93,7 @@ const exercises = (await getCollection('uebungen', ({ data }) => data.published 
           </a>
         </div>
         <div>
-          <div class="placeholder-circle" role="img" aria-label="Platzhalter für Portrait"></div>
+          <img class="portrait-circle" src={url('/images/AS-LinkedIn_Photo.jpg')} alt="Portrait Dominik" />
         </div>
       </div>
     </div>
@@ -153,6 +153,18 @@ const exercises = (await getCollection('uebungen', ({ data }) => data.published 
     margin-top: var(--sp-xl);
   }
   .ueber-text { display: flex; flex-direction: column; gap: var(--sp-md); }
+
+  .portrait-circle {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: auto;
+    display: block;
+  }
+  @media (max-width: 768px) {
+    .portrait-circle { width: 200px; height: 200px; margin: 0 auto; }
+  }
 
   /* -- Responsive — keep 2-col grids alive longer, collapse only at true mobile -- */
   @media (max-width: 900px) {
