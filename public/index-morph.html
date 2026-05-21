@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wurst Sandbox · Iteration 2 (Morph)</title>
+
+  <style>
+    /* ---------- Tokens ---------- */
+    :root {
+      --paper:  #e9e7df;
+      --ink:    #1f1934;
+      --mute:   #93928e;
+      --blue:   #5100ff;
+      --lemon:  #d9ff01;
+    }
+
+    /* ---------- Reset ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    body, h1, h2, h3, p { margin: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      line-height: 1.5;
+      min-height: 100vh;
+      padding-bottom: 50vh;
+    }
+
+    a { color: var(--blue); font-weight: 500; }
+
+    /* ---------- Wurst-Layer ---------- */
+    .wurst-frame {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .wurst-frame svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .wurst {
+      fill: none;
+      stroke: var(--lemon);
+      /* stroke-width und stroke-dasharray "vorgerechnet" für den
+         uniform-Anteil (0.6) — vector-effect:non-scaling-stroke am Pfad
+         ignoriert alle SVG-Transforms für die Strichdicke.
+         Original aus Style-Tile: 302.9 / 261.6. */
+      stroke-width: 181.74;       /* = 302.9 × 0.6 */
+      stroke-dasharray: 156.96;   /* = 261.6 × 0.6 */
+      stroke-linecap: round;
+      stroke-linejoin: round;
+
+      /* Beide Achsen scroll-getrieben, in einer kombinierten Keyframe-Sequenz.
+         Pose A → Pose B → Pose A (Hin-und-zurück, damit Anfang = Ende).
+         Pillen wandern monoton in eine Richtung (stroke-dashoffset linear). */
+      animation: wurst-combined linear both;
+      animation-timeline: scroll(root block);
+    }
+
+    /* Pose A und Pose B in Original-Koordinaten — der horizontale Stretch
+       (1.4×) erfolgt jetzt über den nicht-uniformen Wrapper-Transform
+       scale(0.84 0.6), nicht mehr in den Pfad-Daten. */
+    @keyframes wurst-combined {
+      0% {
+        stroke-dashoffset: 0;
+        d: path("M -142.6 840.3 C 183.8 3.9 1121.3 -301.5 1324.7 201.1 C 1528.1 703.7 -404.1 560 -154.2 1508.6 C 95.7 2457.2 2588.8 -566.6 1592.2 -581.1 C 595.6 -595.6 -539.2 1401.3 -196.5 1256.1");
+      }
+      50% {
+        stroke-dashoffset: -1500;
+        d: path("M 0 -139.1 C -539.7 1396.3 2210.7 261.7 1640 288.9 C 1098.4 314.7 65.2 482 316.2 1430.3 C 713 2929.1 2557.6 1044.7 968.4 990 C -553.5 937.6 -6 2445.1 336.7 2299.9");
+      }
+      100% {
+        stroke-dashoffset: -3000;
+        d: path("M -142.6 840.3 C 183.8 3.9 1121.3 -301.5 1324.7 201.1 C 1528.1 703.7 -404.1 560 -154.2 1508.6 C 95.7 2457.2 2588.8 -566.6 1592.2 -581.1 C 595.6 -595.6 -539.2 1401.3 -196.5 1256.1");
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .wurst { animation: none; }
+    }
+
+    /* ---------- Demo-Inhalt ---------- */
+    main {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 6rem 2rem 2rem;
+    }
+
+    .eyebrow {
+      font-family: 'iA Writer Mono S', ui-monospace, 'SF Mono', Menlo, monospace;
+      font-size: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-family: 'iA Writer Mono S', ui-monospace, monospace;
+      font-size: 40px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+      line-height: 1.1;
+    }
+
+    h2 {
+      font-family: 'iA Writer Mono S', ui-monospace, monospace;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 4rem 0 1rem;
+    }
+
+    p { font-size: 16px; margin-bottom: 1rem; }
+
+    .mute { color: var(--mute); }
+
+    code {
+      font-family: 'iA Writer Mono S', ui-monospace, monospace;
+      font-size: 14px;
+      background: rgba(31, 25, 52, 0.08);
+      padding: 0.1em 0.4em;
+      border-radius: 3px;
+    }
+
+    .hud {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 0.5rem 0.75rem;
+      font-family: ui-monospace, monospace;
+      font-size: 12px;
+      border-radius: 4px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .compare {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 0.5rem 0.75rem;
+      font-family: ui-monospace, monospace;
+      font-size: 12px;
+      border-radius: 4px;
+      z-index: 10;
+      text-decoration: none;
+    }
+    .compare:hover { color: var(--lemon); }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== Die Wurst (Background-Layer) ===== -->
+  <div class="wurst-frame" aria-hidden="true">
+    <svg viewBox="0 0 1400 2000" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <!-- Wrapper-Transform:
+             scale(0.84 0.6) = uniform 0.6 × horizontaler Stretch 1.4
+           Erste Zahl ändern → mehr/weniger horizontaler Stretch.
+           Beide Zahlen mit gleichem Faktor → Wurst global größer/kleiner
+           (dann auch stroke-width & stroke-dasharray im CSS proportional anpassen). -->
+      <g transform="translate(700 1000) scale(0.84 0.6) translate(-700 -1000)">
+        <!-- Initial-Pfad als Attribut für Firefox-Fallback / vor Animations-Start
+             (Pose A, Original-Koordinaten). -->
+        <path class="wurst"
+              vector-effect="non-scaling-stroke"
+              d="M -142.6 840.3 C 183.8 3.9 1121.3 -301.5 1324.7 201.1 C 1528.1 703.7 -404.1 560 -154.2 1508.6 C 95.7 2457.2 2588.8 -566.6 1592.2 -581.1 C 595.6 -595.6 -539.2 1401.3 -196.5 1256.1"/>
+      </g>
+    </svg>
+  </div>
+
+  <a class="compare" href="index.html">← Iteration 1 (ohne Morph)</a>
+  <div class="hud">Iteration 2 · Pose A ⇄ B · Morph</div>
+
+  <!-- ===== Demo-Inhalt zum Scrollen ===== -->
+  <main>
+    <p class="eyebrow">Iteration 2</p>
+    <h1>Pfad-Morphing</h1>
+
+    <p>Zwei Achsen gleichzeitig: die Pillen wandern wie in Iteration 1 entlang des Pfades, <em>und</em> der Pfad selbst schlängelt sich zwischen Pose A und Pose B hin und zurück. Beide Animationen sind an die Scroll-Position gekoppelt.</p>
+
+    <p class="mute">Sequenz: Pose A bei 0%, Pose B bei 50%, Pose A bei 100% — damit Anfang und Ende deckungsgleich sind und nichts springt, wenn du wieder hochscrollst.</p>
+
+    <h2>Wie das technisch geht</h2>
+    <p>CSS animiert das <code>d</code>-Attribut direkt — der Browser interpoliert linear zwischen den beiden Path-Strings. Funktioniert nur, weil beide Posen exakt dieselbe Struktur haben (M + 4× absolute C). Kein JavaScript, keine Library.</p>
+
+    <h2>Worauf du achten kannst</h2>
+    <p>Wirkt die Pfad-Verformung organisch oder springt da was? Die Pillen sollten weich durchgezogen werden — wenn welche „pop"-artig auftauchen, ist das ein Hinweis, dass die Pfadlängen der beiden Posen zu unterschiedlich sind und wir das ausgleichen müssen.</p>
+
+    <h2>Vergleich</h2>
+    <p>Oben links der Button geht zurück zu <a href="index.html">Iteration 1</a> ohne Morph. Mach mal beide Tabs auf und scroll parallel — dann siehst du, was die zweite Achse beiträgt.</p>
+
+    <h2>Tuning-Knöpfe</h2>
+    <p>Drei Stellen, an denen wir drehen können:</p>
+    <p><code>stroke-dashoffset</code> bei <code>100%</code> (aktuell <code>-3000</code>) — wie weit die Pillen insgesamt wandern.</p>
+    <p>Die <code>50%</code>-Keyframe könnten wir verschieben (z. B. <code>40%</code>), wenn der Morph an einer anderen Stelle den Höhepunkt haben soll.</p>
+    <p>Wir könnten <em>weitere</em> Posen einbauen (Pose C bei 33%, Pose D bei 66% etc.), sobald du die in Illustrator zeichnest — die Struktur dafür ist hier schon vorbereitet.</p>
+
+    <h2>Lesbarkeit</h2>
+    <p>Selbe Frage wie in Iteration 1: bleibt der Text lesbar, wenn die Wurst drüber wandert? Mit der Verformung ändert sich, <em>welche</em> Textstellen wann von Lemon überdeckt werden. Vielleicht hilft das sogar — vielleicht macht es's schlimmer. Mal sehen.</p>
+
+    <h2>Browser-Hinweis</h2>
+    <p class="mute">Wie Iteration 1: Chrome 115+ und Safari 26+. Plus: CSS-Animation auf <code>d</code> braucht Chrome/Safari (Firefox kann das nicht animieren, zeigt aber dank Initial-<code>d</code>-Attribut Pose A statisch an).</p>
+
+    <h2>Mehr Scroll-Strecke</h2>
+    <p>Lorem-Ipsum-Füllmaterial folgt — du kannst durchscrollen.</p>
+
+    <p class="mute">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <p class="mute">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p class="mute">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    <p class="mute">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+    <p class="mute">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+
+    <h2>Halbzeit — Pose B</h2>
+    <p>Hier solltest du die Wurst maximal in Pose B sehen — also am weitesten weg von der Ausgangsform.</p>
+
+    <p class="mute">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.</p>
+    <p class="mute">Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
+    <p class="mute">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+    <p class="mute">Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
+    <p class="mute">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.</p>
+
+    <h2>Ankommen — zurück bei Pose A</h2>
+    <p>Letzter Abschnitt. Der Pfad sollte jetzt wieder der ursprünglichen Pose A entsprechen, die Pillen aber an einer ganz anderen Stelle stehen.</p>
+
+    <p>Feedback bitte in <code>LOG.md</code> unter „Tagebuch" — besonders interessant: fühlt sich der Morph richtig an, oder zu schnell/langsam, oder gibt es hässliche Momente in der Mitte?</p>
+  </main>
+
+</body>
+</html>
