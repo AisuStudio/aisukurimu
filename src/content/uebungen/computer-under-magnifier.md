@@ -72,6 +72,8 @@ Get-CimInstance Win32_ComputerSystem |
   Select TotalPhysicalMemory
 ```
 
+> **Hinweis:** Auf neueren Macs (Apple Silicon — M1, M2, M3 …) kann `sysctl hw.memsize` leer bleiben. Dann schau stattdessen unter: **Apfel-Menü → Über diesen Mac** — dort steht der RAM direkt.
+
 **RAM** ist der Kurzzeitspeicher — was gerade benutzt wird, liegt dort. Die Zahl kommt in **Bytes** — der kleinsten Speichereinheit. 1 GB = 1.024 × 1.024 × 1.024 Bytes. Um auf GB zu kommen:
 
 ```

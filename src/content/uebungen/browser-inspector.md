@@ -55,7 +55,7 @@ Ein Seitenpanel öffnet sich mit buntem Code. Das ist der **HTML-Quellcode** der
 
 Jetzt veränderst du die Seite — nur für dich, auf deinem Bildschirm.
 
-1. Im Inspector-Panel siehst du den HTML-Code. Suche eine Zeile mit sichtbarem Text — zum Beispiel eine Überschrift.
+1. Im Inspector-Panel klicke oben auf den Tab **„Elemente"** *(auf Englisch: „Elements")*. Dort siehst du den HTML-Code. Suche eine Zeile mit sichtbarem Text — zum Beispiel eine Überschrift.
 2. **Doppelklicke** auf das Wort selbst im Code (also auf `Hallo` innerhalb von `<h1>Hallo</h1>`) — nicht auf den Tag `<h1>`.
 3. Schreibe etwas anderes — zum Beispiel deinen Namen.
 4. Drücke **Enter**.

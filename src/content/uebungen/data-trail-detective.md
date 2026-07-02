@@ -47,6 +47,8 @@ Für jede App: Gehe auf **apps.apple.com**, suche die App, scrolle runter bis zu
 
 Wir konzentrieren uns auf **„Mit dir verknüpfte Daten" / "Data Linked to You"** — das ist die spannendste Kategorie. Notiere für jede App, welche Datentypen dort auftauchen (z. B. Standort, Käufe, Kontakte, Identifier, Suchverlauf …).
 
+> **Hinweis:** Wenn du bei einer App keinen „App-Datenschutz"-Abschnitt siehst, hat die Entwicklerin keine Infos hinterlegt — wähle einfach eine andere App.
+
 ## Schritt 2 — Deine Funde in Python eintragen
 
 Erstelle in Thonny `aufgabe6.py` und schreib hinein (ersetze die Beispiel-Daten durch *deine* Funde):

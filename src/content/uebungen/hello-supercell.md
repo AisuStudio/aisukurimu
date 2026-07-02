@@ -57,6 +57,8 @@ Du siehst eine Zahl wie `93.184.216.34`. Das ist deine **IP-Adresse** — sozusa
 
 ### 3 · Bei developer.brawlstars.com anmelden
 
+> ⚠️ **Das macht ihr zusammen mit dem Lehrer** — der API-Key braucht einen Account und eine echte E-Mail-Adresse.
+
 Gehe auf **developer.brawlstars.com**, klicke **Sign up**, melde dich mit deiner **Schul-E-Mail** an und bestätige sie. Dann logge dich ein und klicke **Create New Key**. Trage als Name `mein-aisu-key` ein, als Beschreibung `aisukurimu-Kurs`, und bei **Allowed IP Addresses** deine eben gefundene IP. Klicke **Create** und kopiere den langen Schlüssel, der erscheint.
 
 ### 4 · Den Schlüssel sicher ablegen
