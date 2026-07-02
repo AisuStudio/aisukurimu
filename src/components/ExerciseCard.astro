@@ -40,7 +40,7 @@ const imageSrc = image ? url(image) : null;
   .ex-card {
     display: flex;
     flex-direction: column;
-    background: var(--ak-container);
+    background: transparent;
     border-radius: 4px;
     text-decoration: none;
     color: inherit;
@@ -65,7 +65,13 @@ const imageSrc = image ? url(image) : null;
     display: flex;
     flex-direction: column;
     gap: var(--sp-md);
+    background: var(--ak-container);
+    border-radius: 0 0 4px 4px;
   }
+
+  .ex-caption { color: var(--ak-vanilla-bg) !important; }
+  .ex-desc { color: var(--ak-vanilla-bg) !important; }
+  .ex-tags { color: var(--ak-raspberry-h) !important; }
 
   /* Smaller variant of h2-lcontainer for use inside cards */
   .ex-caption {

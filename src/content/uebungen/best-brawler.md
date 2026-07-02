@@ -12,7 +12,7 @@ duration: 25
 requiredTools: [thonny, terminal]
 platforms: [mac, linux, windows]
 tags: [python, api, json, for-loop, conditional]
-image: /images/AK_EX_0004.png
+image: /images/AK_EX_0004.jpg
 date: 2026-05-18
 language: de
 ---

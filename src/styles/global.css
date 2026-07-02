@@ -1,19 +1,19 @@
 /* ===============================================================
-   aisukurimu — global styles · Brand v2 (Foundation Flow 2_04)
-   Source of truth: design/00-brand-foundation.md, Flow 2_04.css
+   aisukurimu — global styles · Brand v3 (New Style / AS_Styles.svg)
+   Source of truth: design/New Style/01-style-refactor.md
    @font-face declarations live in Base.astro so url() values can be
    templated with the Astro `base` config (subpath deploy).
    =============================================================== */
 
 :root {
-  /* -- Color tokens (XD Flow 2_04) -- */
-  --ak-bg-dark:               #211A1B;
-  --ak-container:             #3E3637;
-  --ak-raspberry-h:           #DB4752;
-  --ak-lemon-accent:          #D7FF00;
-  --ak-vanilla-bg:            #F7F4F0;
-  --ak-hazelnut:              #B4ACA1;
-  --ak-strawberry-container:  #EDCED4;
+  /* -- Color tokens (New Style — Light) -- */
+  --ak-bg-dark:               #eae8e0;   /* Vanilla — page background */
+  --ak-container:             #d9d7ce;   /* Cappucino — card / container background */
+  --ak-raspberry-h:           #5100ff;   /* Grape — links, accent, tags */
+  --ak-lemon-accent:          #d8ff01;   /* Lemon — wurst background pattern */
+  --ak-vanilla-bg:            #1f1934;   /* Blueberry — primary ink */
+  --ak-hazelnut:              #9e9c95;   /* Hazelnut — muted secondary text */
+  --ak-strawberry-container:  #EDCED4;   /* retained, unused in v3 for now */
   --placeholder-image:        #00D8FF;
 
   /* -- Spacing scale -- */
@@ -37,12 +37,19 @@
 *::before,
 *::after { box-sizing: border-box; }
 
+html {
+  background: var(--ak-bg-dark);   /* #e9e7df — light vanilla paper */
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
-  background: var(--ak-bg-dark);
-  color: var(--ak-vanilla-bg);
+  color: var(--ak-vanilla-bg);     /* #1f1934 — deep indigo ink */
+}
+
+body {
+  background: transparent;
 }
 
 body {
@@ -57,33 +64,33 @@ img, svg { max-width: 100%; height: auto; display: block; }
 
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--ak-lemon-accent);
+  outline: 2px solid var(--ak-raspberry-h);   /* electric blue — lemon invisible on light bg */
   outline-offset: 3px;
 }
 
 /* ---------- Character styles (XD Flow 2_04) ---------- */
 
+/* Title (80px) — eyebrow sits above in markup */
 .hero-title-vanilla {
   font-family: "iA Writer Mono S", monospace;
-  font-weight: bold;
-  font-size: 48px;
-  line-height: 64px;
+  font-weight: normal;
+  font-size: 80px;
+  line-height: 88px;
   color: var(--ak-vanilla-bg);
   margin: 0;
 }
 
+/* H1 — 40px Bold Upper */
 .h1-vanilla {
   font-family: "iA Writer Mono S", monospace;
   font-weight: bold;
-  font-size: 32px;
-  line-height: 42px;
+  font-size: 40px;
+  line-height: 48px;
   color: var(--ak-vanilla-bg);
   text-transform: uppercase;
   margin: 0;
 }
 
-/* Blinking cursor variant — append `cursor` class on a section H1
-   to get the "Übungen_" typewriter feel. */
 .h1-vanilla.cursor::after {
   content: "_";
   display: inline-block;
@@ -96,58 +103,83 @@ button:focus-visible {
   50% { opacity: 0; }
 }
 
+/* H2 — Lemon role gone; now Indigo sentence-case */
 .h2-lcontainer {
   font-family: "iA Writer Mono S", monospace;
   font-weight: bold;
   font-size: 24px;
   line-height: 32px;
-  color: var(--ak-lemon-accent);
+  color: var(--ak-vanilla-bg);
+  margin: 0;
+}
+
+/* Eyebrow — 20px Bold UPPER Mono */
+.eyebrow {
+  font-family: "iA Writer Mono S", monospace;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--ak-vanilla-bg);
   text-transform: uppercase;
+  margin: 0;
+}
+
+/* Tag — 12px Bold lower Mono in Electric Blue */
+.tag {
+  font-family: "iA Writer Mono S", monospace;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--ak-raspberry-h);
+  text-transform: lowercase;
   margin: 0;
 }
 
 .p-big {
   font-family: "Public Sans", sans-serif;
   font-weight: normal;
-  font-size: 24px;
-  line-height: 28px;
-  color: var(--ak-hazelnut);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ak-vanilla-bg);
   margin: 0;
 }
 
+/* Secondary / muted paragraph */
 .p-small-vanilla {
   font-family: "Public Sans", sans-serif;
   font-weight: normal;
   font-size: 16px;
-  line-height: 23px;
-  color: var(--ak-vanilla-bg);
+  line-height: 24px;
+  color: var(--ak-hazelnut);
   margin: 0;
 }
 
 .caption {
   font-family: "Public Sans", sans-serif;
-  font-weight: bold;
+  font-weight: normal;
   font-size: 12px;
-  line-height: 23px;
-  color: var(--ak-hazelnut);
+  line-height: 18px;
+  color: var(--ak-vanilla-bg);
   margin: 0;
 }
 
+.caption strong { font-weight: bold; }
+
+/* Links — Electric Blue, hover adds underline */
 .link-big {
   font-family: "Public Sans", sans-serif;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 23px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
   color: var(--ak-raspberry-h);
-  text-decoration: underline;
-  transition: color .15s;
+  text-decoration: none;
+  transition: text-decoration .15s;
 }
 .link-big:hover,
-.link-big:focus-visible { color: var(--ak-lemon-accent); }
+.link-big:focus-visible { text-decoration: underline; }
 
+/* Nav — Indigo default, Electric Blue active */
 .nav-item {
-  /* Default Vanilla, hover Lemon. Active state on current page jumps
-     to Raspberry + underline (the only place raspberry shows up in nav). */
   font-family: "iA Writer Mono S", monospace;
   font-weight: bold;
   font-size: 14px;
@@ -158,7 +190,7 @@ button:focus-visible {
   transition: color .15s;
 }
 .nav-item:hover,
-.nav-item:focus-visible { color: var(--ak-lemon-accent); }
+.nav-item:focus-visible { color: var(--ak-raspberry-h); }
 .nav-item.active {
   color: var(--ak-raspberry-h);
   text-decoration: underline;
@@ -170,18 +202,16 @@ button:focus-visible {
 }
 
 .footer-links {
-  /* Mirrors .nav-item color behaviour for consistency between header
-     and footer link styling. */
-  font-family: "iA Writer Mono S", monospace;
-  font-weight: bold;
+  font-family: "Public Sans", sans-serif;
+  font-weight: normal;
   font-size: 16px;
   line-height: 24px;
-  color: var(--ak-vanilla-bg);
+  color: var(--ak-hazelnut);
   text-decoration: none;
   transition: color .15s;
 }
 .footer-links:hover,
-.footer-links:focus-visible { color: var(--ak-lemon-accent); }
+.footer-links:focus-visible { color: var(--ak-vanilla-bg); }
 
 /* ---------- Layout primitives ---------- */
 
@@ -195,7 +225,7 @@ button:focus-visible {
   /* Hairline divider in hazelnut. Constrained to 1200px container width
      so the editorial frame stays consistent. Color-neutral class name. */
   border: 0;
-  border-top: 1px solid var(--ak-hazelnut);
+  border-top: 1px solid var(--ak-vanilla-bg);
   max-width: var(--container-max);
   margin: 0 auto;
 }
