@@ -1,0 +1,409 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Terminal-Spiel" description="Lerne deine ersten Terminal-Befehle — direkt im Browser, ohne Installation.">
+  <section class="ts-page">
+    <div class="container">
+      <h1 class="h1-vanilla">Terminal-Spiel</h1>
+      <p class="p-small-vanilla ts-intro">
+        Kein Download, keine Einrichtung. Tippe echte Terminal-Befehle — und sieh was passiert.
+      </p>
+
+      <div class="ts-window">
+        <div class="ts-titlebar">
+          <span class="ts-dot ts-dot--red"></span>
+          <span class="ts-dot ts-dot--yellow"></span>
+          <span class="ts-dot ts-dot--green"></span>
+          <span class="ts-title">aisu@lab — terminal</span>
+        </div>
+
+        <div class="ts-output" id="ts-output" aria-live="polite" aria-label="Terminal Ausgabe"></div>
+
+        <div class="ts-inputrow">
+          <span class="ts-prompt">aisu@lab:~$</span>
+          <input
+            class="ts-input"
+            id="ts-input"
+            type="text"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            aria-label="Terminal Eingabe"
+            placeholder="Befehl eingeben …"
+          />
+        </div>
+      </div>
+
+      <div class="ts-hint">
+        <span class="ts-hint-label">Tipp:</span> Drücke <kbd>Enter</kbd> um einen Befehl abzuschicken · <kbd>↑</kbd> für letzte Eingabe
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .ts-page {
+    padding: var(--sp-3xl) 0 var(--sp-3xl);
+  }
+
+  .ts-intro {
+    margin: var(--sp-md) 0 var(--sp-xl);
+    max-width: 540px;
+  }
+
+  /* ── Terminal window chrome ── */
+  .ts-window {
+    background: #1f1934;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-width: 760px;
+    min-height: 420px;
+    box-shadow: 0 8px 40px rgba(31, 25, 52, 0.25);
+  }
+
+  .ts-titlebar {
+    background: #2d2548;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    user-select: none;
+  }
+
+  .ts-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .ts-dot--red    { background: #ff5f57; }
+  .ts-dot--yellow { background: #febc2e; }
+  .ts-dot--green  { background: #28c840; }
+
+  .ts-title {
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 12px;
+    color: #7a6fa0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ── Output area ── */
+  .ts-output {
+    flex: 1;
+    padding: 20px 20px 8px;
+    overflow-y: auto;
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #eae8e0;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .ts-output :global(.ts-line) {
+    display: block;
+    margin: 0;
+  }
+
+  .ts-output :global(.ts-line--prompt) {
+    color: #d8ff01;
+  }
+
+  .ts-output :global(.ts-line--muted) {
+    color: #7a6fa0;
+  }
+
+  .ts-output :global(.ts-line--success) {
+    color: #28c840;
+  }
+
+  .ts-output :global(.ts-line--error) {
+    color: #ff5f57;
+  }
+
+  .ts-output :global(.ts-line--accent) {
+    color: #5100ff;
+  }
+
+  /* ── Input row ── */
+  .ts-inputrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px 16px;
+    border-top: 1px solid #2d2548;
+  }
+
+  .ts-prompt {
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 14px;
+    color: #d8ff01;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .ts-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 14px;
+    color: #eae8e0;
+    caret-color: #d8ff01;
+  }
+
+  .ts-input::placeholder {
+    color: #3d3560;
+  }
+
+  /* ── Hint below terminal ── */
+  .ts-hint {
+    margin-top: var(--sp-md);
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 12px;
+    color: #9e9c95;
+    max-width: 760px;
+  }
+
+  .ts-hint-label {
+    color: #5100ff;
+    font-weight: bold;
+  }
+
+  kbd {
+    background: #2d2548;
+    color: #d8ff01;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 11px;
+  }
+
+  @media (max-width: 768px) {
+    .ts-window { min-height: 360px; border-radius: 6px; }
+    .ts-output { font-size: 13px; padding: 14px 14px 6px; }
+    .ts-inputrow { padding: 10px 14px 14px; }
+    .ts-input { font-size: 13px; }
+    .ts-prompt { font-size: 13px; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+  const output = document.getElementById('ts-output');
+  const input  = document.getElementById('ts-input');
+
+  // ── Fake filesystem ──
+  const FILES = {
+    'geheimakte.txt': [
+      '╔══════════════════════════════════════╗',
+      '║       STRENG GEHEIM — LEVEL 5        ║',
+      '╚══════════════════════════════════════╝',
+      '',
+      'Agent: aisu',
+      'Status: AKTIV',
+      '',
+      'Du hast alle Aufgaben erfüllt.',
+      'Das System vertraut dir jetzt.',
+      '',
+      'Nächste Mission: Starte einen echten',
+      'Terminal auf deinem eigenen Rechner.',
+      '→ lab.aisu.studio/uebungen/hello-my-computer/',
+      '',
+      '// Ende der Akte //',
+    ].join('\n'),
+
+    'passwort.md': [
+      'Nein, hier steht kein echtes Passwort.',
+      '',
+      'Aber gut, dass du nachgeschaut hast —',
+      'das ist genau das richtige Instinkt.',
+      '',
+      'Tipp: Schau auch in geheimakte.txt.',
+      '→ tippe:  cat geheimakte.txt',
+    ].join('\n'),
+
+    'hallo.py': [
+      '# Mein erstes Python-Programm',
+      'print("Hallo, Welt!")',
+      '',
+      '# Starte es mit Thonny — oder lerne',
+      '# es bei lab.aisu.studio/uebungen/',
+    ].join('\n'),
+  };
+
+  // ── Generiere Uptime beim Laden ──
+  const uptimeH = Math.floor(Math.random() * 8) + 1;
+  const uptimeM = Math.floor(Math.random() * 59) + 1;
+  const UPTIME  = uptimeH + ' Stunde' + (uptimeH !== 1 ? 'n' : '') + ' ' + uptimeM + ' Minuten';
+
+  // ── Command history ──
+  const history = [];
+  let historyIdx = -1;
+
+  // ── Print helpers ──
+  function line(text, cls) {
+    const span = document.createElement('span');
+    span.className = 'ts-line' + (cls ? ' ts-line--' + cls : '');
+    span.textContent = text;
+    output.appendChild(span);
+  }
+
+  function blank() { line(''); }
+
+  function echoCommand(cmd) {
+    line('aisu@lab:~$ ' + cmd, 'prompt');
+  }
+
+  function scrollDown() {
+    output.scrollTop = output.scrollHeight;
+  }
+
+  // ── Command definitions ──
+  const COMMANDS = {
+    help: function () {
+      line('Verfügbare Befehle:', 'muted');
+      blank();
+      const cmds = [
+        ['whoami',              'Wer bin ich?'],
+        ['hostname',            'Wie heißt dieser Rechner?'],
+        ['date',                'Welches Datum hat der Rechner?'],
+        ['uptime',              'Wie lange läuft der Rechner schon?'],
+        ['ls',                  'Dateien im aktuellen Ordner zeigen'],
+        ['cat [dateiname]',     'Inhalt einer Datei lesen'],
+        ['echo [text]',         'Text auf dem Bildschirm ausgeben'],
+        ['clear',               'Bildschirm leeren'],
+        ['help',                'Diese Liste anzeigen'],
+      ];
+      cmds.forEach(function (c) {
+        line('  ' + c[0].padEnd(22) + c[1]);
+      });
+    },
+
+    whoami: function () { line('aisu'); },
+
+    hostname: function () { line('lab-rechner'); },
+
+    date: function () {
+      const now = new Date();
+      const days = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+      const months = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
+      const pad = function (n) { return n < 10 ? '0' + n : '' + n; };
+      line(
+        days[now.getDay()] + ' ' +
+        pad(now.getDate()) + ' ' +
+        months[now.getMonth()] + ' ' +
+        now.getFullYear() + ' ' +
+        pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds())
+      );
+    },
+
+    uptime: function () { line('up ' + UPTIME); },
+
+    ls: function () {
+      line('geheimakte.txt    passwort.md    hallo.py');
+    },
+
+    cat: function (args) {
+      const filename = args[0];
+      if (!filename) {
+        line('cat: Dateiname fehlt — Beispiel: cat geheimakte.txt', 'error');
+        return;
+      }
+      if (FILES[filename]) {
+        FILES[filename].split('\n').forEach(function (l) { line(l); });
+      } else {
+        line('cat: ' + filename + ': Datei nicht gefunden', 'error');
+      }
+    },
+
+    echo: function (args) {
+      line(args.join(' '));
+    },
+
+    clear: function () {
+      output.innerHTML = '';
+    },
+  };
+
+  // ── Welcome message ──
+  function welcome() {
+    line('╔═══════════════════════════════════════════╗');
+    line('║   aisu@lab — Terminal-Spiel v1.0          ║');
+    line('╚═══════════════════════════════════════════╝');
+    blank();
+    line('Willkommen, Agent. Dein Deckname: aisu.', 'success');
+    blank();
+    line('Mission: Finde heraus wer du bist, wo du bist,');
+    line('         und was in der Geheimakte steht.');
+    blank();
+    line('Tipp: Fang mit   whoami   an.', 'muted');
+    line('Alle Befehle:    help', 'muted');
+    blank();
+    scrollDown();
+  }
+
+  // ── Execute command ──
+  function run(raw) {
+    const trimmed = raw.trim();
+    if (!trimmed) return;
+
+    history.unshift(trimmed);
+    historyIdx = -1;
+
+    echoCommand(trimmed);
+
+    const parts = trimmed.split(/\s+/);
+    const cmd   = parts[0].toLowerCase();
+    const args  = parts.slice(1);
+
+    if (COMMANDS[cmd]) {
+      COMMANDS[cmd](args);
+    } else {
+      line('bash: ' + cmd + ': command not found — tippe \'help\' für alle Befehle', 'error');
+    }
+
+    blank();
+    scrollDown();
+  }
+
+  // ── Input event ──
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      var val = input.value;
+      input.value = '';
+      run(val);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (historyIdx < history.length - 1) {
+        historyIdx++;
+        input.value = history[historyIdx];
+      }
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (historyIdx > 0) {
+        historyIdx--;
+        input.value = history[historyIdx];
+      } else {
+        historyIdx = -1;
+        input.value = '';
+      }
+    }
+  });
+
+  // ── Click anywhere in terminal focuses input ──
+  document.querySelector('.ts-window').addEventListener('click', function () {
+    input.focus();
+  });
+
+  // ── Start ──
+  welcome();
+  input.focus();
+})();
+</script>
