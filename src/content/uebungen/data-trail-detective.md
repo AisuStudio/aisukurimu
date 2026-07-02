@@ -23,13 +23,15 @@ language: de
 
 ## Was du brauchst
 
-Einen Browser, Zugang zum **App Store** (oder zu **apps.apple.com** im Browser), und Thonny. Du wirst *kein* Internet aus Python heraus brauchen — nur deine Augen und deine Lesefähigkeit.
+Einen Browser und **apps.apple.com** — du brauchst nur eine Webseite, nicht die native App-Store-App. Außerdem Thonny. Falls Thonny noch nicht installiert → [Werkzeuge-Seite](/werkzeuge/)
+
+Du wirst *kein* Internet aus Python heraus brauchen — nur deine Augen und deine Lesefähigkeit.
 
 ## Was neu ist
 
 Zwei neue Werkzeuge:
 
-**Dictionary** — eine neue Datenstruktur. Statt einer einfachen Liste speicherst du Paare: *Name → Wert*. Zum Beispiel: *App-Name → Liste der gesammelten Daten*.
+**Dictionary** — eine neue Datenstruktur. Statt einer einfachen Liste speicherst du Paare: *Name → Wert*. Zum Beispiel: *App-Name → Liste der gesammelten Daten*. Das passt hier perfekt — die App ist der Schlüssel, die Datenliste ist der Wert.
 
 **Datei zum Schreiben öffnen** — bisher haben wir Dateien nur *gelesen* (`mein_key.txt`). Heute lassen wir Python eine Datei *schreiben*. Der Modus heißt `"w"` wie *write*.
 

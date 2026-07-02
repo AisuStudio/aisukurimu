@@ -32,7 +32,7 @@ Nur deinen Browser — Chrome, Firefox oder Safari. Kein Login, kein Download, k
 
 ## Schritt 1 — Inspector öffnen
 
-Gehe auf eine beliebige Webseite — zum Beispiel **lab.aisu.studio**.
+Gehe auf eine beliebige Webseite — zum Beispiel **lab.aisu.studio** oder falls die nicht erreichbar ist: **wikipedia.org**.
 
 Dann:
 
@@ -56,7 +56,7 @@ Ein Seitenpanel öffnet sich mit buntem Code. Das ist der **HTML-Quellcode** der
 Jetzt veränderst du die Seite — nur für dich, auf deinem Bildschirm.
 
 1. Im Inspector-Panel siehst du den HTML-Code. Suche eine Zeile mit sichtbarem Text — zum Beispiel eine Überschrift.
-2. **Doppelklicke** auf den Text innerhalb des Tags (nicht auf den Tag selbst).
+2. **Doppelklicke** auf das Wort selbst im Code (also auf `Hallo` innerhalb von `<h1>Hallo</h1>`) — nicht auf den Tag `<h1>`.
 3. Schreibe etwas anderes — zum Beispiel deinen Namen.
 4. Drücke **Enter**.
 
@@ -86,7 +86,7 @@ Die Farbe ändert sich sofort. Probiere auch `font-size: 60px` — die Überschr
 Wenn du eine Webseite öffnest, schickt dein Browser viele Anfragen auf einmal — nicht nur für die Seite selbst, sondern für Bilder, Schriften, Tracking-Scripts und mehr.
 
 1. Klicke im Inspector oben auf den Tab **„Netzwerk"** *(auf Englisch: „Network")*
-2. Lade die Seite neu: `Cmd + R` (Mac) oder `F5` (Windows)
+2. **Wichtig:** Lade die Seite jetzt erst neu — `Cmd + R` (Mac) oder `F5` (Windows). Der Network-Tab muss offen sein *bevor* du neu lädst, sonst siehst du nicht alles.
 3. Schau dir die Liste an: wie viele Zeilen tauchen auf?
 
 Jede Zeile ist eine Anfrage an einen Server. Klicke auf eine Zeile — du siehst wohin die Anfrage geht und was zurückkommt.

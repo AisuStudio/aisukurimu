@@ -23,11 +23,15 @@ language: de
 
 ## Was du brauchst
 
-Den Code aus **Aufgabe 3** als Startpunkt — du hast ja schon eine Liste deiner Brawler. Jetzt soll dein Programm da hineinschauen und sich den besten merken.
+Den Code aus **Aufgabe 3** als Startpunkt — du hast ja schon eine Liste deiner Brawler. Falls du Aufgabe 3 noch nicht gemacht hast: Der vollständige Startcode steht unten, du kannst direkt einsteigen.
+
+Für **Thonny** und **Terminal** → [Werkzeuge-Seite](/werkzeuge/)
 
 ## Was neu ist
 
-Eine **if-Bedingung** — also ein „falls das passt, dann …". Und eine **Merker-Variable**, die sich während der Schleife daran erinnert, wer bisher der Beste war.
+**if-Bedingung** — „falls das passt, dann …". Zum Beispiel: `if 5 > 3: print("ja")` — Python prüft die Bedingung und führt die eingerückte Zeile nur aus, wenn sie stimmt.
+
+**Merker-Variable** — eine Variable, die sich während einer Schleife den bisher besten Wert merkt. Am Anfang ist sie leer (`""`), und wird überschrieben, sobald etwas Besseres auftaucht.
 
 ## Dein Programm
 

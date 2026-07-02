@@ -25,6 +25,8 @@ language: de
 
 Nur deinen Rechner und seinen **Befehlsraum**. Auf dem Mac heißt der **Terminal**, auf Windows **PowerShell**. Beide sind ein schwarzes (oder weißes) Fenster, in dem du dem Rechner direkt etwas sagen kannst — mit Worten, nicht mit Klicks.
 
+Falls Terminal oder PowerShell noch nicht eingerichtet ist → [Werkzeuge-Seite](/werkzeuge/)
+
 ## Was neu ist
 
 **Befehle**. Ein Befehl ist ein winziges Programm, das nur eine einzige Aufgabe hat. Du tippst ihn, drückst **Enter**, und der Rechner antwortet sofort.

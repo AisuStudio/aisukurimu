@@ -18,7 +18,9 @@ language: de
 
 # Rätsel-Serie 01 — Erste Schritte
 
-Zwölf kurze Rätsel zu **Hacking**, **Sicherheit** und **systemischem Denken**. Für absolute Einsteiger:innen — du brauchst kein Vorwissen und keine Programmierkenntnisse. Probier es einfach. Wenn du nicht weiterkommst: klick auf "Lösung anzeigen", und du lernst etwas Neues.
+Zwölf kurze Rätsel zu **Hacking**, **Sicherheit** und **systemischem Denken**. Für absolute Einsteiger:innen — du brauchst kein Vorwissen und keine Programmierkenntnisse. Probier es einfach.
+
+<div id="akq-root"></div>
 
 ---
 
@@ -275,3 +277,194 @@ Open Source bedeutet: der **Quellcode** (also der Bauplan der Software) ist öff
 - **0–3:** Perfekt — du startest mit einem frischen Kopf. Das meiste hier hat noch niemand erklärt, jetzt fängt's an.
 
 Die nächste Rätsel-Serie wird etwas schwieriger und tiefer — wir gehen rein in Netzwerke, Verschlüsselung und systemische Hebelpunkte.
+
+<script>
+(function(){
+  var L=['A','B','C','D'];
+  var Q=[
+    {t:'Rätsel 01',q:'Was ist ein Cookie im Internet?',opts:['Ein digitaler Keks zum Essen','Eine kleine Textdatei, die sich etwas über dich merkt','Ein Virus','Ein verstecktes Spiel'],c:1,x:'Cookies sind winzige Textdateien, die Webseiten in deinem Browser ablegen. Manche sind nützlich (sie merken sich, dass du eingeloggt bist). Andere sind Tracker — sie verfolgen dich von Seite zu Seite und sammeln Daten über dein Verhalten.'},
+    {t:'Rätsel 02',q:'Welches Passwort ist am sichersten?',opts:['12345678','password','MaxMuster2010','pT9!kraNz-Erbse$wolke'],c:3,x:'Ein gutes Passwort ist lang (12+ Zeichen), gemischt (Buchstaben, Zahlen, Sonderzeichen) und nicht erratbar. Die Variante D ist ein Passsatz aus mehreren Wörtern — leicht zu merken, sehr schwer zu knacken. 12345678 und password stehen in jedem Hacker-Wörterbuch ganz oben.'},
+    {t:'Rätsel 03',q:'Welche E-Mail ist ein Phishing-Versuch?',opts:['"Hallo Mama, kannst du mir heute Abend kochen?"','"Ihre Amaz0n-Bestellung wurde nicht bestätigt — klicken Sie hier, um Ihre Daten zu aktualisieren!"','"Newsletter: 5 neue Bücher im Lieblingsverlag"','"Erinnerung: Zahnarzt-Termin am Freitag um 14 Uhr"'],c:1,x:'Drei Warnsignale: Zeichenersatz (0 statt o = Amaz0n), künstlicher Druck ("nicht bestätigt!"), Aufforderung Daten einzugeben. Echte Firmen verlangen das nie per E-Mail.'},
+    {t:'Rätsel 04',q:'Im Café-WLAN: Was solltest du nicht tun?',opts:['Eine Lieblingswebseite anschauen','Ein YouTube-Video gucken','Dich beim Online-Banking einloggen','Mit Freunden chatten'],c:2,x:'Im öffentlichen WLAN können andere im gleichen Netz mit etwas Aufwand mitlesen. Beim Online-Banking sind deine Zugangsdaten in Gefahr. Besser: Mobile Daten nutzen — oder ein VPN.'},
+    {t:'Rätsel 05',q:'Was ist ein White-Hat-Hacker?',opts:['Jemand, der Computer kaputt macht, um Geld zu erpressen','Jemand, der Sicherheitslücken sucht — aber nur, um sie melden und reparieren zu lassen','Jemand, der Online-Bankkonten leerräumt','Jemand, der nur in Filmen vorkommt'],c:1,x:'White-Hat: sucht Lücken, um zu helfen (ethical hacker). Black-Hat: macht Schaden, klaut Daten. Gray-Hat: dazwischen. Bei aisukurimu lernen wir immer White-Hat — verstehen, nicht ausnutzen.'},
+    {t:'Rätsel 06',q:'Was bedeutet 2-Faktor-Authentifizierung (2FA)?',opts:['Du brauchst zwei Passwörter','Du loggst dich zweimal pro Tag ein','Du brauchst zusätzlich zum Passwort eine zweite Bestätigung — z. B. einen Code aufs Handy','Du wirst von zwei Personen kontrolliert'],c:2,x:'2FA kombiniert etwas, das du weißt (Passwort) mit etwas, das du hast (Handy). Selbst wenn jemand dein Passwort klaut, kommt er ohne dein Handy nicht rein. Eine der effektivsten Schutzmaßnahmen überhaupt.'},
+    {t:'Rätsel 07',q:'Das Schloss-Symbol im Browser bedeutet …',opts:['Die Webseite ist garantiert seriös','Niemand kann mitlesen, was du dort eintippst','Die Verbindung zwischen deinem Browser und der Webseite ist verschlüsselt','Die Webseite ist von einem Hacker gesperrt'],c:2,x:'Das Schloss zeigt, dass niemand auf dem Weg dazwischen (z. B. im WLAN) mitlesen kann. Es sagt aber nichts über die Vertrauenswürdigkeit der Seite aus — auch Phishing-Seiten haben heute meist ein Schloss.'},
+    {t:'Rätsel 08',q:'Was macht der Inkognito-Modus wirklich?',opts:['Niemand sieht mehr, was du im Internet machst','Dein Browser speichert keine Cookies oder Verlauf — der Internet-Anbieter sieht aber alles','Du bist komplett anonym','Webseiten können dich nicht mehr identifizieren'],c:1,x:'Inkognito ist privat gegenüber Personen, die deinen Computer benutzen. Dein Internet-Anbieter, die Schule, der WLAN-Besitzer und die besuchte Seite sehen weiterhin alles. Wirklich anonym: VPN + Tor-Browser.'},
+    {t:'Rätsel 09',q:'TikTok zeigt dir immer mehr ähnliche Videos — was ist das?',opts:['Eine Belohnungs-Schleife (positives Feedback)','Eine Strafe-Schleife (negatives Feedback)','Eine zufällige Schleife','Gar keine Schleife'],c:0,x:'Du schaust ein Video → App merkt es → zeigt ähnliche Videos → du schaust mehr → noch mehr davon. Eine verstärkende Feedback-Schleife — bewusst so gebaut, damit du länger in der App bleibst.'},
+    {t:'Rätsel 10',q:'CCC — was steckt dahinter?',opts:['Computer Club Center','Chaos Computer Club','Cyber Crime Control','Code Compiler Crew'],c:1,x:'Europas größte Hacker-Vereinigung, gegründet 1981 in Berlin. Sie betreiben Aufklärung über Sicherheit, decken Skandale auf (z. B. unsichere Wahlcomputer) und veranstalten jährlich den Chaos Communication Congress.'},
+    {t:'Rätsel 11',q:'Welches davon ist kein System?',opts:['Ein Schulgebäude mit Lehrer:innen, Schüler:innen, Stundenplan, Klingel','Das Internet','Ein einzelner Stein, der auf dem Boden liegt','Ein Computerspiel mit Spielfiguren, Regeln, Punktezahlen, Highscore'],c:2,x:'Ein System besteht aus mehreren Teilen, die miteinander interagieren. Eine Schule ist ein System. Das Internet ist ein System. Ein Spiel ist ein System. Ein einzelner Stein ist nur ein Ding.'},
+    {t:'Rätsel 12',q:'Open Source — was bedeutet das?',opts:['Die Software ist kostenlos','Jede:r darf sehen, wie sie gebaut ist, und sie verändern','Sie wurde im Freien programmiert','Sie funktioniert nur mit Internet'],c:1,x:'Der Quellcode (der Bauplan der Software) ist öffentlich — jede:r kann ihn anschauen, prüfen, verbessern, kopieren. Bekannte Beispiele: Linux, Firefox, VLC, Python. Der Kernwert ist Transparenz und Mitmachen.'}
+  ];
+
+  var root=document.getElementById('akq-root');
+  if(!root)return;
+
+  // Hide static question blocks
+  var prose=document.querySelector('.prose');
+  if(prose){
+    var hiding=false;
+    Array.from(prose.children).forEach(function(el){
+      var isR=el.tagName==='H2'&&el.textContent.trim().match(/^Rätsel/);
+      var isEnd=el.tagName==='HR'&&hiding;
+      if(isR) hiding=true;
+      if(hiding) el.style.display='none';
+    });
+  }
+
+  // Inject styles
+  var st=document.createElement('style');
+  st.textContent=[
+    '.akq{margin:2rem 0 3rem;font-family:"Public Sans",sans-serif}',
+    '.akq-prog{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}',
+    '.akq-track{flex:1;height:2px;background:rgba(31,25,52,0.15)}',
+    '.akq-fill{height:100%;background:#5100ff;transition:width .35s ease;width:0%}',
+    '.akq-plabel{font-family:"iA Writer Mono S",monospace;font-size:11px;color:#9e9c95;font-variant-numeric:tabular-nums;white-space:nowrap}',
+    '.akq-card{background:#1f1934;padding:2.25rem 2rem 2rem;position:relative;overflow:hidden}',
+    '.akq-ghost{position:absolute;top:-0.05em;right:-0.02em;font-family:"iA Writer Mono S",monospace;font-weight:bold;font-size:9rem;line-height:1;color:rgba(234,232,224,0.06);pointer-events:none;user-select:none;transition:opacity .3s}',
+    '.akq-ey{font-family:"iA Writer Mono S",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#d8ff01;margin:0 0 .6rem;position:relative}',
+    '.akq-qt{font-family:"iA Writer Mono S",monospace;font-weight:bold;font-size:1.15rem;line-height:1.4;color:#eae8e0;margin:0 0 1.5rem;position:relative;max-width:560px}',
+    '.akq-opts{display:flex;flex-direction:column;gap:.5rem;position:relative}',
+    '.akq-btn{display:flex;align-items:flex-start;gap:.7rem;padding:.75rem 1rem;background:rgba(234,232,224,0.05);border:1px solid rgba(234,232,224,0.12);cursor:pointer;text-align:left;font-family:"Public Sans",sans-serif;font-size:.9rem;line-height:1.45;color:#eae8e0;width:100%;transition:border-color .12s,background .12s}',
+    '.akq-btn:hover:not([disabled]){border-color:#d8ff01;background:rgba(216,255,1,0.07)}',
+    '.akq-btn:focus-visible{outline:2px solid #d8ff01;outline-offset:2px}',
+    '.akq-let{display:inline-flex;align-items:center;justify-content:center;min-width:1.5rem;height:1.5rem;background:rgba(234,232,224,0.1);font-family:"iA Writer Mono S",monospace;font-size:.68rem;font-weight:bold;color:#9e9c95;flex-shrink:0;transition:background .12s,color .12s}',
+    '.akq-btn.akq-ok{border-color:#d8ff01;background:rgba(216,255,1,0.1)}',
+    '.akq-btn.akq-ok .akq-let{background:#d8ff01;color:#1f1934}',
+    '.akq-btn.akq-err{border-color:#ff3a4a;background:rgba(255,58,74,0.08)}',
+    '.akq-btn.akq-err .akq-let{background:#ff3a4a;color:#fff}',
+    '.akq-btn[disabled]{cursor:default}',
+    '.akq-xp{display:none;margin-top:1rem;padding:.75rem 1rem;border-left:3px solid #d8ff01;background:rgba(216,255,1,0.05);font-size:.875rem;line-height:1.65;color:rgba(234,232,224,.82)}',
+    '.akq-xp.on{display:block}',
+    '.akq-nxt{display:none;margin-top:1.25rem;padding:.6rem 1.4rem;background:#d8ff01;color:#1f1934;border:none;font-family:"iA Writer Mono S",monospace;font-weight:bold;font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:opacity .1s}',
+    '.akq-nxt:hover{opacity:.85}',
+    '.akq-nxt.on{display:block}',
+    '.akq-res{display:none;background:#1f1934;padding:2.5rem 2rem;text-align:center}',
+    '.akq-rscore{font-family:"iA Writer Mono S",monospace;font-weight:bold;font-size:5.5rem;line-height:1;color:#d8ff01;font-variant-numeric:tabular-nums}',
+    '.akq-rof{font-family:"Public Sans",sans-serif;font-size:.875rem;color:#9e9c95;margin:.2rem 0 1.5rem}',
+    '.akq-rv{font-family:"iA Writer Mono S",monospace;font-weight:bold;font-size:1.1rem;text-transform:uppercase;color:#eae8e0;margin-bottom:.35rem}',
+    '.akq-rm{font-family:"Public Sans",sans-serif;font-size:.9rem;color:rgba(234,232,224,.7);max-width:380px;margin:0 auto 2rem;line-height:1.6}',
+    '.akq-bk{display:flex;flex-direction:column;gap:.4rem;text-align:left;margin-bottom:1.5rem}',
+    '.akq-bi{display:flex;align-items:flex-start;gap:.7rem;padding:.6rem .75rem;background:rgba(234,232,224,.04);border:1px solid rgba(234,232,224,.09);font-size:.83rem}',
+    '.akq-bico{flex-shrink:0;font-size:.85rem;margin-top:.1em}',
+    '.akq-biq{font-weight:600;color:#eae8e0;margin-bottom:.1rem;font-family:"Public Sans",sans-serif;font-size:.83rem}',
+    '.akq-bia{color:#9e9c95;font-family:"Public Sans",sans-serif;font-size:.77rem}',
+    '.akq-rst{padding:.6rem 1.4rem;background:transparent;color:#d8ff01;border:1px solid #d8ff01;font-family:"iA Writer Mono S",monospace;font-weight:bold;font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:background .12s}',
+    '.akq-rst:hover{background:rgba(216,255,1,.07)}'
+  ].join('');
+  document.head.appendChild(st);
+
+  // Build HTML
+  root.innerHTML='<div class="akq">'+
+    '<div class="akq-prog">'+
+      '<div class="akq-track"><div class="akq-fill" id="akqF"></div></div>'+
+      '<span class="akq-plabel" id="akqC">1 / 12</span>'+
+      '<span class="akq-plabel" id="akqS">0 richtig</span>'+
+    '</div>'+
+    '<div class="akq-card" id="akqCard">'+
+      '<div class="akq-ghost" id="akqG">01</div>'+
+      '<div class="akq-ey" id="akqEy"></div>'+
+      '<div class="akq-qt" id="akqQt"></div>'+
+      '<div class="akq-opts" id="akqO"></div>'+
+      '<div class="akq-xp" id="akqX"></div>'+
+      '<button class="akq-nxt" id="akqN">Weiter →</button>'+
+    '</div>'+
+    '<div class="akq-res" id="akqR">'+
+      '<div class="akq-rscore" id="akqRN">0</div>'+
+      '<div class="akq-rof">von 12 Fragen richtig</div>'+
+      '<div class="akq-rv" id="akqRV"></div>'+
+      '<div class="akq-rm" id="akqRM"></div>'+
+      '<div class="akq-bk" id="akqBK"></div>'+
+      '<button class="akq-rst" id="akqRST">↺ Nochmal versuchen</button>'+
+    '</div>'+
+  '</div>';
+
+  var cur=0,score=0,done=false,ua=[];
+
+  function pad(n){return n<10?'0'+n:''+n;}
+
+  function render(){
+    var q=Q[cur];
+    done=false;
+    document.getElementById('akqG').textContent=pad(cur+1);
+    document.getElementById('akqEy').textContent=q.t;
+    document.getElementById('akqQt').textContent=q.q;
+    document.getElementById('akqF').style.width=(cur/12*100)+'%';
+    document.getElementById('akqC').textContent=(cur+1)+' / 12';
+    document.getElementById('akqS').textContent=score+' richtig';
+    var xp=document.getElementById('akqX');
+    xp.textContent='';xp.className='akq-xp';
+    document.getElementById('akqN').className='akq-nxt';
+    var o=document.getElementById('akqO');
+    o.innerHTML='';
+    q.opts.forEach(function(opt,i){
+      var b=document.createElement('button');
+      b.className='akq-btn';
+      b.innerHTML='<span class="akq-let">'+L[i]+'</span><span>'+opt+'</span>';
+      b.addEventListener('click',function(){pick(i);});
+      o.appendChild(b);
+    });
+  }
+
+  function pick(idx){
+    if(done)return;
+    done=true;
+    var q=Q[cur];
+    var btns=document.querySelectorAll('.akq-btn');
+    btns.forEach(function(b){b.disabled=true;});
+    var ok=idx===q.c;
+    if(ok){score++;btns[idx].classList.add('akq-ok');}
+    else{btns[idx].classList.add('akq-err');btns[q.c].classList.add('akq-ok');}
+    ua[cur]={right:ok,ci:q.c};
+    var xp=document.getElementById('akqX');
+    xp.textContent=q.x;xp.classList.add('on');
+    var nb=document.getElementById('akqN');
+    nb.textContent=cur<11?'Weiter →':'Ergebnis anzeigen →';
+    nb.classList.add('on');
+  }
+
+  document.getElementById('akqN').addEventListener('click',function(){
+    cur++;
+    if(cur>=12)showRes();
+    else render();
+  });
+
+  function showRes(){
+    document.getElementById('akqCard').style.display='none';
+    var r=document.getElementById('akqR');
+    r.style.display='block';
+    document.getElementById('akqF').style.width='100%';
+    document.getElementById('akqRN').textContent=score;
+    document.getElementById('akqC').textContent='12 / 12';
+    document.getElementById('akqS').textContent=score+' richtig';
+    var pct=score/12;
+    var v,m;
+    if(pct===1){v='Perfekt — 12 / 12';m='Alle Fragen richtig. Beeindruckendes Wissen über digitale Sicherheit und Systemdenken.';}
+    else if(pct>=0.75){v='Sehr gut!';m='Du kennst dich schon richtig gut aus. Noch etwas Vertiefung, und du bist Profi.';}
+    else if(pct>=0.5){v='Solide Basis.';m='Gutes Grundwissen — schau dir die falsch beantworteten Erklärungen nochmal an.';}
+    else if(pct>=0.25){v='Guter Anfang.';m='Digitale Sicherheit ist komplex. Lies die Erklärungen durch und versuchs nochmal.';}
+    else{v='Frischer Start.';m='Keine Sorge — jede:r fängt irgendwo an. Die Erklärungen unten bringen dich schnell weiter.';}
+    document.getElementById('akqRV').textContent=v;
+    document.getElementById('akqRM').textContent=m;
+    var bk=document.getElementById('akqBK');
+    Q.forEach(function(q,i){
+      var u=ua[i];var right=u&&u.right;
+      var d=document.createElement('div');
+      d.className='akq-bi';
+      d.innerHTML='<span class="akq-bico" style="color:'+(right?'#d8ff01':'#ff3a4a')+'">'+(right?'✓':'✗')+'</span>'+
+        '<div><div class="akq-biq">'+q.q+'</div>'+
+        '<div class="akq-bia">Richtig: '+L[q.c]+' — '+q.opts[q.c]+'</div></div>';
+      bk.appendChild(d);
+    });
+  }
+
+  document.getElementById('akqRST').addEventListener('click',function(){
+    cur=0;score=0;done=false;ua=[];
+    document.getElementById('akqR').style.display='none';
+    document.getElementById('akqCard').style.display='block';
+    document.getElementById('akqBK').innerHTML='';
+    render();
+  });
+
+  render();
+})();
+</script>

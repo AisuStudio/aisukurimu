@@ -65,7 +65,7 @@ Erstelle in Thonny eine neue Datei `mein_key.txt`, füge deinen Schlüssel ein (
 
 ### 5 · Thonny vorbereiten
 
-Öffne **Thonny** (das blaue Python-Programm). Einmalig installierst du das Paket **requests**: **Tools** · **Manage packages** · "requests" suchen · **Install**.
+Öffne **Thonny** (das blaue Python-Programm — falls noch nicht installiert: → [Werkzeuge-Seite](/werkzeuge/)). Einmalig installierst du das Paket **requests**: **Tools** · **Manage packages** · "requests" suchen · **Install**.
 
 ---
 

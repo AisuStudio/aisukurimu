@@ -21,6 +21,8 @@ language: de
 
 > **Dein Ziel:** Finde heraus, welche Hardware in deinem Rechner steckt — und sieh nach, welche Programme im Hintergrund arbeiten, auch wenn du nichts machst.
 
+Du brauchst **Terminal** (Mac) oder **PowerShell** (Windows) — das kennst du schon aus Aufgabe 7. Falls nicht → [Werkzeuge-Seite](/werkzeuge/)
+
 ---
 
 ## Aufgabe 8 — Was steckt drin?
@@ -70,7 +72,7 @@ Get-CimInstance Win32_ComputerSystem |
   Select TotalPhysicalMemory
 ```
 
-**RAM** ist der Kurzzeitspeicher — was gerade benutzt wird, liegt dort. Die Zahl ist in **Bytes**. Um auf GB zu kommen:
+**RAM** ist der Kurzzeitspeicher — was gerade benutzt wird, liegt dort. Die Zahl kommt in **Bytes** — der kleinsten Speichereinheit. 1 GB = 1.024 × 1.024 × 1.024 Bytes. Um auf GB zu kommen:
 
 ```
 Bytes ÷ 1.073.741.824 = GB
@@ -105,7 +107,9 @@ Get-ChildItem 'C:\Program Files' |
   Measure-Object
 ```
 
-Hier passiert etwas **Neues**: das Zeichen `|` heißt **Pipe**. Es verbindet zwei Befehle: `ls` listet die Apps auf, `wc -l` zählt die Zeilen. Befehle kann man zusammenstecken wie Lego.
+Hier passiert etwas **Neues**: das Zeichen `|` heißt **Pipe**. Es verbindet zwei Befehle — das erste schreibt seine Ausgabe, das zweite liest sie direkt ein, wie Wasser durch ein Rohr. Hier: `ls` listet die Apps auf, `wc -l` zählt die Zeilen. Befehle kann man zusammenstecken wie Lego.
+
+> **Windows-Hinweis:** `Get-ChildItem 'C:\Program Files'` zählt Ordner in Program Files — das ist nicht dasselbe wie App-Bundles beim Mac, gibt aber eine gute Schätzung.
 
 ### 🔎 Mini-Forscherfrage
 
