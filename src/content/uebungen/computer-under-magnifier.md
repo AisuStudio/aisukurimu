@@ -70,7 +70,13 @@ Get-CimInstance Win32_ComputerSystem |
   Select TotalPhysicalMemory
 ```
 
-**RAM** ist der Kurzzeitspeicher — was gerade benutzt wird, liegt dort. Die Zahl ist in **Bytes**. Um auf GB zu kommen: durch 1.073.741.824 teilen (das sind 1024 × 1024 × 1024).
+**RAM** ist der Kurzzeitspeicher — was gerade benutzt wird, liegt dort. Die Zahl ist in **Bytes**. Um auf GB zu kommen:
+
+```
+Bytes ÷ 1.073.741.824 = GB
+```
+
+Beispiel: `8.589.934.592 ÷ 1.073.741.824 = 8 GB`
 
 ### Wie voll ist die Festplatte?
 
@@ -103,7 +109,7 @@ Hier passiert etwas **Neues**: das Zeichen `|` heißt **Pipe**. Es verbindet zwe
 
 ### 🔎 Mini-Forscherfrage
 
-Rechne `hw.memsize` in GB um — wie viel hat dein Rechner? Und: Warum gibt `df -h /` die Größe in GB oder TB, aber `sysctl hw.memsize` in Bytes? Was ist da der Unterschied?
+Rechne `hw.memsize` mit der Formel oben in GB um — wie viel hat dein Rechner? Und: Warum gibt `df -h /` die Größe schon fertig in GB oder TB, aber `sysctl hw.memsize` in rohen Bytes? Was ist da der Unterschied?
 
 ---
 
