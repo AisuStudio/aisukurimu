@@ -1,14 +1,50 @@
 ---
-import Base from '../layouts/Base.astro';
+import Base from '../../layouts/Base.astro';
+import { url } from '../../lib/url';
 ---
 
-<Base title="Terminal-Spiel" description="Lerne deine ersten Terminal-Befehle — direkt im Browser, ohne Installation.">
+<Base title="Aufgabe 10 — Terminal-Spiel" description="Lerne die ersten Terminal-Befehle — direkt im Browser, ohne Installation.">
   <section class="ts-page">
     <div class="container">
+      <img class="ts-hero" src={url('/images/AK_EX_0010.jpg')} alt="Terminal-Spiel" />
       <h1 class="h1-vanilla">Terminal-Spiel</h1>
-      <p class="p-small-vanilla ts-intro">
+      <p class="p-big ts-intro">
         Kein Download, keine Einrichtung. Tippe echte Terminal-Befehle — und sieh was passiert.
       </p>
+
+      <div class="ts-mission">
+        <p class="ts-mission-text">Deine erste Mission: Finde heraus wer du bist und wo du bist — und öffne die Geheimakte.</p>
+        <p class="ts-mission-start">Fang an mit <code class="ts-code">whoami</code> <span class="ts-etym">(engl. „Who am I?" → Wer bin ich?)</span> — alle Befehle zeigt dir <code class="ts-code">help</code></p>
+      </div>
+
+      <ul class="ts-checklist" id="ts-checklist">
+        <li class="ts-check" data-cmd="whoami">
+          <span class="ts-check-box">☐</span>
+          <span>Finde deinen Benutzernamen — <code class="ts-code">whoami</code></span>
+        </li>
+        <li class="ts-check" data-cmd="hostname">
+          <span class="ts-check-box">☐</span>
+          <span>Finde den Namen dieses Rechners — <code class="ts-code">hostname</code></span>
+        </li>
+        <li class="ts-check" data-cmd="ifconfig">
+          <span class="ts-check-box">☐</span>
+          <span>Schau deine lokale IP-Adresse an — <code class="ts-code">ifconfig</code></span>
+        </li>
+        <li class="ts-check" data-cmd="curl ifconfig.me">
+          <span class="ts-check-box">☐</span>
+          <span>Finde deine externe IP — <code class="ts-code">curl ifconfig.me</code></span>
+        </li>
+        <li class="ts-check" data-cmd="ping">
+          <span class="ts-check-box">☐</span>
+          <span>Ping einen Rechner an — <code class="ts-code">ping lab.aisu.studio</code></span>
+        </li>
+        <li class="ts-check" data-cmd="cat geheimakte.txt">
+          <span class="ts-check-box">☐</span>
+          <span>Öffne die Geheimakte — <code class="ts-code">cat geheimakte.txt</code></span>
+        </li>
+      </ul>
+
+      <p class="ts-all-done" id="ts-alldone">✓ Mission erfüllt — du kennst jetzt die wichtigsten Terminal-Befehle!</p>
 
       <div class="ts-window">
         <div class="ts-titlebar">
@@ -48,9 +84,103 @@ import Base from '../layouts/Base.astro';
     padding: var(--sp-3xl) 0 var(--sp-3xl);
   }
 
+  .ts-hero {
+    width: 100%;
+    max-width: 760px;
+    border-radius: 4px;
+    display: block;
+    margin-bottom: var(--sp-xl);
+  }
+
   .ts-intro {
-    margin: var(--sp-md) 0 var(--sp-xl);
+    margin: var(--sp-md) 0 var(--sp-lg);
     max-width: 540px;
+  }
+
+  /* ── Checklist ── */
+  .ts-checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--sp-xl);
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-sm);
+  }
+
+  .ts-check {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-sm);
+    font-family: "Public Sans", sans-serif;
+    font-size: 15px;
+    line-height: 22px;
+    color: var(--ak-vanilla-bg);
+    transition: opacity 0.2s;
+  }
+
+  .ts-check-box {
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 16px;
+    color: var(--ak-hazelnut);
+    flex-shrink: 0;
+    width: 1.2em;
+    transition: color 0.2s;
+  }
+
+  .ts-check.done {
+    opacity: 0.5;
+  }
+
+  .ts-check.done .ts-check-box {
+    color: #28c840;
+  }
+
+  .ts-all-done {
+    display: none;
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 14px;
+    color: #28c840;
+    margin-bottom: var(--sp-xl);
+    max-width: 760px;
+  }
+
+  .ts-mission {
+    max-width: 760px;
+    margin-bottom: var(--sp-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-xs);
+  }
+
+  .ts-mission-text {
+    font-family: "Public Sans", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--ak-vanilla-bg);
+    margin: 0;
+  }
+
+  .ts-mission-start {
+    font-family: "Public Sans", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--ak-vanilla-bg);
+    margin: 0;
+  }
+
+  .ts-etym {
+    color: var(--ak-hazelnut);
+    font-size: 14px;
+  }
+
+  .ts-code {
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 14px;
+    background: var(--ak-container);
+    color: var(--ak-raspberry-h);
+    padding: 1px 6px;
+    border-radius: 3px;
   }
 
   /* ── Terminal window chrome ── */
@@ -271,18 +401,20 @@ import Base from '../layouts/Base.astro';
       line('Verfügbare Befehle:', 'muted');
       blank();
       const cmds = [
-        ['whoami',              'Wer bin ich?'],
-        ['hostname',            'Wie heißt dieser Rechner?'],
-        ['date',                'Welches Datum hat der Rechner?'],
-        ['uptime',              'Wie lange läuft der Rechner schon?'],
-        ['ls',                  'Dateien im aktuellen Ordner zeigen'],
-        ['cat [dateiname]',     'Inhalt einer Datei lesen'],
-        ['echo [text]',         'Text auf dem Bildschirm ausgeben'],
-        ['clear',               'Bildschirm leeren'],
-        ['help',                'Diese Liste anzeigen'],
+        ['whoami',         'Who am I?',     'Wer bin ich?'],
+        ['hostname',       'Host Name',     'Name dieses Rechners'],
+        ['ifconfig',       'If Config',     'Netzwerk & IP-Adresse'],
+        ['ping [host]',    'Ping',          'Einen anderen Rechner anpingen'],
+        ['date',           'Date',          'Datum und Uhrzeit'],
+        ['uptime',         'Up Time',       'Wie lange läuft der Rechner?'],
+        ['ls',             'List',          'Dateien im Ordner zeigen'],
+        ['cat [datei]',    'Concatenate',   'Inhalt einer Datei lesen'],
+        ['echo [text]',    'Echo',          'Text ausgeben'],
+        ['clear',          'Clear',         'Bildschirm leeren'],
+        ['help',           'Help',          'Diese Liste anzeigen'],
       ];
       cmds.forEach(function (c) {
-        line('  ' + c[0].padEnd(22) + c[1]);
+        line('  ' + c[0].padEnd(16) + c[1].padEnd(16) + '→ ' + c[2]);
       });
     },
 
@@ -323,6 +455,36 @@ import Base from '../layouts/Base.astro';
       }
     },
 
+    ifconfig: function () {
+      line('lo0: flags=8049<UP,LOOPBACK>');
+      line('     inet 127.0.0.1');
+      line('en0: flags=8863<UP,BROADCAST,RUNNING>');
+      line('     inet 192.168.1.' + (Math.floor(Math.random() * 200) + 10) + '  (lokale IP)');
+      blank();
+      line('Deine externe IP erfährst du mit:  curl ifconfig.me', 'muted');
+    },
+
+    curl: function (args) {
+      const target = args[0] || '';
+      if (target === 'ifconfig.me') {
+        line('93.184.' + (Math.floor(Math.random() * 50) + 10) + '.' + (Math.floor(Math.random() * 200) + 10));
+      } else {
+        line('curl: ' + (target || '(kein Ziel)') + ': im Spiel nicht verfügbar', 'error');
+      }
+    },
+
+    ping: function (args) {
+      const host = args[0] || 'lab.aisu.studio';
+      line('PING ' + host);
+      var ms = [12, 14, 11, 13];
+      ms.forEach(function (t, i) {
+        line('64 bytes from ' + host + ': icmp_seq=' + (i+1) + ' ttl=64 time=' + t + ' ms');
+      });
+      blank();
+      line('--- ' + host + ' ping statistics ---');
+      line('4 packets transmitted, 4 received, 0% packet loss');
+    },
+
     echo: function (args) {
       line(args.join(' '));
     },
@@ -338,15 +500,23 @@ import Base from '../layouts/Base.astro';
     line('║   aisu@lab — Terminal-Spiel v1.0          ║');
     line('╚═══════════════════════════════════════════╝');
     blank();
-    line('Willkommen, Agent. Dein Deckname: aisu.', 'success');
-    blank();
-    line('Mission: Finde heraus wer du bist, wo du bist,');
-    line('         und was in der Geheimakte steht.');
-    blank();
-    line('Tipp: Fang mit   whoami   an.', 'muted');
-    line('Alle Befehle:    help', 'muted');
+    line('Alle Befehle:  help', 'muted');
     blank();
     scrollDown();
+  }
+
+  // ── Checklist ──
+  function check(key) {
+    const item = document.querySelector('.ts-check[data-cmd="' + key + '"]');
+    if (item && !item.classList.contains('done')) {
+      item.classList.add('done');
+      item.querySelector('.ts-check-box').textContent = '✓';
+      const allDone = document.querySelectorAll('.ts-check:not(.done)').length === 0;
+      if (allDone) {
+        const msg = document.getElementById('ts-alldone');
+        if (msg) msg.style.display = 'block';
+      }
+    }
   }
 
   // ── Execute command ──
@@ -365,6 +535,14 @@ import Base from '../layouts/Base.astro';
 
     if (COMMANDS[cmd]) {
       COMMANDS[cmd](args);
+      // check off matching task
+      if (cmd === 'curl' && args[0] === 'ifconfig.me') {
+        check('curl ifconfig.me');
+      } else if (cmd === 'cat' && args[0] === 'geheimakte.txt') {
+        check('cat geheimakte.txt');
+      } else {
+        check(cmd);
+      }
     } else {
       line('bash: ' + cmd + ': command not found — tippe \'help\' für alle Befehle', 'error');
     }

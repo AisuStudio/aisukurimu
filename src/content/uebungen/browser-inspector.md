@@ -1,4 +1,5 @@
 ---
+order: 5
 title: "Aufgabe 5 — Der Browser unter der Lupe"
 description: "Schau hinter die Kulissen jeder Webseite — verändere Text und Farben live, und sieh was dein Browser heimlich alles herunterlädt."
 slug: browser-inspector

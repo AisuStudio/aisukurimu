@@ -1,4 +1,5 @@
 ---
+order: 8
 title: "Aufgabe 8 + 9 — Mein Rechner unter der Lupe"
 description: "Schau unter die Motorhaube deines Rechners — Hardware, Prozesse, Pipes und Umleitungen."
 slug: computer-under-magnifier

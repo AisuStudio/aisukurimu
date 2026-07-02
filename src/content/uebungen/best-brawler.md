@@ -1,4 +1,5 @@
 ---
+order: 4
 title: "Aufgabe 4 — Mein bester Brawler"
 description: "Finde mit if-Bedingung und Merker-Variable deinen Brawler mit den meisten Trophäen."
 slug: best-brawler

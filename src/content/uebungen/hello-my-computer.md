@@ -1,4 +1,5 @@
 ---
+order: 7
 title: "Aufgabe 7 — Hallo, mein Rechner!"
 description: "Sprich zum ersten Mal direkt mit deinem Rechner — er sagt wer er ist und wie lange er läuft."
 slug: hello-my-computer

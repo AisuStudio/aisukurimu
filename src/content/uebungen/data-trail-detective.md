@@ -1,4 +1,5 @@
 ---
+order: 6
 title: "Aufgabe 6 — Datenspuren-Detektiv"
 description: "Werde Detektiv für deine eigenen Daten — schreib ein Datenspuren-Dossier aus dem App Store."
 slug: data-trail-detective

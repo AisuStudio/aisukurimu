@@ -65,13 +65,15 @@ const imageSrc = image ? url(image) : null;
     display: flex;
     flex-direction: column;
     gap: var(--sp-md);
-    background: var(--ak-container);
+    background: rgba(31, 25, 52, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 0 0 4px 4px;
   }
 
-  .ex-caption { color: var(--ak-vanilla-bg) !important; }
-  .ex-desc { color: var(--ak-vanilla-bg) !important; }
-  .ex-tags { color: var(--ak-raspberry-h) !important; }
+  .ex-caption { color: var(--ak-bg-dark) !important; }
+  .ex-desc { color: var(--ak-bg-dark) !important; }
+  .ex-tags { color: var(--ak-lemon-accent) !important; }
 
   /* Smaller variant of h2-lcontainer for use inside cards */
   .ex-caption {
@@ -81,5 +83,5 @@ const imageSrc = image ? url(image) : null;
 
   .ex-desc { /* Inherits .p-small-vanilla styling */ }
   .ex-tags { margin: 0; }
-  .ex-meta { margin: 0; opacity: 0.7; }
+  .ex-meta { margin: 0; color: var(--ak-container) !important; opacity: 0.9; }
 </style>

@@ -5,7 +5,7 @@ import ExerciseCard from '../../components/ExerciseCard.astro';
 import { url } from '../../lib/url';
 
 const items = (await getCollection('uebungen', ({ data }) => data.published !== false))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
 ---
 
 <Base title="Übungen" description="Übungen, Aufgaben und Rätsel — von Hacking über Coding bis Systemdenken.">

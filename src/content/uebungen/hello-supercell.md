@@ -1,4 +1,5 @@
 ---
+order: 1
 title: "Aufgaben 1 – 3 — Hallo, Supercell!"
 description: "Schreib dein erstes Programm, das mit Supercell spricht — und hol dir Daten aus deinem Brawl-Stars-Account ins Python."
 slug: hello-supercell
