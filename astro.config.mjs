@@ -6,8 +6,8 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://aisustudio.github.io',
-	base: '/aisukurimu',
+	site: 'https://lab.aisu.studio',
+	base: '/',
 	trailingSlash: 'always',
 	integrations: [mdx(), sitemap()],
 });
