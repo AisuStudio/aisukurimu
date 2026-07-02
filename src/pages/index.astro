@@ -14,27 +14,23 @@ const exercises = (await getCollection('uebungen', ({ data }) => data.published 
   {/* ===================== HERO ===================== */}
   <section class="home-hero">
     <div class="container">
+      <img class="hero-image" src={url('/images/AK_EX_0000.jpg')} alt="" />
+      <div class="hero-eyebrow">
+        <span class="caption">HACKING</span>
+        <span class="caption pipe">|</span>
+        <span class="caption">CODING MAKING</span>
+        <span class="caption pipe">|</span>
+        <span class="caption">SYSTEMISCHES</span>
+        <span class="caption pipe">|</span>
+        <span class="caption">DENKEN</span>
+      </div>
       <div class="hero-grid">
-        <div class="hero-text">
-          <div class="hero-eyebrow">
-            <span class="caption">HACKING</span>
-            <span class="caption pipe">|</span>
-            <span class="caption">CODING MAKING</span>
-            <span class="caption pipe">|</span>
-            <span class="caption">SYSTEMISCHES</span>
-            <span class="caption pipe">|</span>
-            <span class="caption">DENKEN</span>
-          </div>
-          <h1 class="h1-vanilla">Lerne die Welt wie ein Hacker zu lesen</h1>
-          <p class="hero-lede p-big">
-            Entdecke die unsichtbaren Strukturen hinter der Technik. Wir lernen nicht nur
-            programmieren, sondern verstehen, wie Systeme funktionieren, wie sich Code verhält
-            und warum manche Dinge so sind, wie sie sind.
-          </p>
-        </div>
-        <div class="hero-image-slot">
-          <img class="hero-image" src={url('/images/AK_INDEX_SPLASH.jpg')} alt="Aisu im Regen" />
-        </div>
+        <h1 class="h1-vanilla">Schau hinter deinen Monitor!</h1>
+        <p class="hero-lede p-big">
+          Entdecke die unsichtbaren Strukturen hinter der Technik. Wie funktionieren Computer
+          Systeme und Programme, wo sind ihre Schwachstellen. Hier lernt ihr Schritt für Schritt
+          sicherer mit dem Internet und eurem Computer umzugehen.
+        </p>
       </div>
     </div>
   </section>
@@ -46,8 +42,7 @@ const exercises = (await getCollection('uebungen', ({ data }) => data.published 
     <div class="container">
       <h2 class="h1-vanilla cursor">Übungen</h2>
       <p class="section-intro p-small-vanilla">
-        Kleine, eigenständige Aufgaben — von „Hallo Brawl Stars" bis „mein Rechner unter der Lupe".
-        Du kannst sie in beliebiger Reihenfolge angehen.
+        Schon mal hinter deine Brawler geschaut, eine Alarmanlage ausgeschaltet oder einen Text kodiert? Hack dich einfach durch die Aufgaben und finde es raus!
       </p>
 
       <div class="cards-grid">
@@ -102,7 +97,25 @@ const exercises = (await getCollection('uebungen', ({ data }) => data.published 
 
 <style>
   /* -- Hero -- */
-  .home-hero { padding: var(--sp-3xl) 0; }
+  .home-hero { padding: 0 0 var(--sp-3xl); }
+
+  .hero-image {
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    object-fit: cover;
+    display: block;
+    border-radius: 4px;
+    margin-bottom: var(--sp-xl);
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--sp-sm);
+    margin: 0 0 var(--sp-xl);
+  }
+  .hero-eyebrow .pipe { color: var(--ak-raspberry-h); }
 
   .hero-grid {
     display: grid;
@@ -111,23 +124,7 @@ const exercises = (await getCollection('uebungen', ({ data }) => data.published 
     align-items: center;
   }
 
-  .hero-eyebrow {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--sp-sm);
-    margin: 0 0 var(--sp-md);
-  }
-  .hero-eyebrow .pipe { color: var(--ak-raspberry-h); }
-
-  .hero-lede { margin-top: var(--sp-lg); }
-
-  .hero-image {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    display: block;
-    border-radius: 4px;
-  }
+  .hero-lede { margin: 0; }
 
   /* -- Übungen section -- */
   .home-uebungen { padding: var(--sp-3xl) 0; }
@@ -172,7 +169,7 @@ const exercises = (await getCollection('uebungen', ({ data }) => data.published 
     .cards-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 720px) {
-    .hero-grid,
+    .hero-grid { grid-template-columns: 1fr; }
     .ueber-grid { grid-template-columns: 1fr; }
     .cards-grid { grid-template-columns: 1fr; }
   }
