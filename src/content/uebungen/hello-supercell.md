@@ -160,6 +160,8 @@ for brawler in brawler_liste:
 
 **Achtung Einrückung:** Die Zeile nach `for` muss eingerückt sein — bei Python ist die Einrückung Teil des Codes.
 
+> **Hinweis:** Die Brawler-Namen kommen auf **Englisch** aus der API — also `SHELLY`, `COLT`, `BULL` usw., nicht die deutschen Namen aus dem Spiel. Das ist normal.
+
 ### 🔎 Mini-Forscherfrage
 
 Welcher deiner Brawler hat die meisten Trophäen? Such ihn **mit den Augen** in der Liste. Und denk schon mal nach: Wie könnte dein **Programm** ihn von selbst finden, ohne dass du hinschaust? (Das machen wir in Aufgabe 4.)

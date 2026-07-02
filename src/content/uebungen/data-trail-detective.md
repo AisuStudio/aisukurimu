@@ -37,13 +37,13 @@ Zwei neue Werkzeuge:
 
 Such dir drei Apps aus, die du regelmäßig nutzt — z. B. **Brawl Stars**, **TikTok**, **WhatsApp**, **YouTube**, **Roblox**.
 
-Für jede App: Gehe auf **apps.apple.com**, suche die App, scrolle runter bis zum Abschnitt **„App-Datenschutz"**. Apple zeigt dort drei Kategorien:
+Für jede App: Gehe auf **apps.apple.com**, suche die App, scrolle runter bis zum Abschnitt **„App-Datenschutz"** *(auf Englisch: "App Privacy")*. Apple zeigt dort drei Kategorien:
 
-- *Daten zur Nachverfolgung anderer Apps oder Webseiten*
-- *Mit dir verknüpfte Daten*
-- *Nicht mit dir verknüpfte Daten*
+- *Daten zur Nachverfolgung anderer Apps oder Webseiten* *("Data Used to Track You")*
+- *Mit dir verknüpfte Daten* *(„Data Linked to You")*
+- *Nicht mit dir verknüpfte Daten* *(„Data Not Linked to You")*
 
-Wir konzentrieren uns auf **„Mit dir verknüpfte Daten"** — das ist die spannendste Kategorie. Notiere für jede App, welche Datentypen dort auftauchen (z. B. Standort, Käufe, Kontakte, Identifier, Suchverlauf …).
+Wir konzentrieren uns auf **„Mit dir verknüpfte Daten" / "Data Linked to You"** — das ist die spannendste Kategorie. Notiere für jede App, welche Datentypen dort auftauchen (z. B. Standort, Käufe, Kontakte, Identifier, Suchverlauf …).
 
 ## Schritt 2 — Deine Funde in Python eintragen
 
