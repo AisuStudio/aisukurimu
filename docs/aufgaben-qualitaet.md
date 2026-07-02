@@ -49,7 +49,7 @@ Vor dem Veröffentlichen jede Aufgabe gegen diese Checkliste prüfen.
 
 ---
 
-## Prompt-Template für neue Aufgaben
+## Schreib-Prompt (neue Aufgabe erstellen)
 
 Beim Schreiben einer neuen Aufgabe diesen Prompt verwenden (z.B. mit Claude):
 
@@ -71,6 +71,37 @@ Regeln:
 - Kein Schritt erfordert Login oder externe Abhängigkeit — oder wenn doch: als "Vorbereitung mit Lehrer" kennzeichnen
 - Sprache: einfaches Deutsch, du-Form, keine Fachbegriffe ohne Erklärung
 - Nach dem Schreiben: Aufgabe einmal selbst durchführen und Zeit stoppen
+```
+
+---
+
+## Test-Prompt (fertige Aufgabe prüfen)
+
+Nach dem Schreiben: diesen Prompt mit der fertigen Aufgabe an Claude schicken.
+
+```
+Du bist ein Kind, 10 Jahre alt, das zum ersten Mal am Computer sitzt.
+Du hast kein Vorwissen. Du folgst der Aufgabe Schritt für Schritt.
+
+Aufgabe:
+[HIER AUFGABE EINFÜGEN]
+
+Gehe jeden Schritt durch und melde:
+1. Wo wärst du das erste Mal unsicher oder verwirrt?
+2. Gibt es einen Schritt, der ein Ergebnis verspricht das du nicht siehst?
+3. Gibt es Begriffe die nicht erklärt werden?
+4. Gibt es externe Dienste / Apps die sich ändern könnten?
+5. Wo würdest du aufhören?
+
+Dann: Vergib 0–2 Punkte für:
+- Klares Ziel
+- Wow-Moment vorhanden
+- Keine externen Abhängigkeiten
+- Kein Gedankensprung
+- 10-Jährigen-Test bestanden
+- Mac + Windows vollständig
+
+Max. 12 Punkte. Unter 10: überarbeiten und neu testen.
 ```
 
 ---

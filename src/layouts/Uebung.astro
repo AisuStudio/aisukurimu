@@ -17,11 +17,12 @@ interface Props {
   tags?: string[];
   image?: string;
   subtype?: 'exercise' | 'raetsel';
+  requiredTools?: string[];
 }
 
 const {
   title, description, category, level, duration, platforms,
-  tags = [], image, subtype = 'exercise',
+  tags = [], image, subtype = 'exercise', requiredTools = [],
 } = Astro.props as Props;
 ---
 
@@ -42,6 +43,16 @@ const {
         <dl class="ueb-meta">
           <div><dt>Dauer</dt><dd>{duration} min</dd></div>
           <div><dt>Plattform</dt><dd>{platforms.join(' · ')}</dd></div>
+          {requiredTools.length > 0 && (
+            <div>
+              <dt>Werkzeuge</dt>
+              <dd class="ueb-tools">
+                {requiredTools.map((tool) => (
+                  <a class="ueb-tool-link" href={url('/werkzeuge/')}>{tool}</a>
+                ))}
+              </dd>
+            </div>
+          )}
           {tags.length > 0 && (
             <div><dt>Tags</dt><dd>{tags.join(', ')}</dd></div>
           )}
@@ -107,6 +118,30 @@ const {
     font-family: "Public Sans", sans-serif;
     color: var(--ak-vanilla-bg);
     margin: var(--sp-xs) 0 0;
+  }
+
+  .ueb-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-sm);
+  }
+
+  .ueb-tool-link {
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--ak-raspberry-h);
+    text-decoration: none;
+    border: 1px solid var(--ak-raspberry-h);
+    padding: 2px 8px;
+    border-radius: 3px;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .ueb-tool-link:hover {
+    background: var(--ak-raspberry-h);
+    color: var(--ak-bg-dark);
   }
 
   .ueb-body { padding: var(--sp-xl) 0 var(--sp-3xl); }
