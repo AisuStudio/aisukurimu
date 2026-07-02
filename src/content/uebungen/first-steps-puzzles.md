@@ -66,9 +66,11 @@ Ein gutes Passwort hat drei Eigenschaften: **lang** (mindestens 12 Zeichen), **g
 
 ## Rätsel 3 — Welche E-Mail ist verdächtig?
 
+**Phishing** bedeutet: jemand gibt sich als vertrauenswürdige Person oder Firma aus, um dich dazu zu bringen, Passwörter oder Daten einzugeben. Der Name kommt von "fishing" — angeln nach deinen Daten.
+
 Du bekommst diese vier Mails. Welche ist am ehesten ein **Phishing-Versuch**?
 
-- **(A)** "Hallo Mama, kannst du mir heute Abend kochen?"
+- **(A)** "Hallo Mama, kannst du mir heute Spaghetti mit Tomatensoße kochen?"
 - **(B)** "Ihre Amaz0n-Bestellung wurde nicht bestätigt — klicken Sie hier, um Ihre Daten zu aktualisieren!"
 - **(C)** "Newsletter: 5 neue Bücher im Lieblingsverlag"
 - **(D)** "Erinnerung: Zahnarzt-Termin am Freitag um 14 Uhr"
@@ -284,7 +286,7 @@ Die nächste Rätsel-Serie wird etwas schwieriger und tiefer — wir gehen rein 
   var Q=[
     {t:'Rätsel 01',q:'Was ist ein Cookie im Internet?',opts:['Ein digitaler Keks zum Essen','Eine kleine Textdatei, die sich etwas über dich merkt','Ein Virus','Ein verstecktes Spiel'],c:1,x:'Cookies sind winzige Textdateien, die Webseiten in deinem Browser ablegen. Manche sind nützlich (sie merken sich, dass du eingeloggt bist). Andere sind Tracker — sie verfolgen dich von Seite zu Seite und sammeln Daten über dein Verhalten.'},
     {t:'Rätsel 02',q:'Welches Passwort ist am sichersten?',opts:['12345678','password','MaxMuster2010','pT9!kraNz-Erbse$wolke'],c:3,x:'Ein gutes Passwort ist lang (12+ Zeichen), gemischt (Buchstaben, Zahlen, Sonderzeichen) und nicht erratbar. Die Variante D ist ein Passsatz aus mehreren Wörtern — leicht zu merken, sehr schwer zu knacken. 12345678 und password stehen in jedem Hacker-Wörterbuch ganz oben.'},
-    {t:'Rätsel 03',q:'Welche E-Mail ist ein Phishing-Versuch?',opts:['"Hallo Mama, kannst du mir heute Abend kochen?"','"Ihre Amaz0n-Bestellung wurde nicht bestätigt — klicken Sie hier, um Ihre Daten zu aktualisieren!"','"Newsletter: 5 neue Bücher im Lieblingsverlag"','"Erinnerung: Zahnarzt-Termin am Freitag um 14 Uhr"'],c:1,x:'Drei Warnsignale: Zeichenersatz (0 statt o = Amaz0n), künstlicher Druck ("nicht bestätigt!"), Aufforderung Daten einzugeben. Echte Firmen verlangen das nie per E-Mail.'},
+    {t:'Rätsel 03',q:'Welche E-Mail ist ein Phishing-Versuch?',intro:'Phishing bedeutet: jemand gibt sich als vertrauenswürdige Person oder Firma aus, um dich dazu zu bringen, Passwörter oder Daten einzugeben. Der Name kommt von "fishing" — angeln nach deinen Daten.',opts:['"Hallo Mama, kannst du mir heute Spaghetti mit Tomatensoße kochen?"','"Ihre Amaz0n-Bestellung wurde nicht bestätigt — klicken Sie hier, um Ihre Daten zu aktualisieren!"','"Newsletter: 5 neue Bücher im Lieblingsverlag"','"Erinnerung: Zahnarzt-Termin am Freitag um 14 Uhr"'],c:1,x:'Drei Warnsignale: Zeichenersatz (0 statt o = Amaz0n), künstlicher Druck ("nicht bestätigt!"), Aufforderung Daten einzugeben. Echte Firmen verlangen das nie per E-Mail.'},
     {t:'Rätsel 04',q:'Im Café-WLAN: Was solltest du nicht tun?',opts:['Eine Lieblingswebseite anschauen','Ein YouTube-Video gucken','Dich beim Online-Banking einloggen','Mit Freunden chatten'],c:2,x:'Im öffentlichen WLAN können andere im gleichen Netz mit etwas Aufwand mitlesen. Beim Online-Banking sind deine Zugangsdaten in Gefahr. Besser: Mobile Daten nutzen — oder ein VPN.'},
     {t:'Rätsel 05',q:'Was ist ein White-Hat-Hacker?',opts:['Jemand, der Computer kaputt macht, um Geld zu erpressen','Jemand, der Sicherheitslücken sucht — aber nur, um sie melden und reparieren zu lassen','Jemand, der Online-Bankkonten leerräumt','Jemand, der nur in Filmen vorkommt'],c:1,x:'White-Hat: sucht Lücken, um zu helfen (ethical hacker). Black-Hat: macht Schaden, klaut Daten. Gray-Hat: dazwischen. Bei aisukurimu lernen wir immer White-Hat — verstehen, nicht ausnutzen.'},
     {t:'Rätsel 06',q:'Was bedeutet 2-Faktor-Authentifizierung (2FA)?',opts:['Du brauchst zwei Passwörter','Du loggst dich zweimal pro Tag ein','Du brauchst zusätzlich zum Passwort eine zweite Bestätigung — z. B. einen Code aufs Handy','Du wirst von zwei Personen kontrolliert'],c:2,x:'2FA kombiniert etwas, das du weißt (Passwort) mit etwas, das du hast (Handy). Selbst wenn jemand dein Passwort klaut, kommt er ohne dein Handy nicht rein. Eine der effektivsten Schutzmaßnahmen überhaupt.'},
@@ -323,6 +325,7 @@ Die nächste Rätsel-Serie wird etwas schwieriger und tiefer — wir gehen rein 
     '.akq-ghost{position:absolute;top:-0.05em;right:-0.02em;font-family:"iA Writer Mono S",monospace;font-weight:bold;font-size:9rem;line-height:1;color:rgba(234,232,224,0.06);pointer-events:none;user-select:none;transition:opacity .3s}',
     '.akq-ey{font-family:"iA Writer Mono S",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#d8ff01;margin:0 0 .6rem;position:relative}',
     '.akq-qt{font-family:"iA Writer Mono S",monospace;font-weight:bold;font-size:1.15rem;line-height:1.4;color:#eae8e0;margin:0 0 1.5rem;position:relative;max-width:560px}',
+    '.akq-intro{font-family:"Public Sans",sans-serif;font-size:.875rem;line-height:1.6;color:rgba(234,232,224,.7);margin:0 0 1.25rem;padding:.7rem 1rem;background:rgba(234,232,224,.05);border-left:2px solid rgba(216,255,1,.4)}',
     '.akq-opts{display:flex;flex-direction:column;gap:.5rem;position:relative}',
     '.akq-btn{display:flex;align-items:flex-start;gap:.7rem;padding:.75rem 1rem;background:rgba(234,232,224,0.05);border:1px solid rgba(234,232,224,0.12);cursor:pointer;text-align:left;font-family:"Public Sans",sans-serif;font-size:.9rem;line-height:1.45;color:#eae8e0;width:100%;transition:border-color .12s,background .12s}',
     '.akq-btn:hover:not([disabled]){border-color:#d8ff01;background:rgba(216,255,1,0.07)}',
@@ -364,9 +367,10 @@ Die nächste Rätsel-Serie wird etwas schwieriger und tiefer — wir gehen rein 
       '<div class="akq-ghost" id="akqG">01</div>'+
       '<div class="akq-ey" id="akqEy"></div>'+
       '<div class="akq-qt" id="akqQt"></div>'+
+      '<div class="akq-intro" id="akqI" style="display:none"></div>'+
       '<div class="akq-opts" id="akqO"></div>'+
       '<div class="akq-xp" id="akqX"></div>'+
-      '<button class="akq-nxt" id="akqN">Weiter →</button>'+
+      '<button type="button" class="akq-nxt" id="akqN">Weiter →</button>'+
     '</div>'+
     '<div class="akq-res" id="akqR">'+
       '<div class="akq-rscore" id="akqRN">0</div>'+
@@ -374,7 +378,7 @@ Die nächste Rätsel-Serie wird etwas schwieriger und tiefer — wir gehen rein 
       '<div class="akq-rv" id="akqRV"></div>'+
       '<div class="akq-rm" id="akqRM"></div>'+
       '<div class="akq-bk" id="akqBK"></div>'+
-      '<button class="akq-rst" id="akqRST">↺ Nochmal versuchen</button>'+
+      '<button type="button" class="akq-rst" id="akqRST">↺ Nochmal versuchen</button>'+
     '</div>'+
   '</div>';
 
@@ -388,6 +392,9 @@ Die nächste Rätsel-Serie wird etwas schwieriger und tiefer — wir gehen rein 
     document.getElementById('akqG').textContent=pad(cur+1);
     document.getElementById('akqEy').textContent=q.t;
     document.getElementById('akqQt').textContent=q.q;
+    var intro=document.getElementById('akqI');
+    if(q.intro){intro.textContent=q.intro;intro.style.display='block';}
+    else{intro.textContent='';intro.style.display='none';}
     document.getElementById('akqF').style.width=(cur/12*100)+'%';
     document.getElementById('akqC').textContent=(cur+1)+' / 12';
     document.getElementById('akqS').textContent=score+' richtig';
@@ -398,6 +405,7 @@ Die nächste Rätsel-Serie wird etwas schwieriger und tiefer — wir gehen rein 
     o.innerHTML='';
     q.opts.forEach(function(opt,i){
       var b=document.createElement('button');
+      b.type='button';
       b.className='akq-btn';
       b.innerHTML='<span class="akq-let">'+L[i]+'</span><span>'+opt+'</span>';
       b.addEventListener('click',function(){pick(i);});
