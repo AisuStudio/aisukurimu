@@ -9,7 +9,7 @@ ageMin: 11
 duration: 20
 platforms: [minecraft]
 tags: [minecraft, redstone, systeme, logikgatter, not-gate, entdecker]
-image: /images/AK_EX_BUNKER2.jpg
+image: /images/AK_EX_0012.jpg
 date: 2026-07-03
 language: de
 ---
