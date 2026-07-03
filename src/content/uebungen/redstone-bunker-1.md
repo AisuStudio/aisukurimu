@@ -56,11 +56,11 @@ Bau eine kleine Kammer aus Steinblöcken: ca. **5 × 5 × 3 Blöcke** (Breite ×
 
 ```
 Draufsicht von oben:
- █ █ █ █ █
- █         █
- █         █
- █         █
- █ █ [  ] █   ← Eingang (2 Blöcke hoch)
+█ █ █ █ █
+█       █
+█       █
+█       █
+█  [  ] █   ← Eingang (2 Blöcke hoch)
 ```
 
 *[Screenshot: Fertige Kammer von oben, Eingang sichtbar]*
