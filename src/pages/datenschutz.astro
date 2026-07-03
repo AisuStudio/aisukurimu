@@ -2,24 +2,37 @@
 import Base from '../layouts/Base.astro';
 ---
 
-<Base title="Datenschutz" description="Datenschutzerklärung — was passiert mit deinen Daten auf aisukurimu.">
+<Base title="Datenschutz" description="Datenschutzerklärung — was passiert mit deinen Daten auf Lab.Aisu.Studio.">
   <section class="legal-page">
     <div class="container">
       <h1 class="h1-vanilla">Datenschutz</h1>
       <p class="p-small-vanilla">
-        aisukurimu speichert keine personenbezogenen Daten von Besucher:innen. Es gibt keine Cookies,
-        kein Tracking, kein Google Analytics. Die Site ist statisch und wird über GitHub Pages
-        ausgeliefert; technische Server-Logs erhebt GitHub im Rahmen seiner eigenen Datenschutzerklärung.
+        Lab.Aisu.Studio speichert keine personenbezogenen Daten von Besucher:innen. Es gibt keine Cookies,
+        kein Tracking, kein Google Analytics. Die Site ist statisch und wird über Vercel
+        ausgeliefert; technische Server-Logs erhebt Vercel im Rahmen seiner eigenen Datenschutzerklärung.
+      </p>
+
+      <h2 class="h2-lcontainer">Anonyme Anmeldung (freiwillig)</h2>
+      <p class="p-small-vanilla">
+        Über den Menüpunkt <strong>„Anonym Anmelden"</strong> können Kinder freiwillig einen
+        Hacker-Namen und einen 4-Emoji-Code wählen. Diese beiden Angaben werden in einer Datenbank
+        gespeichert und erscheinen öffentlich im Leaderboard unter <a href="/bestenliste/">bestenliste</a>.
+      </p>
+      <p class="p-small-vanilla">
+        Es werden keine echten Namen, keine E-Mail-Adresse, kein Passwort und keine
+        sonstigen personenbezogenen Daten erhoben. Die Anmeldung ist vollständig freiwillig —
+        alle Übungen sind auch ohne Anmeldung nutzbar.
+      </p>
+      <p class="p-small-vanilla">
+        Die Datenbankinfrastruktur wird von <a href="https://supabase.com" target="_blank" rel="noopener noreferrer">Supabase</a> betrieben.
+        Dort gespeichert werden ausschließlich: Hacker-Name, Emoji-Code, Zeitstempel der Registrierung
+        und erledigte Übungen.
       </p>
 
       <h2 class="h2-lcontainer">Externe Inhalte</h2>
       <p class="p-small-vanilla">
         Links zu externen Seiten (LinkedIn, GitHub, Tool-Anbieter) öffnen in neuem Tab.
         Was dort mit deinen Daten passiert, regelt die jeweilige Datenschutzerklärung der Seite.
-      </p>
-
-      <p class="p-small-vanilla">
-        Vollständige Erklärung folgt, sobald die Site auf eigener Domain lebt.
       </p>
     </div>
   </section>
