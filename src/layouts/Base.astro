@@ -22,7 +22,7 @@ interface Props {
 
 const { title, description = SITE_DESCRIPTION, ogImage } = Astro.props as Props;
 const fullTitle = title ? `${title} — ${SITE_TITLE}` : `${SITE_TITLE} — ${SITE_DESCRIPTION}`;
-const ogImageUrl = url(ogImage ?? '/images/AK_INDEX_SPLASH.jpg');
+const ogImageUrl = url(ogImage ?? '/images/AK_EX_0000.jpg');
 
 const monoRegular = url('/fonts/iA-Writer-Mono-Regular.woff2');
 const monoBold    = url('/fonts/iA-Writer-Mono-Bold.woff2');
