@@ -1,0 +1,310 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Design System — aisukurimu">
+<style>
+  .ds { max-width: 900px; margin: 0 auto; padding: var(--sp-xl) var(--sp-lg) var(--sp-4xl); }
+  .ds-section { margin: 0 0 var(--sp-4xl); }
+  .ds-label {
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 10px; font-weight: bold; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--ak-grape);
+    margin: 0 0 var(--sp-md);
+  }
+  .ds-title {
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 11px; font-weight: bold; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--ak-blueberry);
+    margin: 0 0 4px;
+  }
+  .ds-value {
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 11px; color: var(--ak-blueberry); margin: 0;
+  }
+  hr.ds-hr { border: 0; border-top: 1px solid var(--ak-blueberry); opacity: .12; margin: 0 0 var(--sp-xl); }
+
+  /* Colors */
+  .color-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--sp-md); }
+  .swatch { }
+  .swatch-chip { height: 80px; border-radius: 4px; margin: 0 0 var(--sp-sm); border: 1px solid rgba(31,25,52,.08); }
+
+  /* Spacing */
+  .space-list { display: flex; flex-direction: column; gap: var(--sp-sm); }
+  .space-row { display: flex; align-items: center; gap: var(--sp-md); }
+  .space-bar { height: 20px; background: var(--ak-grape); border-radius: 2px; flex-shrink: 0; }
+  .space-meta { font-family: "iA Writer Mono S", monospace; font-size: 12px; }
+  .space-name { color: var(--ak-blueberry); font-weight: bold; }
+  .space-val { color: var(--ak-hazelnut); margin-left: var(--sp-sm); }
+
+  /* Type */
+  .type-row { margin: 0 0 var(--sp-xl); padding: 0 0 var(--sp-xl); border-bottom: 1px solid rgba(31,25,52,.08); }
+  .type-meta { display: flex; gap: var(--sp-md); margin: var(--sp-sm) 0 0; flex-wrap: wrap; }
+  .type-chip {
+    font-family: "iA Writer Mono S", monospace; font-size: 10px;
+    color: #13151a; background: rgb(31 25 52 / 15%);
+    padding: 2px 6px; border-radius: 2px;
+  }
+
+  /* Layout */
+  .layout-row { display: flex; align-items: center; gap: var(--sp-md); margin: 0 0 var(--sp-sm); }
+  .layout-bar { height: 24px; background: rgba(81,0,255,.12); border: 1px solid rgba(81,0,255,.25); border-radius: 2px; }
+  .layout-meta { font-family: "iA Writer Mono S", monospace; font-size: 12px; }
+
+  /* Components */
+  .comp-row { display: flex; align-items: center; gap: var(--sp-lg); flex-wrap: wrap; margin: 0 0 var(--sp-lg); }
+
+  /* Focus ring demo */
+  .focus-demo { display: inline-block; padding: 6px 12px; outline: 2px solid var(--ak-grape); outline-offset: 3px; font-family: "iA Writer Mono S", monospace; font-size: 12px; }
+</style>
+
+<div class="ds">
+
+  <!-- Header -->
+  <div class="ds-section">
+    <p class="tag">aisukurimu</p>
+    <h1 class="h1-vanilla" style="margin: var(--sp-sm) 0 var(--sp-xs);">Design System</h1>
+    <p class="p-small-vanilla">Brand v3 — New Style · Quelle: <code style="font-size:12px">src/styles/global.css</code></p>
+  </div>
+
+  <hr class="ds-hr" />
+
+  <!-- Colors -->
+  <div class="ds-section">
+    <p class="ds-label">Farb-Tokens</p>
+    <p class="ds-value" style="margin:0 0 var(--sp-md);">Der kursive Name darunter (z.B. <code style="font-size:10px;">--ak-blueberry</code>) ist der CSS-Variablenname — damit wird die Farbe im Code angesprochen.</p>
+    <div class="color-grid">
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#1f1934;"></div>
+        <p class="ds-title">Blueberry</p>
+        <p class="ds-value">--ak-blueberry · #1f1934</p>
+        <p class="ds-value" style="color:var(--ak-blueberry);font-size:10px;">Primary Ink</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#5100ff;"></div>
+        <p class="ds-title">Grape</p>
+        <p class="ds-value">--ak-grape · #5100ff</p>
+        <p class="ds-value" style="color:var(--ak-blueberry);font-size:10px;">Links · Accent · Tags</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#d8ff01; border-color:rgba(31,25,52,.15);"></div>
+        <p class="ds-title">Lemon</p>
+        <p class="ds-value">--ak-lemon · #d8ff01</p>
+        <p class="ds-value" style="color:var(--ak-blueberry);font-size:10px;">Wurst · Highlight</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#9e9c95;"></div>
+        <p class="ds-title">Hazelnut</p>
+        <p class="ds-value">--ak-hazelnut · #9e9c95</p>
+        <p class="ds-value" style="color:var(--ak-blueberry);font-size:10px;">Muted / Secondary</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#d9d7ce;"></div>
+        <p class="ds-title">Cappuccino</p>
+        <p class="ds-value">--ak-cappuccino · #d9d7ce</p>
+        <p class="ds-value" style="color:var(--ak-blueberry);font-size:10px;">Card / Container</p>
+      </div>
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#eae8e0;"></div>
+        <p class="ds-title">Vanilla</p>
+        <p class="ds-value">--ak-vanilla · #eae8e0</p>
+        <p class="ds-value" style="color:var(--ak-blueberry);font-size:10px;">Page Background</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-hr" />
+
+  <!-- Typography -->
+  <div class="ds-section">
+    <p class="ds-label">Typografie</p>
+
+    <div class="type-row">
+      <p class="hero-title-vanilla" style="font-size:clamp(32px,6vw,80px);">Hero Title</p>
+      <div class="type-meta">
+        <span class="type-chip">.hero-title-vanilla</span>
+        <span class="type-chip">iA Writer Mono S</span>
+        <span class="type-chip">80px / 88px | 5rem / 5,5rem</span>
+        <span class="type-chip">uppercase</span>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <p class="h1-vanilla" style="font-size:clamp(24px,4vw,40px);">H1 — Überschrift</p>
+      <div class="type-meta">
+        <span class="type-chip">.h1-vanilla</span>
+        <span class="type-chip">iA Writer Mono S Bold</span>
+        <span class="type-chip">40px / 48px | 2,5rem / 3rem</span>
+        <span class="type-chip">uppercase</span>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <p class="h2-lcontainer">H2 — Abschnittstitel</p>
+      <div class="type-meta">
+        <span class="type-chip">.h2-lcontainer</span>
+        <span class="type-chip">iA Writer Mono S Bold</span>
+        <span class="type-chip">24px / 32px | 1,5rem / 2rem</span>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <p style="font-family:'Public Sans',sans-serif;font-weight:bold;font-size:24px;line-height:1.5em;margin:0;">H3 — Unterabschnitt</p>
+      <div class="type-meta">
+        <span class="type-chip">.h3</span>
+        <span class="type-chip">Public Sans Bold</span>
+        <span class="type-chip">24px / 1,5em | 1,5rem / 1,5em</span>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <p class="eyebrow">Eyebrow Label</p>
+      <div class="type-meta">
+        <span class="type-chip">.eyebrow</span>
+        <span class="type-chip">iA Writer Mono S Bold</span>
+        <span class="type-chip">20px / 28px | 1,25rem / 1,75rem</span>
+        <span class="type-chip">uppercase</span>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <p class="tag">tag / kategorie</p>
+      <div class="type-meta">
+        <span class="type-chip">.tag</span>
+        <span class="type-chip">iA Writer Mono S Bold</span>
+        <span class="type-chip">12px / 16px | 0,75rem / 1rem</span>
+        <span class="type-chip">Grape · lowercase</span>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <p class="p-big">Fließtext — Die Welt der Bits und Bytes wartet auf dich. Lerne Denken wie ein Hacker.</p>
+      <div class="type-meta">
+        <span class="type-chip">.p-big</span>
+        <span class="type-chip">Public Sans</span>
+        <span class="type-chip">16px / 24px | 1rem / 1,5rem</span>
+      </div>
+    </div>
+
+    <div class="type-row">
+      <p class="caption">Caption — Kleiner Hinweistext, Bildunterschriften, Meta-Infos.</p>
+      <div class="type-meta">
+        <span class="type-chip">.caption</span>
+        <span class="type-chip">Public Sans</span>
+        <span class="type-chip">12px / 18px | 0,75rem / 1,125rem</span>
+      </div>
+    </div>
+
+    <div class="type-row" style="border:none;margin:0;padding:0;">
+      <a href="#" class="link-big" onclick="return false">Link-Text in Grape</a>
+      <div class="type-meta">
+        <span class="type-chip">.link-big</span>
+        <span class="type-chip">Public Sans</span>
+        <span class="type-chip">16px / 24px | 1rem / 1,5rem · Grape</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-hr" />
+
+  <!-- Spacing -->
+  <div class="ds-section">
+    <p class="ds-label">Spacing Scale</p>
+    <div class="space-list">
+      {[
+        ['--sp-xs',  '0.25rem', 4],
+        ['--sp-sm',  '0.5rem',  8],
+        ['--sp-md',  '1rem',    16],
+        ['--sp-lg',  '1.5rem',  24],
+        ['--sp-xl',  '2rem',    32],
+        ['--sp-2xl', '3rem',    48],
+        ['--sp-3xl', '4rem',    64],
+        ['--sp-4xl', '6rem',    96],
+      ].map(([name, val, px]) => (
+        <div class="space-row">
+          <div class="space-bar" style={`width:${px}px`}></div>
+          <span class="space-meta">
+            <span class="space-name">{name}</span>
+            <span class="space-val">{val} · {px}px</span>
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <hr class="ds-hr" />
+
+  <!-- Layout -->
+  <div class="ds-section">
+    <p class="ds-label">Layout</p>
+    <div class="layout-row">
+      <div class="layout-bar" style="width:100%;max-width:var(--container-max);height:32px;"></div>
+    </div>
+    <p class="ds-value" style="margin:0 0 var(--sp-md);">--container-max · 1200px</p>
+    <div class="layout-row">
+      <div class="layout-bar" style="width:var(--gutter);height:24px;"></div>
+    </div>
+    <p class="ds-value">--gutter · 24px</p>
+  </div>
+
+  <hr class="ds-hr" />
+
+  <!-- Components -->
+  <div class="ds-section">
+    <p class="ds-label">Navigation & UI-Elemente</p>
+
+    <p class="ds-title" style="margin:0 0 var(--sp-sm);">Nav Items</p>
+    <div class="comp-row">
+      <a href="#" class="nav-item" onclick="return false">Übungen</a>
+      <a href="#" class="nav-item active" onclick="return false">Terminal</a>
+      <a href="#" class="nav-item disabled" onclick="return false">Projekte</a>
+    </div>
+
+    <p class="ds-title" style="margin:var(--sp-lg) 0 var(--sp-sm);">Tags</p>
+    <div class="comp-row">
+      <span class="tag">hacking</span>
+      <span class="tag">kryptographie</span>
+      <span class="tag">anfänger</span>
+      <span class="tag">browser</span>
+    </div>
+
+    <p class="ds-title" style="margin:var(--sp-lg) 0 var(--sp-sm);">Footer Links</p>
+    <div class="comp-row">
+      <a href="#" class="footer-links" onclick="return false">Impressum</a>
+      <a href="#" class="footer-links" onclick="return false">Datenschutz</a>
+    </div>
+
+    <p class="ds-title" style="margin:var(--sp-lg) 0 var(--sp-sm);">Focus Ring</p>
+    <div class="comp-row">
+      <span class="focus-demo">Fokus-Zustand</span>
+      <p class="ds-value">2px solid Grape · offset 3px</p>
+    </div>
+
+    <p class="ds-title" style="margin:var(--sp-lg) 0 var(--sp-sm);">HR Divider</p>
+    <hr class="hr" />
+  </div>
+
+  <!-- Fonts -->
+  <div class="ds-section">
+    <p class="ds-label">Schriften</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-xl);">
+      <div>
+        <p class="ds-title">iA Writer Mono S</p>
+        <p class="ds-value" style="margin:0 0 var(--sp-sm);">Display · Code · UI Labels · self-hosted woff2</p>
+        <p style="font-family:'iA Writer Mono S',monospace;font-size:28px;line-height:1.3;margin:0;">
+          ABCDEFGHIJKLM<br/>NOPQRSTUVWXYZ<br/>0123456789
+        </p>
+        <p style="font-family:'iA Writer Mono S',monospace;font-weight:bold;font-size:28px;line-height:1.3;margin:var(--sp-sm) 0 0;">Bold</p>
+      </div>
+      <div>
+        <p class="ds-title">Public Sans</p>
+        <p class="ds-value" style="margin:0 0 var(--sp-sm);">Body · Fließtext · self-hosted woff2</p>
+        <p style="font-family:'Public Sans',sans-serif;font-size:28px;line-height:1.3;margin:0;">
+          Abcdefghijklm<br/>nopqrstuvwxyz<br/>0123456789
+        </p>
+        <p style="font-family:'Public Sans',sans-serif;font-weight:bold;font-size:28px;line-height:1.3;margin:var(--sp-sm) 0 0;"><em>Italic</em> · <strong>Bold</strong></p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</Base>

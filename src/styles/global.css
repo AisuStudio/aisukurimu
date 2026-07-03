@@ -7,11 +7,11 @@
 
 :root {
   /* -- Color tokens (New Style — Light) -- */
-  --ak-bg-dark:               #eae8e0;   /* Vanilla — page background */
-  --ak-container:             #d9d7ce;   /* Cappucino — card / container background */
-  --ak-raspberry-h:           #5100ff;   /* Grape — links, accent, tags */
-  --ak-lemon-accent:          #d8ff01;   /* Lemon — wurst background pattern */
-  --ak-vanilla-bg:            #1f1934;   /* Blueberry — primary ink */
+  --ak-vanilla:               #eae8e0;   /* Vanilla — page background */
+  --ak-cappuccino:             #d9d7ce;   /* Cappucino — card / container background */
+  --ak-grape:           #5100ff;   /* Grape — links, accent, tags */
+  --ak-lemon:          #d8ff01;   /* Lemon — wurst background pattern */
+  --ak-blueberry:            #1f1934;   /* Blueberry — primary ink */
   --ak-hazelnut:              #9e9c95;   /* Hazelnut — muted secondary text */
   --ak-strawberry-container:  #EDCED4;   /* retained, unused in v3 for now */
   --placeholder-image:        #00D8FF;
@@ -38,14 +38,14 @@
 *::after { box-sizing: border-box; }
 
 html {
-  background: var(--ak-bg-dark);   /* #e9e7df — light vanilla paper */
+  background: var(--ak-vanilla);   /* #e9e7df — light vanilla paper */
 }
 
 html,
 body {
   margin: 0;
   padding: 0;
-  color: var(--ak-vanilla-bg);     /* #1f1934 — deep indigo ink */
+  color: var(--ak-blueberry);     /* #1f1934 — deep indigo ink */
 }
 
 body {
@@ -64,7 +64,7 @@ img, svg { max-width: 100%; height: auto; display: block; }
 
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--ak-raspberry-h);   /* electric blue — lemon invisible on light bg */
+  outline: 2px solid var(--ak-grape);   /* electric blue — lemon invisible on light bg */
   outline-offset: 3px;
 }
 
@@ -76,7 +76,7 @@ button:focus-visible {
   font-weight: normal;
   font-size: 80px;
   line-height: 88px;
-  color: var(--ak-vanilla-bg);
+  color: var(--ak-blueberry);
   text-transform: uppercase;
   margin: 0;
 }
@@ -87,7 +87,7 @@ button:focus-visible {
   font-weight: bold;
   font-size: 40px;
   line-height: 48px;
-  color: var(--ak-vanilla-bg);
+  color: var(--ak-blueberry);
   text-transform: uppercase;
   margin: 0;
 }
@@ -96,7 +96,7 @@ button:focus-visible {
   content: "_";
   display: inline-block;
   margin-left: 0.1em;
-  color: var(--ak-vanilla-bg);
+  color: var(--ak-blueberry);
   animation: ak-blink 1s steps(2) infinite;
 }
 
@@ -110,7 +110,7 @@ button:focus-visible {
   font-weight: bold;
   font-size: 24px;
   line-height: 32px;
-  color: var(--ak-vanilla-bg);
+  color: var(--ak-blueberry);
   margin: 0;
 }
 
@@ -120,7 +120,7 @@ button:focus-visible {
   font-weight: bold;
   font-size: 20px;
   line-height: 28px;
-  color: var(--ak-vanilla-bg);
+  color: var(--ak-blueberry);
   text-transform: uppercase;
   margin: 0;
 }
@@ -131,7 +131,7 @@ button:focus-visible {
   font-weight: bold;
   font-size: 12px;
   line-height: 16px;
-  color: var(--ak-raspberry-h);
+  color: var(--ak-grape);
   text-transform: lowercase;
   margin: 0;
 }
@@ -141,7 +141,7 @@ button:focus-visible {
   font-weight: normal;
   font-size: 16px;
   line-height: 24px;
-  color: var(--ak-vanilla-bg);
+  color: var(--ak-blueberry);
   margin: 0;
 }
 
@@ -151,7 +151,7 @@ button:focus-visible {
   font-weight: normal;
   font-size: 16px;
   line-height: 24px;
-  color: var(--ak-vanilla-bg);
+  color: var(--ak-blueberry);
   margin: 0;
 }
 
@@ -160,7 +160,7 @@ button:focus-visible {
   font-weight: normal;
   font-size: 12px;
   line-height: 18px;
-  color: var(--ak-vanilla-bg);
+  color: var(--ak-blueberry);
   margin: 0;
 }
 
@@ -172,7 +172,7 @@ button:focus-visible {
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
-  color: var(--ak-raspberry-h);
+  color: var(--ak-grape);
   text-decoration: none;
   transition: text-decoration .15s;
 }
@@ -185,15 +185,15 @@ button:focus-visible {
   font-weight: bold;
   font-size: 14px;
   line-height: 16px;
-  color: var(--ak-vanilla-bg);
+  color: var(--ak-blueberry);
   text-transform: uppercase;
   text-decoration: none;
   transition: color .15s;
 }
 .nav-item:hover,
-.nav-item:focus-visible { color: var(--ak-raspberry-h); }
+.nav-item:focus-visible { color: var(--ak-grape); }
 .nav-item.active {
-  color: var(--ak-raspberry-h);
+  color: var(--ak-grape);
   text-decoration: underline;
 }
 .nav-item.disabled {
@@ -212,7 +212,7 @@ button:focus-visible {
   transition: color .15s;
 }
 .footer-links:hover,
-.footer-links:focus-visible { color: var(--ak-vanilla-bg); }
+.footer-links:focus-visible { color: var(--ak-blueberry); }
 
 /* ---------- Layout primitives ---------- */
 
@@ -226,7 +226,7 @@ button:focus-visible {
   /* Hairline divider in hazelnut. Constrained to 1200px container width
      so the editorial frame stays consistent. Color-neutral class name. */
   border: 0;
-  border-top: 1px solid var(--ak-vanilla-bg);
+  border-top: 1px solid var(--ak-blueberry);
   max-width: var(--container-max);
   margin: 0 auto;
 }
