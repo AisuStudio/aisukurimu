@@ -39,6 +39,11 @@ const home = url('/');
         <HeaderLink href="/werkzeuge/">Werkzeuge</HeaderLink>
         <HeaderLink href="/uebungen/">Übungen</HeaderLink>
         <HeaderLink href="/medien/">Medien</HeaderLink>
+      </nav>
+
+      {/* Col 3b: Leaderboard + Login */}
+      <nav class="nav-col nav-col--player" aria-label="Player-Navigation">
+        <HeaderLink href="/bestenliste/">Bestenliste</HeaderLink>
         <button id="ak-nav-login" class="nav-item ak-nav-login" type="button">Anonym Anmelden</button>
       </nav>
 
@@ -61,6 +66,7 @@ const home = url('/');
         <HeaderLink href="/werkzeuge/">Werkzeuge</HeaderLink>
         <HeaderLink href="/uebungen/">Übungen</HeaderLink>
         <HeaderLink href="/medien/">Medien</HeaderLink>
+        <HeaderLink href="/bestenliste/">Bestenliste</HeaderLink>
         <button id="ak-nav-login-mobile" class="nav-item ak-nav-login" type="button">Anonym Anmelden</button>
         <HeaderLink href="/en/" disabled>Switch to English</HeaderLink>
         <HeaderLink href={LINKEDIN_URL} external>LinkedIn</HeaderLink>
@@ -83,7 +89,8 @@ const home = url('/');
   }
   .site-header-inner > :global(.ascii-aisu) { grid-column: 1; }
   .site-header-inner > .brand-link { grid-column: 2; }
-  .site-header-inner > .nav-col:not(.meta) { grid-column: 4 / span 2; }
+  .site-header-inner > .nav-col:not(.meta):not(.nav-col--player) { grid-column: 4 / span 2; }
+  .site-header-inner > .nav-col--player { grid-column: 7 / span 2; }
   .site-header-inner > .nav-col.meta { grid-column: 11 / span 2; justify-self: end; }
 
   /* Wordmark column */
@@ -194,25 +201,30 @@ const home = url('/');
 </style>
 
 <script>
+  const loginBtns = [
+    document.getElementById('ak-nav-login'),
+    document.getElementById('ak-nav-login-mobile'),
+  ].filter(Boolean) as HTMLElement[];
+
+  // Click handler — always active, modal decides what to do
+  loginBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      window.dispatchEvent(new CustomEvent('ak:open-modal'));
+    });
+  });
+
   function syncLoginBtn() {
     const raw = localStorage.getItem('ak_player');
     const player = raw ? JSON.parse(raw) : null;
-    const btns = [
-      document.getElementById('ak-nav-login'),
-      document.getElementById('ak-nav-login-mobile'),
-    ];
-    btns.forEach(btn => {
-      if (!btn) return;
+    loginBtns.forEach(btn => {
       if (player) {
         btn.textContent = `✓ ${player.nickname}`;
         btn.setAttribute('data-loggedin', '');
-        btn.setAttribute('disabled', '');
+        (btn as HTMLButtonElement).disabled = true;
       } else {
+        btn.textContent = btn.id === 'ak-nav-login' ? 'Anonym Anmelden' : 'Anonym Anmelden';
         btn.removeAttribute('data-loggedin');
-        btn.removeAttribute('disabled');
-        btn.addEventListener('click', () => {
-          window.dispatchEvent(new CustomEvent('ak:open-modal'));
-        }, { once: true });
+        (btn as HTMLButtonElement).disabled = false;
       }
     });
   }
