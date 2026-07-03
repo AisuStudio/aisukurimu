@@ -5,6 +5,7 @@
   Body in container with mono code styling.
 */
 import Base from './Base.astro';
+import NicknameModal from '../components/NicknameModal.astro';
 import { url } from '../lib/url';
 
 interface Props {
@@ -27,6 +28,7 @@ const {
 ---
 
 <Base title={title} description={description}>
+  <NicknameModal />
   <article>
     <section class="ueb-hero">
       <div class="container">

@@ -1,0 +1,167 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Bestenliste" description="Die Top-Hacker auf aisukurimu — wer hat die meisten Aufgaben gelöst?">
+  <section class="lb-page">
+    <div class="container">
+      <p class="caption lb-eyebrow">Leaderboard</p>
+      <h1 class="h1-vanilla cursor">Bestenliste</h1>
+      <p class="p-small-vanilla lb-intro">Wer hat die meisten Aufgaben gelöst?</p>
+
+      <div id="lb-loading" class="lb-loading">
+        <span class="mono">Lade Daten…</span>
+      </div>
+
+      <div id="lb-empty" class="lb-empty" hidden>
+        <span class="mono">Noch keine Einträge — sei der Erste!</span>
+      </div>
+
+      <div id="lb-table-wrap" class="lb-table-wrap" hidden>
+        <div class="lb-header lb-row">
+          <span class="lb-col-rank">#</span>
+          <span class="lb-col-name">Name</span>
+          <span class="lb-col-count">Aufgaben</span>
+          <span class="lb-col-score">Punkte</span>
+        </div>
+        <div id="lb-rows"></div>
+      </div>
+
+      <p id="lb-own" class="lb-own-rank" hidden></p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { supabase } from '../lib/supabase';
+  import { getLocalPlayer } from '../lib/player';
+
+  const loadingEl  = document.getElementById('lb-loading')!;
+  const emptyEl    = document.getElementById('lb-empty')!;
+  const tableWrap  = document.getElementById('lb-table-wrap')!;
+  const rowsEl     = document.getElementById('lb-rows')!;
+  const ownEl      = document.getElementById('lb-own')!;
+
+  const player = getLocalPlayer();
+
+  async function load() {
+    const { data, error } = await supabase
+      .from('leaderboard')
+      .select('id, nickname, completed, score');
+
+    loadingEl.hidden = true;
+
+    if (error || !data || data.length === 0) {
+      emptyEl.hidden = false;
+      return;
+    }
+
+    tableWrap.hidden = false;
+
+    data.forEach((row: any, i: number) => {
+      const isMe = player?.id === row.id;
+      const rank = i + 1;
+      const div = document.createElement('div');
+      div.className = 'lb-row' + (isMe ? ' lb-row--me' : '');
+      div.innerHTML = `
+        <span class="lb-col-rank lb-rank-${rank <= 3 ? rank : 'other'}">${String(rank).padStart(2, '0')}</span>
+        <span class="lb-col-name">${escHtml(row.nickname)}${isMe ? ' <span class="lb-you">(du)</span>' : ''}</span>
+        <span class="lb-col-count">${row.completed} Aufgabe${row.completed !== 1 ? 'n' : ''}</span>
+        <span class="lb-col-score">${row.score}</span>
+      `;
+      rowsEl.appendChild(div);
+
+      if (isMe) {
+        ownEl.hidden = false;
+        ownEl.textContent = `Du bist auf Platz ${rank} — weiter so, ${player.nickname}!`;
+      }
+    });
+  }
+
+  function escHtml(s: string) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  load();
+</script>
+
+<style>
+  .lb-page { padding: var(--sp-3xl) 0 var(--sp-4xl); }
+
+  .lb-eyebrow { margin: 0 0 var(--sp-sm); color: var(--ak-raspberry-h); }
+
+  h1 { margin-bottom: var(--sp-sm); }
+
+  .lb-intro { margin: 0 0 var(--sp-2xl); max-width: 480px; }
+
+  .lb-loading,
+  .lb-empty {
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 14px;
+    color: var(--ak-hazelnut);
+    padding: var(--sp-xl) 0;
+  }
+
+  .lb-table-wrap { max-width: 640px; }
+
+  .lb-row {
+    display: grid;
+    grid-template-columns: 40px 1fr 120px 80px;
+    gap: var(--sp-md);
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--ak-container);
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 14px;
+  }
+
+  .lb-header {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ak-hazelnut);
+    padding-bottom: 10px;
+  }
+
+  .lb-row--me {
+    background: rgba(81, 0, 255, 0.06);
+    border-radius: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+
+  .lb-col-rank { font-weight: 700; }
+  .lb-rank-1 { color: #f5a623; }
+  .lb-rank-2 { color: #9b9b9b; }
+  .lb-rank-3 { color: #c47c3a; }
+  .lb-rank-other { color: var(--ak-hazelnut); }
+
+  .lb-col-name { font-weight: 700; }
+  .lb-you {
+    font-weight: 400;
+    color: var(--ak-raspberry-h);
+  }
+
+  .lb-col-count { color: var(--ak-hazelnut); }
+
+  .lb-col-score {
+    font-weight: 700;
+    color: var(--ak-raspberry-h);
+    text-align: right;
+  }
+
+  .lb-own-rank {
+    margin-top: var(--sp-xl);
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 13px;
+    color: var(--ak-raspberry-h);
+  }
+
+  @media (max-width: 600px) {
+    .lb-row { grid-template-columns: 32px 1fr 80px; }
+    .lb-col-score { display: none; }
+  }
+</style>

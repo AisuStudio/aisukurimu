@@ -1,0 +1,335 @@
+---
+/*
+  NicknameModal — shown on exercise pages when no player is in localStorage.
+  Single screen: h3 "Sei dabei!" + nickname input + emoji picker + submit
+  Communicates via CustomEvent 'ak:player-ready' on window.
+*/
+---
+
+<div id="ak-modal-overlay" class="ak-overlay" role="dialog" aria-modal="true" aria-labelledby="ak-modal-title" hidden>
+  <div class="ak-modal">
+
+    <!-- Main form -->
+    <div id="ak-step-main" class="ak-step">
+      <h3 id="ak-modal-title" class="ak-modal-title">Sei dabei!</h3>
+
+      <label class="ak-label" for="ak-nickname">Dein Hacker-Name</label>
+      <input
+        id="ak-nickname"
+        class="ak-input"
+        type="text"
+        maxlength="24"
+        placeholder="z.B. HackerElena"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+      />
+
+      <label class="ak-label">Dein Geheim-Code — wähle 4 Emojis</label>
+      <div id="ak-slots" class="ak-slots" aria-live="polite">
+        <div class="ak-slot" id="ak-slot-0"></div>
+        <div class="ak-slot" id="ak-slot-1"></div>
+        <div class="ak-slot" id="ak-slot-2"></div>
+        <div class="ak-slot" id="ak-slot-3"></div>
+      </div>
+      <p class="ak-order-hint">⚠ Die Reihenfolge ist wichtig — merk sie dir!</p>
+      <div id="ak-emoji-grid" class="ak-emoji-grid" role="group" aria-label="Emoji auswählen"></div>
+
+      <p id="ak-err" class="ak-err" role="alert"></p>
+
+      <div class="ak-privacy">
+        <span class="ak-privacy-title">Wichtig:</span>
+        Wir speichern nur deinen Hacker-Namen und deinen Emoji-Code — keine E-Mail, kein Passwort, keine echten Daten. Dein Name erscheint öffentlich im Leaderboard.
+      </div>
+
+      <button id="ak-submit" class="ak-btn" disabled>Speichern</button>
+    </div>
+
+    <!-- Success -->
+    <div id="ak-step-done" class="ak-step" hidden>
+      <h3 id="ak-welcome" class="ak-modal-title">Willkommen!</h3>
+      <p class="ak-hint">Dein Fortschritt wird ab jetzt gespeichert.</p>
+      <button id="ak-close" class="ak-btn">Aufgabe starten →</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  import { EMOJIS, loginOrRegister, getLocalPlayer } from '../lib/player';
+
+  const overlay    = document.getElementById('ak-modal-overlay')!;
+  const stepMain   = document.getElementById('ak-step-main')!;
+  const stepDone   = document.getElementById('ak-step-done')!;
+
+  const nicknameInput = document.getElementById('ak-nickname') as HTMLInputElement;
+  const emojiGrid     = document.getElementById('ak-emoji-grid')!;
+  const slots = [0,1,2,3].map(i => document.getElementById(`ak-slot-${i}`)!);
+  const errEl         = document.getElementById('ak-err')!;
+  const submitBtn     = document.getElementById('ak-submit') as HTMLButtonElement;
+  const welcomeMsg    = document.getElementById('ak-welcome')!;
+  const closeBtn      = document.getElementById('ak-close')!;
+
+  let chosenEmojis: string[] = [];
+
+  function showModal() {
+    overlay.hidden = false;
+    nicknameInput.focus();
+  }
+
+  function updateSubmit() {
+    const hasName   = nicknameInput.value.trim().length >= 2;
+    const hasEmojis = chosenEmojis.length === 4;
+    submitBtn.disabled = !(hasName && hasEmojis);
+  }
+
+  // Build emoji grid
+  EMOJIS.forEach((emoji) => {
+    const btn = document.createElement('button');
+    btn.className = 'ak-emoji-btn';
+    btn.textContent = emoji;
+    btn.type = 'button';
+    btn.setAttribute('aria-pressed', 'false');
+    btn.addEventListener('click', () => {
+      const idx = chosenEmojis.indexOf(emoji);
+      if (idx !== -1) {
+        chosenEmojis.splice(idx, 1);
+        btn.classList.remove('selected');
+        btn.setAttribute('aria-pressed', 'false');
+      } else if (chosenEmojis.length < 4) {
+        chosenEmojis.push(emoji);
+        btn.classList.add('selected');
+        btn.setAttribute('aria-pressed', 'true');
+      }
+      slots.forEach((slot, i) => { slot.textContent = chosenEmojis[i] ?? ''; });
+      errEl.textContent = '';
+      updateSubmit();
+    });
+    emojiGrid.appendChild(btn);
+  });
+
+  nicknameInput.addEventListener('input', () => {
+    errEl.textContent = '';
+    updateSubmit();
+  });
+
+  submitBtn.addEventListener('click', async () => {
+    const nickname = nicknameInput.value.trim();
+    if (nickname.length < 2) { errEl.textContent = 'Mindestens 2 Zeichen bitte.'; return; }
+    if (chosenEmojis.length !== 4) { errEl.textContent = 'Bitte genau 4 Emojis wählen.'; return; }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = '…';
+
+    const { player, error } = await loginOrRegister(nickname, chosenEmojis);
+
+    if (error || !player) {
+      errEl.textContent = error ?? 'Fehler — versuch es nochmal.';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Los geht\'s!';
+      return;
+    }
+
+    welcomeMsg.innerHTML = `Willkommen,<br>${player.nickname}!`;
+    stepMain.hidden = true;
+    stepDone.hidden = false;
+    window.dispatchEvent(new CustomEvent('ak:player-ready', { detail: player }));
+  });
+
+  closeBtn.addEventListener('click', () => { overlay.hidden = true; });
+
+  // Auto-show if no player
+  if (!getLocalPlayer()) {
+    showModal();
+  } else {
+    window.dispatchEvent(new CustomEvent('ak:player-ready', { detail: getLocalPlayer() }));
+  }
+</script>
+
+<style>
+  .ak-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: transparent;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 24px;
+    pointer-events: none;
+    overflow-y: auto;
+  }
+
+
+  .ak-modal {
+    pointer-events: all;
+    background: rgba(31, 25, 52, 0.95);
+    color: #eae8e0;
+    border-radius: 8px;
+    padding: 32px 28px;
+    max-width: 560px;
+    width: 100%;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+  }
+
+  .ak-modal-title {
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #d8ff01;
+    margin: 0 0 20px;
+  }
+
+  .ak-label {
+    display: block;
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #eae8e0;
+    margin-bottom: 8px;
+  }
+
+  .ak-input {
+    width: 100%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(234,232,224,0.35);
+    border-radius: 4px;
+    padding: 12px 14px;
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 15px;
+    color: #eae8e0;
+    outline: none;
+    transition: border-color 0.15s;
+    margin-bottom: 20px;
+  }
+
+  .ak-input:focus { border-color: #d8ff01; }
+  .ak-input::placeholder { color: rgba(234,232,224,0.35); }
+
+  .ak-emoji-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 52px);
+    gap: 6px;
+    margin-bottom: 14px;
+    justify-content: center;
+  }
+
+  .ak-emoji-btn {
+    font-size: 28px;
+    line-height: 1;
+    background: #eae8e0;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    width: 52px;
+    height: 52px;
+    cursor: pointer;
+    transition: background 0.1s, border-color 0.1s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ak-emoji-btn:hover { background: #f5f4f0; transform: scale(1.08); }
+  .ak-emoji-btn.selected {
+    border-color: var(--ak-lemon-accent);
+    background: rgba(216,255,1,0.1);
+    transform: scale(1.08);
+  }
+
+  .ak-slots {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+
+  .ak-slot {
+    background: #eae8e0;
+    border-radius: 4px;
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    line-height: 1;
+    transition: transform 0.1s;
+  }
+
+  .ak-slot:not(:empty) {
+    transform: scale(1.04);
+  }
+
+  .ak-order-hint {
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 11px;
+    color: #d8ff01;
+    margin: 0 0 4px;
+  }
+
+  .ak-err {
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 12px;
+    color: #ff5f57;
+    min-height: 18px;
+    margin: 4px 0 0;
+  }
+
+  .ak-btn {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    position: relative;
+    z-index: 1;
+    background: #d8ff01;
+    color: #1f1934;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .ak-btn:hover:not(:disabled) { opacity: 0.88; }
+  .ak-btn:disabled { opacity: 0.35; cursor: default; }
+
+  .ak-hint {
+    font-size: 14px;
+    color: #eae8e0;
+    margin: 0 0 16px;
+    line-height: 1.5;
+  }
+
+  .ak-privacy {
+    font-size: 13px;
+    color: #d8ff01;
+    line-height: 1.5;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(234,232,224,0.12);
+  }
+
+  .ak-privacy-title {
+    display: inline;
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #d8ff01;
+    margin-right: 4px;
+  }
+
+  @media (max-width: 520px) {
+    .ak-modal { padding: 24px 16px; }
+    .ak-emoji-grid { grid-template-columns: repeat(4, 52px); }
+  }
+</style>

@@ -19,7 +19,7 @@ const uebungen = defineCollection({
 		subtype: z.enum(['exercise', 'raetsel']).default('exercise'),
 		level: z.number().int().min(1).max(3),
 		duration: z.number().int().positive(),
-		platforms: z.array(z.enum(['mac', 'windows', 'linux', 'browser'])).min(1),
+		platforms: z.array(z.enum(['mac', 'windows', 'linux', 'browser', 'minecraft'])).min(1),
 		requiredTools: z.array(z.string()).optional(),
 		tags: z.array(z.string()).default([]),
 		image: z.string().optional(),

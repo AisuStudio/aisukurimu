@@ -1,10 +1,12 @@
 ---
 import Base from '../../layouts/Base.astro';
+import NicknameModal from '../../components/NicknameModal.astro';
 import { url } from '../../lib/url';
 ---
 
 <Base title="Aufgabe 10 — Terminal-Spiel" description="Lerne die ersten Terminal-Befehle — direkt im Browser, ohne Installation.">
-<style is:global>body { --wurst-color: var(--ak-cappuccino); }</style>
+<style is:global>body { --wurst-color: var(--ak-container); }</style>
+<NicknameModal />
   <section class="ts-page">
     <div class="container">
       <img class="ts-hero" src={url('/images/AK_EX_0010.jpg')} alt="Terminal-Spiel" />
@@ -516,6 +518,7 @@ import { url } from '../../lib/url';
       if (allDone) {
         const msg = document.getElementById('ts-alldone');
         if (msg) msg.style.display = 'block';
+        import('../../lib/player').then(({ markComplete }) => markComplete('terminal-spiel'));
       }
     }
   }
