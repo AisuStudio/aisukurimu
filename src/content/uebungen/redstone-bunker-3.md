@@ -1,5 +1,5 @@
 ---
-title: "Redstone-Bunker — Der automatische Lockdown"
+title: "Redstone-Bunker Teil 3 — Der automatische Lockdown"
 description: "Bau einen Takt-Schaltkreis: Alarm → automatische Verriegelung für 5 Sekunden → automatischer Reset. Kein Tastendruck nötig."
 slug: redstone-bunker-3
 category: hacking

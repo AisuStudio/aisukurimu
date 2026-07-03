@@ -1,5 +1,5 @@
 ---
-title: "Redstone-Bunker — Das Alarmsystem"
+title: "Redstone-Bunker Teil 2 — Das Alarmsystem"
 description: "Erweitere deinen Bunker um eine Alarmanlage: Eindringlinge lösen einen Notenblock-Alarm aus — aber du kommst trotzdem rein."
 slug: redstone-bunker-2
 category: hacking
@@ -9,7 +9,7 @@ ageMin: 11
 duration: 20
 platforms: [minecraft]
 tags: [minecraft, redstone, systeme, logikgatter, not-gate, entdecker]
-image: /images/AK_EX_0012.jpg
+image: /images/AK_EX_0013.jpg
 date: 2026-07-03
 language: de
 ---

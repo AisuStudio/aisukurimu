@@ -1,5 +1,5 @@
 ---
-title: "Redstone-Bunker — Die Geheimtür"
+title: "Redstone-Bunker Teil 1 — Die Geheimtür"
 description: "Bau in Minecraft eine versteckte Eisentür, die sich per Hebel öffnet — dein erstes echtes Sicherheitssystem."
 slug: redstone-bunker-1
 category: hacking
