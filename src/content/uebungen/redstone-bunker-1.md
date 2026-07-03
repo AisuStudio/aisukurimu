@@ -9,7 +9,7 @@ ageMin: 8
 duration: 15
 platforms: [minecraft]
 tags: [minecraft, redstone, systeme, schaltkreise, anfaenger]
-image: /images/AK_EX_BUNKER1.jpg
+image: /images/AK_EX_0012.jpg
 date: 2026-07-03
 language: de
 ---

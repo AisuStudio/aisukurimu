@@ -10,4 +10,7 @@ export default defineConfig({
 	base: '/',
 	trailingSlash: 'always',
 	integrations: [mdx(), sitemap()],
+	markdown: {
+		syntaxHighlight: false,
+	},
 });

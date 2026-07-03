@@ -39,6 +39,7 @@ const home = url('/');
         <HeaderLink href="/werkzeuge/">Werkzeuge</HeaderLink>
         <HeaderLink href="/uebungen/">Übungen</HeaderLink>
         <HeaderLink href="/medien/">Medien</HeaderLink>
+        <button id="ak-nav-login" class="nav-item ak-nav-login" type="button">Anonym Anmelden</button>
       </nav>
 
       {/* Col 4: Meta (right-aligned) */}
@@ -60,6 +61,7 @@ const home = url('/');
         <HeaderLink href="/werkzeuge/">Werkzeuge</HeaderLink>
         <HeaderLink href="/uebungen/">Übungen</HeaderLink>
         <HeaderLink href="/medien/">Medien</HeaderLink>
+        <button id="ak-nav-login-mobile" class="nav-item ak-nav-login" type="button">Anonym Anmelden</button>
         <HeaderLink href="/en/" disabled>Switch to English</HeaderLink>
         <HeaderLink href={LINKEDIN_URL} external>LinkedIn</HeaderLink>
         <HeaderLink href={GITHUB_URL} external>GitHub</HeaderLink>
@@ -180,4 +182,48 @@ const home = url('/');
       margin-top: var(--sp-3xl);
     }
   }
+
+  .ak-nav-login {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: "iA Writer Mono S", monospace;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ak-grape);
+    text-align: left;
+  }
+  .ak-nav-login:hover { color: var(--ak-lemon); }
+  .ak-nav-login[data-loggedin] { color: var(--ak-blueberry); cursor: default; }
 </style>
+
+<script>
+  function syncLoginBtn() {
+    const raw = localStorage.getItem('ak_player');
+    const player = raw ? JSON.parse(raw) : null;
+    const btns = [
+      document.getElementById('ak-nav-login'),
+      document.getElementById('ak-nav-login-mobile'),
+    ];
+    btns.forEach(btn => {
+      if (!btn) return;
+      if (player) {
+        btn.textContent = `✓ ${player.nickname}`;
+        btn.setAttribute('data-loggedin', '');
+        btn.setAttribute('disabled', '');
+      } else {
+        btn.removeAttribute('data-loggedin');
+        btn.removeAttribute('disabled');
+        btn.addEventListener('click', () => {
+          window.dispatchEvent(new CustomEvent('ak:open-modal'));
+        }, { once: true });
+      }
+    });
+  }
+
+  syncLoginBtn();
+  window.addEventListener('ak:player-ready', syncLoginBtn);
+</script>

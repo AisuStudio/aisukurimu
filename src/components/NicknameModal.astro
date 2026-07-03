@@ -9,6 +9,9 @@
 <div id="ak-modal-overlay" class="ak-overlay" role="dialog" aria-modal="true" aria-labelledby="ak-modal-title" hidden>
   <div class="ak-modal">
 
+    <!-- Close button -->
+    <button id="ak-dismiss" class="ak-dismiss" aria-label="Schließen">×</button>
+
     <!-- Main form -->
     <div id="ak-step-main" class="ak-step">
       <h3 id="ak-modal-title" class="ak-modal-title">Sei dabei!</h3>
@@ -139,11 +142,16 @@
 
   closeBtn.addEventListener('click', () => { overlay.hidden = true; });
 
-  // Auto-show if no player
-  if (!getLocalPlayer()) {
-    showModal();
-  } else {
-    window.dispatchEvent(new CustomEvent('ak:player-ready', { detail: getLocalPlayer() }));
+  const dismissBtn = document.getElementById('ak-dismiss')!;
+  dismissBtn.addEventListener('click', () => { overlay.hidden = true; });
+
+  // Open via nav trigger
+  window.addEventListener('ak:open-modal', () => showModal());
+
+  // Dispatch player-ready for pages that need it (e.g. exercise pages)
+  const existing = getLocalPlayer();
+  if (existing) {
+    window.dispatchEvent(new CustomEvent('ak:player-ready', { detail: existing }));
   }
 </script>
 
@@ -160,6 +168,7 @@
     pointer-events: none;
     overflow-y: auto;
   }
+  .ak-overlay[hidden] { display: none; }
 
 
   .ak-modal {
@@ -171,7 +180,24 @@
     max-width: 560px;
     width: 100%;
     box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+    position: relative;
   }
+
+  .ak-dismiss {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    background: none;
+    border: none;
+    color: #9e9c95;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 4px;
+    transition: color 0.15s;
+  }
+  .ak-dismiss:hover { color: #eae8e0; }
 
   .ak-modal-title {
     font-family: "iA Writer Mono S", monospace;

@@ -5,7 +5,6 @@
   Body in container with mono code styling.
 */
 import Base from './Base.astro';
-import NicknameModal from '../components/NicknameModal.astro';
 import { url } from '../lib/url';
 
 interface Props {
@@ -28,7 +27,6 @@ const {
 ---
 
 <Base title={title} description={description}>
-  <NicknameModal />
   <article>
     <section class="ueb-hero">
       <div class="container">
@@ -204,14 +202,15 @@ const {
 
   .prose :global(pre) {
     font-family: "iA Writer Mono S", monospace;
-    background: rgba(247, 244, 240, 0.06);
-    border: 1px solid rgba(219, 71, 82, 0.3);
+    background: var(--ak-hazelnut);
+    border: none;
     color: var(--ak-blueberry);
     padding: var(--sp-md);
     overflow-x: auto;
     font-size: 14px;
     line-height: 1.6;
     margin: var(--sp-md) 0 var(--sp-lg);
+    border-radius: 4px;
   }
 
   .prose :global(pre code) {

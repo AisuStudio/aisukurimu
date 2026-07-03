@@ -55,6 +55,19 @@ import Base from '../../layouts/Base.astro';
 
   /* Focus ring demo */
   .focus-demo { display: inline-block; padding: 6px 12px; outline: 2px solid var(--ak-grape); outline-offset: 3px; font-family: "iA Writer Mono S", monospace; font-size: 12px; }
+
+  /* Container tabs */
+  .ct-tabs { display: flex; gap: var(--sp-sm); margin: 0 0 var(--sp-md); }
+  .ct-tab {
+    font-family: "iA Writer Mono S", monospace; font-size: 11px; font-weight: bold;
+    text-transform: uppercase; letter-spacing: .08em;
+    background: none; border: 1px solid rgba(31,25,52,.2);
+    color: var(--ak-blueberry); padding: 4px 12px; border-radius: 4px;
+    cursor: pointer; transition: background .15s, border-color .15s;
+  }
+  .ct-tab:hover { background: rgb(31 25 52 / 8%); }
+  .ct-tab--active { background: var(--ak-blueberry); color: var(--ak-vanilla); border-color: var(--ak-blueberry); }
+  .ct-meta { display: flex; gap: var(--sp-sm); flex-wrap: wrap; margin: var(--sp-sm) 0 0; }
 </style>
 
 <div class="ds">
@@ -248,6 +261,56 @@ import Base from '../../layouts/Base.astro';
 
   <hr class="ds-hr" />
 
+  <!-- Containers -->
+  <div class="ds-section">
+    <p class="ds-label">Container</p>
+
+    <!-- Tabs -->
+    <div class="ct-tabs" role="tablist">
+      <button class="ct-tab ct-tab--active" role="tab" data-tab="lcd">LCD / Code</button>
+      <button class="ct-tab" role="tab" data-tab="blockquote">Hinweis</button>
+      <button class="ct-tab" role="tab" data-tab="card">Card</button>
+    </div>
+
+    <div class="ct-panel" id="ct-lcd">
+      <pre style="background:var(--ak-hazelnut);color:var(--ak-blueberry);border-radius:4px;padding:var(--sp-md);font-size:14px;line-height:1.6;margin:0;font-family:'iA Writer Mono S',monospace;">Draufsicht von oben:
+ █ █ █ █ █
+ █         █
+ █ [TUER]  █   ← Eingang</pre>
+      <div class="ct-meta">
+        <span class="type-chip">background: --ak-hazelnut</span>
+        <span class="type-chip">color: --ak-blueberry</span>
+        <span class="type-chip">border-radius: 4px</span>
+        <span class="type-chip">font: iA Writer Mono S 14px</span>
+      </div>
+    </div>
+
+    <div class="ct-panel" id="ct-blockquote" hidden>
+      <blockquote style="border-left:3px solid var(--ak-lemon);padding:var(--sp-sm) var(--sp-md);margin:0;background:transparent;">
+        <p style="margin:0;font-family:'Public Sans',sans-serif;font-size:16px;line-height:1.5;color:var(--ak-blueberry);"><strong style="color:var(--ak-grape);">Dein Ziel:</strong> Bau eine geheime Untergrundbase mit einer Tür, die sich von außen nicht öffnen lässt.</p>
+      </blockquote>
+      <div class="ct-meta">
+        <span class="type-chip">border-left: 3px solid --ak-lemon</span>
+        <span class="type-chip">padding: --sp-sm --sp-md</span>
+        <span class="type-chip">label: --ak-grape bold</span>
+      </div>
+    </div>
+
+    <div class="ct-panel" id="ct-card" hidden>
+      <div style="background:var(--ak-cappuccino);border-radius:4px;padding:var(--sp-md) var(--sp-lg);">
+        <p class="ds-title" style="margin:0 0 var(--sp-xs);">Cappuccino Card</p>
+        <p style="margin:0;font-family:'Public Sans',sans-serif;font-size:14px;line-height:1.5;color:var(--ak-blueberry);">Container für Karten, Infoboxen und abgegrenzte Inhaltsbereiche.</p>
+      </div>
+      <div class="ct-meta">
+        <span class="type-chip">background: --ak-cappuccino</span>
+        <span class="type-chip">border-radius: 4px</span>
+        <span class="type-chip">padding: --sp-md --sp-lg</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ds-hr" />
+
   <!-- Components -->
   <div class="ds-section">
     <p class="ds-label">Navigation & UI-Elemente</p>
@@ -307,4 +370,16 @@ import Base from '../../layouts/Base.astro';
   </div>
 
 </div>
+
+<script>
+  document.querySelectorAll('.ct-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const key = (tab as HTMLElement).dataset.tab!;
+      document.querySelectorAll('.ct-tab').forEach(t => t.classList.remove('ct-tab--active'));
+      document.querySelectorAll('.ct-panel').forEach(p => ((p as HTMLElement).hidden = true));
+      tab.classList.add('ct-tab--active');
+      (document.getElementById(`ct-${key}`) as HTMLElement).hidden = false;
+    });
+  });
+</script>
 </Base>
