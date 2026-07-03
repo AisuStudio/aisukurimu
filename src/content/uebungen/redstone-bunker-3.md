@@ -9,7 +9,7 @@ ageMin: 13
 duration: 30
 platforms: [minecraft]
 tags: [minecraft, redstone, systeme, taktschaltkreis, clock, kolben, detektiv]
-image: /images/AK_EX_0012.jpg
+image: /images/AK_EX_0014.jpg
 date: 2026-07-03
 language: de
 ---
