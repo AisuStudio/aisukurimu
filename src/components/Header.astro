@@ -209,7 +209,9 @@ const home = url('/');
   // Click handler — always active, modal decides what to do
   loginBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      window.dispatchEvent(new CustomEvent('ak:open-modal'));
+      const show = (window as any).__akShowModal;
+      if (show) show();
+      else window.dispatchEvent(new CustomEvent('ak:open-modal'));
     });
   });
 

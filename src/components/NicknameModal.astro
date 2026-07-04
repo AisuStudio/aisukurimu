@@ -145,7 +145,8 @@
   const dismissBtn = document.getElementById('ak-dismiss')!;
   dismissBtn.addEventListener('click', () => { overlay.hidden = true; });
 
-  // Open via nav trigger
+  // Open via nav trigger — exposed globally so Header can call it directly
+  (window as any).__akShowModal = showModal;
   window.addEventListener('ak:open-modal', () => showModal());
 
   // Dispatch player-ready for pages that need it (e.g. exercise pages)
