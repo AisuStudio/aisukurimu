@@ -1,0 +1,13 @@
+{
+  "ambient.drone.squeak": {
+    "category": "ambient",
+    "subtitle": "Quietschende Drohne",
+    "sounds": [
+      {
+        "name": "aisu_escape:ambient/drone_squeak",
+        "stream": true,
+        "volume": 1.0
+      }
+    ]
+  }
+}
