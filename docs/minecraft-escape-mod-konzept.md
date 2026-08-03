@@ -182,6 +182,9 @@ modular gebaut:
 - **Konami-Code** auf einem Nummernfeld → Skin/Titel/Bonus.
 - **Der „ehrliche Weg":** verstecktes Egg für das Kind, das *keine* Kamera
   ausschaltet und trotzdem entkommt — belohnt sauberes Denken.
+- **„Ken sent me"** *(umgesetzt in Kapitel 1)*: klassische Retro-Losung. Papier
+  im Amboss in `Ken sent me` umbenennen und in der Hand halten → Schmuggler gibt
+  Zeit-Bonus + Geheim-Code. Cue steckt im Patrouillen-Log-Buch.
 
 ### 9b. Austauschbare Eggs (mit dem Kurs aktualisieren)
 

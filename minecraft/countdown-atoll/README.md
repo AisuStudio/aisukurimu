@@ -79,6 +79,26 @@ Design-Hintergrund und Gesamtkonzept: siehe `docs/minecraft-escape-mod-konzept.m
 8. Läuft die Zeit ab: kein „Game Over" — ein Klick auf **Nochmal versuchen**
    setzt alles zurück.
 
+Kurze Anleitung im Spiel: Klick auf **[ ? So wird gespielt ]** im Startmenü oder
+`/function aisu_escape:hilfe`.
+
+### 🥚 Geheime Losung (Easter Egg)
+
+Auf der Insel geht das Gerücht von einer **Schmuggler-Luke**. Der Schmuggler nimmt
+keine Codes — nur die alte Losung. Ein Hinweis darauf ist ins **Patrouillen-Log**
+gekritzelt (letzte Seite).
+
+**So löst du es:** Nimm ein **Papier**, benenne es im **Amboss** in genau
+`Ken sent me` um und **halte es in der Hand**. Der Schmuggler erkennt die Losung →
+**+60 Sekunden** und ein geheimer Bonus-Code. Rein optional, kein Muss zum
+Entkommen.
+
+> Technik-Hinweis: Text-Losungen kann Minecraft nicht per `/trigger` abfragen
+> (nur Zahlen). Deshalb läuft das über einen im Amboss umbenannten Gegenstand,
+> den das Datapack in der Hand erkennt. Die Erkennung deckt zwei NBT-Formen ab
+> (siehe `tick.mcfunction`) — falls der erste Test zeigt, dass eure Version den
+> Item-Namen anders speichert, ist das die eine Stelle zum Nachjustieren.
+
 Manueller Neustart jederzeit: `/function aisu_escape:reset`
 
 ---
@@ -95,7 +115,10 @@ Manueller Neustart jederzeit: `/function aisu_escape:reset`
   Entkommen. Jede Stufe voll spielbar über Trigger-Eingaben mit
   Falsch/Richtig-Rückmeldung; falscher Alarm kostet Zeit. Jede Stufe bildet eine
   reale Angriffsklasse ab (Krypto / Logik / Default-Passwort / Log-Analyse).
-- Sieg-/Verlier-/Reset-Ablauf inkl. Bestenlisten-Code für die Website.
+- **Easter Egg:** geheime Losung `Ken sent me` (Amboss-Umbenennung) mit Cue im
+  Log-Buch → Zeit-Bonus + Geheim-Code.
+- In-Game-Hilfe (`/function aisu_escape:hilfe` bzw. Startmenü-Knopf).
+- Sieg-/Verlier-/Reset-Ablauf inkl. Bestenlisten-Code + Methoden-Rückblick.
 
 **Bewusst noch nicht (kommt in den nächsten Kapiteln):**
 - Gebaute Insel-Map, Kameras, Patrouillen/NPCs, weitere Rätsel der Kette.
@@ -114,6 +137,7 @@ datapack/
   data/minecraft/tags/function/{load,tick}.json   # Hooks für Load & jeden Tick
   data/aisu_escape/function/
     load.mcfunction         # Setup + Routen-Menü (bei /reload)
+    hilfe.mcfunction        # kurze Spielanleitung im Chat
     route/{easy,medium,hard}.mcfunction
     start.mcfunction        # Lauf starten, Funkspruch geben, Schleifen an
     countdown.mcfunction    # 1x/s: Zeit runter, Bossbar, Warntöne
@@ -131,9 +155,11 @@ datapack/
       give_camera.mcfunction    # Rätsel 3: Kamera-Steuerung-Buch (Werks-PIN)
       camera_wrong.mcfunction   # falsche PIN -> Rückmeldung
       camera_solved.mcfunction  # richtig -> schaltet Rätsel 4 frei
-      give_log.mcfunction       # Rätsel 4: Patrouillen-Log-Buch (Forensik)
+      give_log.mcfunction       # Rätsel 4: Patrouillen-Log-Buch (Forensik) + Cue
       log_wrong.mcfunction      # falsche Minute -> Rückmeldung
       log_solved.mcfunction     # richtig -> Sieg
+    secret/
+      found.mcfunction          # Easter Egg: Losung "Ken sent me" erkannt
 resourcepack/
   pack.mcmeta
   assets/aisu_escape/sounds.json

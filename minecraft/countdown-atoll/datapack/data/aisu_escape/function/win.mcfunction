@@ -15,4 +15,8 @@ tellraw @a [{"text":"Verbleibende Zeit als Bonus: ","color":"gray"},{"score":{"n
 tellraw @a [{"text":"Dein Code fuer die Bestenliste: ","color":"aqua"},{"text":"ATOLL-BOOT-01","bold":true,"color":"yellow","clickEvent":{"action":"copy_to_clipboard","value":"ATOLL-BOOT-01"},"hoverEvent":{"action":"show_text","contents":"Klicken zum Kopieren"}}]
 tellraw @a {"text":"Gib ihn auf lab.aisu.studio ein, um dich einzutragen.","color":"gray"}
 
+# Ruecklick: welche Methoden du gerade benutzt hast
+tellraw @a {"text":"Was du geknackt hast: Chiffre (Krypto) - Logikgatter - Standard-Passwort - Log-Analyse. Alles echte Sicherheits-Methoden.","color":"dark_aqua","italic":true}
+execute unless entity @a[scores={ak_secret=1}] run tellraw @a {"text":"(Und irgendwo auf der Insel wartet noch eine geheime Losung …)","color":"dark_gray","italic":true}
+
 playsound minecraft:ui.toast.challenge_complete master @a ~ ~ ~ 1 1

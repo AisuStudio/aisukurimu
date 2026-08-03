@@ -9,7 +9,9 @@ export default defineConfig({
 	site: 'https://lab.aisu.studio',
 	base: '/',
 	trailingSlash: 'always',
-	integrations: [mdx(), sitemap()],
+	// /atoll/ ist eine bewusst unverlinkte Seite (nur per direkter URL teilbar)
+	// und wird deshalb aus der Sitemap ausgeschlossen.
+	integrations: [mdx(), sitemap({ filter: (page) => !page.includes('/atoll') })],
 	markdown: {
 		syntaxHighlight: false,
 	},

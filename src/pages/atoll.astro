@@ -1,0 +1,163 @@
+---
+/*
+  Unverlinkte Landingpage für die Minecraft-Mod "Countdown auf dem Atoll".
+  Bewusst NICHT in der Navigation (Header) verlinkt — nur per direkter URL
+  erreichbar (/atoll/). Teilbar für Tester.
+*/
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/url';
+
+const hero = url('/images/AK_Atoll_Hero.jpeg');
+const download = url('/downloads/countdown-atoll.zip');
+---
+
+<Base
+  title="Countdown auf dem Atoll"
+  description="Minecraft-Escape: Knacke vier echte Sicherheitsrätsel und flüchte von der Insel, bevor der Countdown abläuft."
+  ogImage="/images/AK_Atoll_Hero.jpeg"
+>
+  <section class="atoll-page">
+    <div class="container">
+
+      <figure class="hero">
+        <img
+          src={hero}
+          alt="Countdown auf dem Atoll — verlassene Forschungsinsel"
+          width="1600"
+          height="900"
+          loading="eager"
+        />
+      </figure>
+
+      <h1 class="h1-vanilla cursor">Countdown auf dem Atoll</h1>
+      <p class="lead">Ein Minecraft-Escape für Neugierige ab 10.</p>
+
+      <div class="prose">
+        <p class="p-small-vanilla">
+          Auf einer verlassenen Forschungsinsel läuft der Countdown bis zum Atomtest —
+          und du bist zurückgeblieben.
+        </p>
+        <p class="p-small-vanilla">
+          Um das letzte Boot zu erreichen, musst du dich durch vier echte
+          Sicherheitsrätsel knacken: eine verschlüsselte Funknachricht, eine Alarmanlage
+          mit Logikgattern, eine Kamera mit vergessenem Standard-Passwort und ein
+          Wach-Log, in dem eine Lücke das freie Zeitfenster verrät.
+        </p>
+        <p class="p-small-vanilla">
+          Jede Route hat ihre eigene Schwierigkeit und Zeit, während eine unheimliche
+          Drohnen-Ambience den Druck steigen lässt.
+        </p>
+        <p class="p-small-vanilla">
+          Wer die geheime Schmuggler-Losung kennt, verschafft sich sogar einen Vorsprung.
+        </p>
+        <p class="p-small-vanilla">
+          Am Ende wartet ein Code für die Bestenliste auf lab.aisu.studio — schaffst du
+          es rechtzeitig von der Insel?
+        </p>
+      </div>
+
+      <ul class="facts">
+        <li class="p-small-vanilla"><strong>Plattform</strong> Minecraft Java 1.21+</li>
+        <li class="p-small-vanilla"><strong>Modus</strong> Datapack + Resource Pack (kein Mod-Loader)</li>
+        <li class="p-small-vanilla"><strong>Alter</strong> ab 10</li>
+        <li class="p-small-vanilla"><strong>Dauer</strong> 5–15 Minuten pro Route</li>
+      </ul>
+
+      <div class="download">
+        <a class="btn-download" href={download} download>
+          ↓ Mod herunterladen (.zip)
+        </a>
+        <p class="hint">
+          Entpacken, den Ordner <code>datapack</code> in
+          <code>saves/&lt;deine&nbsp;Welt&gt;/datapacks/</code> legen, das
+          <code>resourcepack</code> aktivieren, im Spiel <code>/reload</code> tippen.
+          Die vollständige Anleitung liegt als <code>README</code> im ZIP.
+        </p>
+      </div>
+
+    </div>
+  </section>
+</Base>
+
+<style>
+  .atoll-page { padding: var(--sp-3xl) 0; }
+
+  .hero {
+    margin: 0 0 var(--sp-xl);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--ak-blueberry, #161633);
+    aspect-ratio: 16 / 9;
+  }
+  .hero img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .lead {
+    font-family: "iA Writer Mono S", monospace;
+    color: var(--ak-grape);
+    margin: 0 0 var(--sp-lg);
+  }
+
+  .prose {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-md);
+    max-width: 62ch;
+  }
+
+  .facts {
+    list-style: none;
+    padding: 0;
+    margin: var(--sp-xl) 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-sm) var(--sp-xl);
+    max-width: 62ch;
+  }
+  .facts li { position: relative; padding-left: var(--sp-lg); }
+  .facts li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--ak-grape);
+    font-family: "iA Writer Mono S", monospace;
+    font-weight: bold;
+  }
+  .facts strong { display: block; font-size: 0.85em; opacity: 0.7; }
+
+  .download { margin-top: var(--sp-2xl); }
+
+  .btn-download {
+    display: inline-block;
+    font-family: "iA Writer Mono S", monospace;
+    font-weight: bold;
+    text-decoration: none;
+    padding: var(--sp-md) var(--sp-xl);
+    border-radius: 6px;
+    background: var(--ak-grape);
+    color: var(--ak-vanilla, #fff);
+    transition: transform 0.1s ease, filter 0.1s ease;
+  }
+  .btn-download:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+  .hint {
+    margin-top: var(--sp-md);
+    max-width: 62ch;
+    font-size: 0.85em;
+    opacity: 0.8;
+  }
+  .hint code {
+    font-family: "iA Writer Mono S", monospace;
+    background: rgba(0, 0, 0, 0.08);
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+  }
+
+  @media (max-width: 768px) {
+    .facts { grid-template-columns: 1fr; }
+  }
+</style>

@@ -23,3 +23,10 @@ execute if score #game ak_stage matches 3 as @a[scores={ak_cam=1947..}] run func
 execute if score #game ak_stage matches 4 as @a[scores={ak_log=25}] at @s run function aisu_escape:puzzle/log_solved
 execute if score #game ak_stage matches 4 as @a[scores={ak_log=1..24}] run function aisu_escape:puzzle/log_wrong
 execute if score #game ak_stage matches 4 as @a[scores={ak_log=26..}] run function aisu_escape:puzzle/log_wrong
+
+# --- Easter Egg: geheime Losung "Ken sent me" (jederzeit waehrend des Laufs) ---
+# Erkannt, wenn der Spieler ein Item in der Hand haelt, das im Amboss in genau
+# "Ken sent me" umbenannt wurde. Zwei Varianten decken die NBT-Serialisierung
+# verschiedener 1.21-Versionen ab (String- vs. Objekt-Textkomponente).
+execute as @a[scores={ak_secret=0},nbt={SelectedItem:{components:{"minecraft:custom_name":'"Ken sent me"'}}}] run function aisu_escape:secret/found
+execute as @a[scores={ak_secret=0},nbt={SelectedItem:{components:{"minecraft:custom_name":'{"text":"Ken sent me"}'}}}] run function aisu_escape:secret/found
