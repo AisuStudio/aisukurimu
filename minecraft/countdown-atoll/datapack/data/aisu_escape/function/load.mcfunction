@@ -7,10 +7,11 @@ scoreboard objectives add ak_stage    dummy
 scoreboard objectives add ak_dial     trigger {"text":"Chiffrier-Rad"}
 scoreboard objectives add ak_alarm    trigger {"text":"Alarm-Code"}
 scoreboard objectives add ak_cam      trigger {"text":"Kamera-PIN"}
+scoreboard objectives add ak_log      trigger {"text":"Freie Minute"}
 
 # Globaler Zustand liegt auf dem Fake-Spieler #game
 #   ak_state: 0 = bereit, 1 = laeuft, 2 = entkommen, 3 = Zeit abgelaufen
-#   ak_stage: 1 = Caesar, 2 = Alarm, 3 = Kamera, 9 = geloest
+#   ak_stage: 1 = Caesar, 2 = Alarm, 3 = Kamera, 4 = Log, 9 = geloest
 scoreboard players set #game ak_state 0
 scoreboard players set #game ak_stage 0
 

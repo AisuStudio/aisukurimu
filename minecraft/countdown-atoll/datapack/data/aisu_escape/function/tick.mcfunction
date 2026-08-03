@@ -17,3 +17,9 @@ execute if score #game ak_stage matches 2 as @a[scores={ak_alarm=1002..}] run fu
 execute if score #game ak_stage matches 3 as @a[scores={ak_cam=1946}] at @s run function aisu_escape:puzzle/camera_solved
 execute if score #game ak_stage matches 3 as @a[scores={ak_cam=1..1945}] run function aisu_escape:puzzle/camera_wrong
 execute if score #game ak_stage matches 3 as @a[scores={ak_cam=1947..}] run function aisu_escape:puzzle/camera_wrong
+
+# --- Stufe 4: Patrouillen-Log / Forensik (ak_log) ---
+# Fehlende Minute in 05 10 15 20 _ 30 35 -> 25. Richtige Eingabe: 25
+execute if score #game ak_stage matches 4 as @a[scores={ak_log=25}] at @s run function aisu_escape:puzzle/log_solved
+execute if score #game ak_stage matches 4 as @a[scores={ak_log=1..24}] run function aisu_escape:puzzle/log_wrong
+execute if score #game ak_stage matches 4 as @a[scores={ak_log=26..}] run function aisu_escape:puzzle/log_wrong

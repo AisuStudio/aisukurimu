@@ -66,8 +66,17 @@ Design-Hintergrund und Gesamtkonzept: siehe `docs/minecraft-escape-mod-konzept.m
    ```
    Richtig = **1946**. Lernmoment: Werks-PINs / Standard-Passwörter sind die
    häufigste echte Sicherheitslücke.
-6. Alle drei Rätsel gelöst → **Entkommen**, du bekommst einen Bestenlisten-Code.
-7. Läuft die Zeit ab: kein „Game Over" — ein Klick auf **Nochmal versuchen**
+6. **Rätsel 4 — Patrouillen-Log** (schaltet sich nach Rätsel 3 frei): Ein Buch
+   *Patrouillen-Log* listet die Minuten, zu denen die Wache am Steg vorbeikommt:
+   `05 10 15 20 __ 30 35`. Genau eine Minute fehlt — dann ist der Steg frei. Gib
+   die fehlende Zahl ein:
+   ```
+   /trigger ak_log set <zahl>
+   ```
+   Richtig = **25**. Lernmoment: Logs verraten Muster, und Muster verraten die
+   Lücke — so arbeitet Forensik.
+7. Alle vier Rätsel gelöst → **Entkommen**, du bekommst einen Bestenlisten-Code.
+8. Läuft die Zeit ab: kein „Game Over" — ein Klick auf **Nochmal versuchen**
    setzt alles zurück.
 
 Manueller Neustart jederzeit: `/function aisu_escape:reset`
@@ -81,10 +90,11 @@ Manueller Neustart jederzeit: `/function aisu_escape:reset`
   unterschiedlicher Zeit (adaptiver Countdown).
 - Drohnen-Ambient-Schleife mit 3 Lautstärke-Stufen je nach Restzeit; Warn-Puls
   ab 5 Min bzw. jede Sekunde unter 1 Min.
-- **Rätsel-Kette (3 Stufen):** Caesar-Chiffre → Alarmanlage (NOT-Gatter) →
-  Kamera (Werks-PIN); erst alle drei gelöst = Entkommen. Jede Stufe voll spielbar
-  über Trigger-Eingaben mit Falsch/Richtig-Rückmeldung; falscher Alarm kostet Zeit.
-  Jede Stufe bildet eine reale Angriffsklasse ab (Krypto / Logik / Default-Passwort).
+- **Rätsel-Kette (4 Stufen):** Caesar-Chiffre → Alarmanlage (NOT-Gatter) →
+  Kamera (Werks-PIN) → Patrouillen-Log (Forensik); erst alle vier gelöst =
+  Entkommen. Jede Stufe voll spielbar über Trigger-Eingaben mit
+  Falsch/Richtig-Rückmeldung; falscher Alarm kostet Zeit. Jede Stufe bildet eine
+  reale Angriffsklasse ab (Krypto / Logik / Default-Passwort / Log-Analyse).
 - Sieg-/Verlier-/Reset-Ablauf inkl. Bestenlisten-Code für die Website.
 
 **Bewusst noch nicht (kommt in den nächsten Kapiteln):**
@@ -120,7 +130,10 @@ datapack/
       alarm_solved.mcfunction   # richtig -> schaltet Rätsel 3 frei
       give_camera.mcfunction    # Rätsel 3: Kamera-Steuerung-Buch (Werks-PIN)
       camera_wrong.mcfunction   # falsche PIN -> Rückmeldung
-      camera_solved.mcfunction  # richtig -> Sieg
+      camera_solved.mcfunction  # richtig -> schaltet Rätsel 4 frei
+      give_log.mcfunction       # Rätsel 4: Patrouillen-Log-Buch (Forensik)
+      log_wrong.mcfunction      # falsche Minute -> Rückmeldung
+      log_solved.mcfunction     # richtig -> Sieg
 resourcepack/
   pack.mcmeta
   assets/aisu_escape/sounds.json

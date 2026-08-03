@@ -5,6 +5,7 @@ scoreboard players set #game ak_time 0
 scoreboard players set @a ak_dial 0
 scoreboard players set @a ak_alarm 0
 scoreboard players set @a ak_cam 0
+scoreboard players set @a ak_log 0
 schedule clear aisu_escape:countdown
 schedule clear aisu_escape:drone
 bossbar set aisu_escape:countdown visible false
