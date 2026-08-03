@@ -11,3 +11,9 @@ execute if score #game ak_stage matches 1 as @a[scores={ak_dial=4..}] run functi
 execute if score #game ak_stage matches 2 as @a[scores={ak_alarm=1001}] at @s run function aisu_escape:puzzle/alarm_solved
 execute if score #game ak_stage matches 2 as @a[scores={ak_alarm=1..1000}] run function aisu_escape:puzzle/alarm_wrong
 execute if score #game ak_stage matches 2 as @a[scores={ak_alarm=1002..}] run function aisu_escape:puzzle/alarm_wrong
+
+# --- Stufe 3: Kamera / Werks-PIN (ak_cam) ---
+# PIN = Baujahr 1946. Richtige Eingabe: 1946
+execute if score #game ak_stage matches 3 as @a[scores={ak_cam=1946}] at @s run function aisu_escape:puzzle/camera_solved
+execute if score #game ak_stage matches 3 as @a[scores={ak_cam=1..1945}] run function aisu_escape:puzzle/camera_wrong
+execute if score #game ak_stage matches 3 as @a[scores={ak_cam=1947..}] run function aisu_escape:puzzle/camera_wrong

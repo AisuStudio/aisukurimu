@@ -58,8 +58,16 @@ Design-Hintergrund und Gesamtkonzept: siehe `docs/minecraft-escape-mod-konzept.m
    ```
    Richtig = **1001**. Falsch heult die Sirene kurz — und kostet **10 Sekunden**
    Countdown.
-5. Beide Rätsel gelöst → **Entkommen**, du bekommst einen Bestenlisten-Code.
-6. Läuft die Zeit ab: kein „Game Over" — ein Klick auf **Nochmal versuchen**
+5. **Rätsel 3 — Kamera** (schaltet sich nach Rätsel 2 frei): Ein Heft
+   *Kamera-Steuerung* erscheint. Die Kamera läuft noch auf der **Werks-PIN** — ein
+   Schild verrät „Anlage errichtet **1946**". Gib die naheliegende Zahl ein:
+   ```
+   /trigger ak_cam set <zahl>
+   ```
+   Richtig = **1946**. Lernmoment: Werks-PINs / Standard-Passwörter sind die
+   häufigste echte Sicherheitslücke.
+6. Alle drei Rätsel gelöst → **Entkommen**, du bekommst einen Bestenlisten-Code.
+7. Läuft die Zeit ab: kein „Game Over" — ein Klick auf **Nochmal versuchen**
    setzt alles zurück.
 
 Manueller Neustart jederzeit: `/function aisu_escape:reset`
@@ -73,9 +81,10 @@ Manueller Neustart jederzeit: `/function aisu_escape:reset`
   unterschiedlicher Zeit (adaptiver Countdown).
 - Drohnen-Ambient-Schleife mit 3 Lautstärke-Stufen je nach Restzeit; Warn-Puls
   ab 5 Min bzw. jede Sekunde unter 1 Min.
-- **Rätsel-Kette (2 Stufen):** Caesar-Chiffre schaltet die Alarmanlage
-  (NOT-Gatter) frei; erst beide gelöst = Entkommen. Beide voll spielbar über
-  Trigger-Eingaben mit Falsch/Richtig-Rückmeldung; falscher Alarm kostet Zeit.
+- **Rätsel-Kette (3 Stufen):** Caesar-Chiffre → Alarmanlage (NOT-Gatter) →
+  Kamera (Werks-PIN); erst alle drei gelöst = Entkommen. Jede Stufe voll spielbar
+  über Trigger-Eingaben mit Falsch/Richtig-Rückmeldung; falscher Alarm kostet Zeit.
+  Jede Stufe bildet eine reale Angriffsklasse ab (Krypto / Logik / Default-Passwort).
 - Sieg-/Verlier-/Reset-Ablauf inkl. Bestenlisten-Code für die Website.
 
 **Bewusst noch nicht (kommt in den nächsten Kapiteln):**
@@ -108,7 +117,10 @@ datapack/
       caesar_solved.mcfunction  # richtig -> schaltet Rätsel 2 frei
       give_alarm.mcfunction     # Rätsel 2: Alarm-Panel-Buch (NOT-Gatter)
       alarm_wrong.mcfunction    # falscher Code -> Sirene + 10 s Abzug
-      alarm_solved.mcfunction   # richtig -> Sieg
+      alarm_solved.mcfunction   # richtig -> schaltet Rätsel 3 frei
+      give_camera.mcfunction    # Rätsel 3: Kamera-Steuerung-Buch (Werks-PIN)
+      camera_wrong.mcfunction   # falsche PIN -> Rückmeldung
+      camera_solved.mcfunction  # richtig -> Sieg
 resourcepack/
   pack.mcmeta
   assets/aisu_escape/sounds.json
