@@ -1,6 +1,7 @@
 # Countdown starten (wird von den route/*-Functions aufgerufen)
 scoreboard players set #game ak_state 1
 scoreboard players set #game ak_stage 1
+scoreboard players set @a ak_secret 0
 
 # Bossbar aufsetzen: max + aktueller Wert = Startzeit
 execute store result bossbar aisu_escape:countdown max   run scoreboard players get #game ak_time
