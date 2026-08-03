@@ -42,17 +42,41 @@ Design-Hintergrund und Gesamtkonzept: siehe `docs/minecraft-escape-mod-konzept.m
    - 🔴 **Hauptgebäude (schwer)** — 5 Minuten
 2. Route anklicken → der Countdown startet (Bossbar oben), du bekommst den
    **Funkspruch** ins Inventar.
-3. **Funkspruch lesen** (Rechtsklick): Der Zugangscode `E R R W` ist mit einer
-   Caesar-Chiffre verschoben. Finde heraus, um wie viele Stellen — und stelle das
-   Chiffrier-Rad darauf ein:
+3. **Rätsel 1 — Funkspruch** (Rechtsklick zum Lesen): Der Zugangscode `E R R W`
+   ist mit einer Caesar-Chiffre verschoben. Finde heraus, um wie viele Stellen —
+   und stelle das Chiffrier-Rad darauf ein:
    ```
    /trigger ak_dial set <zahl>
    ```
-   (Im Buch gibt es dafür einen klickbaren Button, der den Befehl vorbereitet.)
-4. Richtige Verschiebung = **3** (ERRW → BOOT). Triffst du sie, ist das Rätsel
-   gelöst → **Entkommen**, und du bekommst einen Bestenlisten-Code.
-   Falsche Zahl = kurze Rückmeldung, weiter probieren.
-5. Läuft die Zeit ab: kein „Game Over" — ein Klick auf **Nochmal versuchen**
+   Richtige Verschiebung = **3** (ERRW → BOOT). Falsche Zahl = kurze Rückmeldung,
+   weiter probieren.
+4. **Rätsel 2 — Alarmanlage** (schaltet sich nach Rätsel 1 frei): Ein neues Buch
+   *Alarm-Panel* erscheint. Die Kontrollleuchten zeigen `0 1 1 0`. Ein **NOT-Gatter**
+   dreht jedes Bit um → invertiere das Muster und gib es als Zahl ein:
+   ```
+   /trigger ak_alarm set <zahl>
+   ```
+   Richtig = **1001**. Falsch heult die Sirene kurz — und kostet **10 Sekunden**
+   Countdown.
+5. **Rätsel 3 — Kamera** (schaltet sich nach Rätsel 2 frei): Ein Heft
+   *Kamera-Steuerung* erscheint. Die Kamera läuft noch auf der **Werks-PIN** — ein
+   Schild verrät „Anlage errichtet **1946**". Gib die naheliegende Zahl ein:
+   ```
+   /trigger ak_cam set <zahl>
+   ```
+   Richtig = **1946**. Lernmoment: Werks-PINs / Standard-Passwörter sind die
+   häufigste echte Sicherheitslücke.
+6. **Rätsel 4 — Patrouillen-Log** (schaltet sich nach Rätsel 3 frei): Ein Buch
+   *Patrouillen-Log* listet die Minuten, zu denen die Wache am Steg vorbeikommt:
+   `05 10 15 20 __ 30 35`. Genau eine Minute fehlt — dann ist der Steg frei. Gib
+   die fehlende Zahl ein:
+   ```
+   /trigger ak_log set <zahl>
+   ```
+   Richtig = **25**. Lernmoment: Logs verraten Muster, und Muster verraten die
+   Lücke — so arbeitet Forensik.
+7. Alle vier Rätsel gelöst → **Entkommen**, du bekommst einen Bestenlisten-Code.
+8. Läuft die Zeit ab: kein „Game Over" — ein Klick auf **Nochmal versuchen**
    setzt alles zurück.
 
 Manueller Neustart jederzeit: `/function aisu_escape:reset`
@@ -66,13 +90,17 @@ Manueller Neustart jederzeit: `/function aisu_escape:reset`
   unterschiedlicher Zeit (adaptiver Countdown).
 - Drohnen-Ambient-Schleife mit 3 Lautstärke-Stufen je nach Restzeit; Warn-Puls
   ab 5 Min bzw. jede Sekunde unter 1 Min.
-- Caesar-Rätsel voll spielbar über das `ak_dial`-Trigger-Rad, mit
-  Falsch/Richtig-Rückmeldung.
+- **Rätsel-Kette (4 Stufen):** Caesar-Chiffre → Alarmanlage (NOT-Gatter) →
+  Kamera (Werks-PIN) → Patrouillen-Log (Forensik); erst alle vier gelöst =
+  Entkommen. Jede Stufe voll spielbar über Trigger-Eingaben mit
+  Falsch/Richtig-Rückmeldung; falscher Alarm kostet Zeit. Jede Stufe bildet eine
+  reale Angriffsklasse ab (Krypto / Logik / Default-Passwort / Log-Analyse).
 - Sieg-/Verlier-/Reset-Ablauf inkl. Bestenlisten-Code für die Website.
 
 **Bewusst noch nicht (kommt in den nächsten Kapiteln):**
 - Gebaute Insel-Map, Kameras, Patrouillen/NPCs, weitere Rätsel der Kette.
-- Echte Tür/Bootssteg, die sich beim Lösen öffnet (aktuell = Sofort-Sieg).
+- Echte Tür/Bootssteg, die sich beim Lösen physisch öffnet (aktuell rein über
+  Trigger-Eingabe statt gebauter Redstone-Tür).
 - Team-Rollen, Custom-Items/GUIs (dafür später die kleine Fabric-Mod).
 - Easter Eggs (das offene Trigger-/Zonen-System dafür ist im Konzept beschrieben).
 
@@ -91,12 +119,21 @@ datapack/
     countdown.mcfunction    # 1x/s: Zeit runter, Bossbar, Warntöne
     pulse_mid.mcfunction    # Warn-Tick alle 5 s (mittlerer Zeitbereich)
     drone.mcfunction        # Drohnen-Ambient-Schleife (alle 8 s)
-    tick.mcfunction         # liest das Chiffrier-Rad aus
+    tick.mcfunction         # liest Chiffrier-Rad + Alarm-Code aus (je Stufe)
     win / lose / reset.mcfunction
     puzzle/
-      give_radio.mcfunction     # Funkspruch-Buch (Caesar)
-      caesar_solved.mcfunction  # richtige Verschiebung -> Sieg
+      give_radio.mcfunction     # Rätsel 1: Funkspruch-Buch (Caesar)
       caesar_wrong.mcfunction   # falsche Zahl -> Rückmeldung
+      caesar_solved.mcfunction  # richtig -> schaltet Rätsel 2 frei
+      give_alarm.mcfunction     # Rätsel 2: Alarm-Panel-Buch (NOT-Gatter)
+      alarm_wrong.mcfunction    # falscher Code -> Sirene + 10 s Abzug
+      alarm_solved.mcfunction   # richtig -> schaltet Rätsel 3 frei
+      give_camera.mcfunction    # Rätsel 3: Kamera-Steuerung-Buch (Werks-PIN)
+      camera_wrong.mcfunction   # falsche PIN -> Rückmeldung
+      camera_solved.mcfunction  # richtig -> schaltet Rätsel 4 frei
+      give_log.mcfunction       # Rätsel 4: Patrouillen-Log-Buch (Forensik)
+      log_wrong.mcfunction      # falsche Minute -> Rückmeldung
+      log_solved.mcfunction     # richtig -> Sieg
 resourcepack/
   pack.mcmeta
   assets/aisu_escape/sounds.json
