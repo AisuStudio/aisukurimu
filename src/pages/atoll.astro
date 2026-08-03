@@ -63,6 +63,11 @@ const download = url('/downloads/countdown-atoll.zip');
         <li class="p-small-vanilla"><strong>Dauer</strong> 5–15 Minuten pro Route</li>
       </ul>
 
+      <p class="caveat" role="note">
+        ⚠️ <strong>Beta:</strong> Dieses Spiel ist noch nicht in Minecraft getestet.
+        Es kann noch Fehler enthalten — Rückmeldungen sind willkommen.
+      </p>
+
       <div class="download">
         <a class="btn-download" href={download} download>
           ↓ Mod herunterladen (.zip)
@@ -129,7 +134,17 @@ const download = url('/downloads/countdown-atoll.zip');
   }
   .facts strong { display: block; font-size: 0.85em; opacity: 0.7; }
 
-  .download { margin-top: var(--sp-2xl); }
+  .caveat {
+    margin: var(--sp-2xl) 0 0;
+    max-width: 62ch;
+    padding: var(--sp-md) var(--sp-lg);
+    border: 1px solid var(--ak-grape);
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.04);
+    font-size: 0.9em;
+  }
+
+  .download { margin-top: var(--sp-md); }
 
   .btn-download {
     display: inline-block;
