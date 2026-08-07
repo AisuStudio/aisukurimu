@@ -8,7 +8,8 @@ import Base from '../layouts/Base.astro';
 import { url } from '../lib/url';
 
 const hero = url('/images/AK_Atoll_Hero.jpeg');
-const download = url('/downloads/countdown-atoll.zip');
+const dlDatapack = url('/downloads/countdown-atoll-datapack.zip');
+const dlResourcepack = url('/downloads/countdown-atoll-resourcepack.zip');
 ---
 
 <Base
@@ -69,14 +70,40 @@ const download = url('/downloads/countdown-atoll.zip');
       </p>
 
       <div class="download">
-        <a class="btn-download" href={download} download>
-          ↓ Mod herunterladen (.zip)
+        <a class="btn-download" href={dlDatapack} download>
+          ↓ Datapack (.zip)
         </a>
-        <p class="hint">
-          Entpacken, den Ordner <code>datapack</code> in
-          <code>saves/&lt;deine&nbsp;Welt&gt;/datapacks/</code> legen, das
-          <code>resourcepack</code> aktivieren, im Spiel <code>/reload</code> tippen.
-          Die vollständige Anleitung liegt als <code>README</code> im ZIP.
+        <a class="btn-download btn-download--sec" href={dlResourcepack} download>
+          ↓ Resource Pack (.zip) — für den Sound
+        </a>
+      </div>
+
+      <div class="howto">
+        <p class="howto-warn">
+          ⚠️ <strong>Wichtig:</strong> Das ist ein <strong>Datapack</strong>, keine Mod.
+          Zieh es <strong>nicht</strong> ins „Mods"-Fenster — das funktioniert nicht.
+          So geht's richtig:
+        </p>
+        <p class="howto-h">A) Datapack laden (das eigentliche Spiel)</p>
+        <ol class="howto-list">
+          <li>Minecraft starten → <strong>Einzelspieler</strong> → <strong>Neue Welt erstellen</strong>.</li>
+          <li>Im Erstell-Menü auf <strong>Datenpakete</strong> (Data Packs) klicken.</li>
+          <li>Die Datei <code>countdown-atoll-datapack.zip</code> ins Fenster ziehen → sie erscheint links → mit dem Pfeil <strong>nach rechts</strong> („Ausgewählt") schieben.</li>
+          <li><strong>Fertig</strong> → <strong>Welt erstellen</strong>. Beim Betreten erscheint oben das Routen-Menü.</li>
+        </ol>
+        <p class="howto-alt">
+          Alternativ in eine bestehende Welt: ZIP in
+          <code>saves/&lt;Welt&gt;/datapacks/</code> legen und im Chat
+          <code>/reload</code> tippen.
+        </p>
+        <p class="howto-h">B) Resource Pack aktivieren (optional, für den Drohnen-Sound)</p>
+        <ol class="howto-list">
+          <li><strong>Optionen</strong> → <strong>Ressourcenpakete</strong> → <strong>Paket-Ordner öffnen</strong>.</li>
+          <li><code>countdown-atoll-resourcepack.zip</code> hineinlegen, links auf die rechte Seite schieben, <strong>Fertig</strong>.</li>
+        </ol>
+        <p class="howto-note">
+          Version: <strong>Minecraft Java 1.21+</strong>. Falls das Datapack ausgegraut /
+          „inkompatibel" ist, stimmt die Minecraft-Version nicht.
         </p>
       </div>
 
@@ -144,7 +171,12 @@ const download = url('/downloads/countdown-atoll.zip');
     font-size: 0.9em;
   }
 
-  .download { margin-top: var(--sp-md); }
+  .download {
+    margin-top: var(--sp-md);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-md);
+  }
 
   .btn-download {
     display: inline-block;
@@ -158,6 +190,43 @@ const download = url('/downloads/countdown-atoll.zip');
     transition: transform 0.1s ease, filter 0.1s ease;
   }
   .btn-download:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .btn-download--sec {
+    background: transparent;
+    color: var(--ak-grape);
+    border: 1px solid var(--ak-grape);
+  }
+
+  .howto { margin-top: var(--sp-2xl); max-width: 62ch; }
+  .howto-warn {
+    padding: var(--sp-md) var(--sp-lg);
+    border: 1px solid var(--ak-grape);
+    border-radius: 6px;
+    background: rgba(81, 0, 255, 0.06);
+    font-size: 0.9em;
+  }
+  .howto-h {
+    font-family: "iA Writer Mono S", monospace;
+    font-weight: bold;
+    margin: var(--sp-xl) 0 var(--sp-sm);
+  }
+  .howto-list {
+    margin: 0;
+    padding-left: var(--sp-xl);
+    display: grid;
+    gap: var(--sp-xs, 4px);
+    font-size: 0.9em;
+  }
+  .howto-alt, .howto-note {
+    margin-top: var(--sp-sm);
+    font-size: 0.82em;
+    opacity: 0.8;
+  }
+  .howto code {
+    font-family: "iA Writer Mono S", monospace;
+    background: rgba(0, 0, 0, 0.08);
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+  }
 
   .hint {
     margin-top: var(--sp-md);
