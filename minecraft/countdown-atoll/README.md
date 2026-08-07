@@ -14,23 +14,37 @@ Design-Hintergrund und Gesamtkonzept: siehe `docs/minecraft-escape-mod-konzept.m
 
 ## Installation
 
-1. **Welt vorbereiten:** Erstelle in Minecraft eine neue Welt (Kreativmodus
-   reicht). Cheats müssen **an** sein (für den Prototyp; die Vollversion braucht
-   das nicht).
-2. **Datapack:** Kopiere den Ordner `datapack/` in den `datapacks/`-Ordner deiner
-   Welt und benenne ihn z. B. `countdown-atoll`:
-   ```
-   .minecraft/saves/<DEINE_WELT>/datapacks/countdown-atoll/
-   ```
-   (In diesem Ordner müssen `pack.mcmeta` und `data/` direkt liegen.)
-3. **Resource Pack:** Kopiere den Ordner `resourcepack/` nach
-   `.minecraft/resourcepacks/` (z. B. als `countdown-atoll-sounds`) und aktiviere
-   ihn in den Minecraft-Einstellungen unter *Ressourcenpakete*.
+> ⚠️ **Wichtig:** Das ist ein **Datapack**, KEINE Mod. Zieh es **nicht** ins
+> „Mods"-Fenster (Fabric/ModMenu) — das funktioniert nicht. Datapacks werden
+> pro Welt geladen. Fertige ZIPs zum Download liegen unter
+> `public/downloads/` (`countdown-atoll-datapack.zip`, `-resourcepack.zip`).
+
+### A) Datapack laden (das eigentliche Spiel)
+
+Am einfachsten über die Welterstellung:
+
+1. Minecraft starten → **Einzelspieler** → **Neue Welt erstellen**.
+2. Im Erstell-Menü auf **Datenpakete** (Data Packs) klicken.
+3. `countdown-atoll-datapack.zip` ins Fenster ziehen → es erscheint links →
+   mit dem Pfeil **nach rechts** in „Ausgewählt" schieben.
+4. **Fertig** → **Welt erstellen**. Beim Betreten erscheint oben das Routen-Menü.
+
+Alternativ (bestehende Welt): das ZIP in
+`.minecraft/saves/<DEINE_WELT>/datapacks/` legen und im Chat `/reload` tippen.
+Im ZIP liegen `pack.mcmeta`, `pack.png` und `data/` direkt in der Wurzel — genau
+so muss ein Datapack aufgebaut sein.
+
+### B) Resource Pack aktivieren (optional — nur für den Drohnen-Sound)
+
+1. **Optionen** → **Ressourcenpakete** → **Paket-Ordner öffnen**.
+2. `countdown-atoll-resourcepack.zip` hineinlegen, links auf die rechte Seite
+   schieben, **Fertig**.
    - Für den Drohnen-Sound zusätzlich die `.ogg`-Datei ergänzen — siehe
      `resourcepack/assets/aisu_escape/sounds/ambient/PLATZHALTER-drone_squeak.md`.
    - Ohne die `.ogg` läuft alles trotzdem, nur ohne Drohnen-Ambience.
-4. **Laden:** Welt öffnen und im Chat `/reload` eingeben. Es erscheint das
-   Routen-Auswahlmenü.
+
+> **Version:** Minecraft Java **1.21+**. Ist das Datapack ausgegraut /
+> „inkompatibel", stimmt die Minecraft-Version nicht.
 
 ---
 
