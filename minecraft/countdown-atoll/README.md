@@ -27,7 +27,13 @@ Am einfachsten über die Welterstellung:
 2. Im Erstell-Menü auf **Datenpakete** (Data Packs) klicken.
 3. `countdown-atoll-datapack.zip` ins Fenster ziehen → es erscheint links →
    mit dem Pfeil **nach rechts** in „Ausgewählt" schieben.
-4. **Fertig** → **Welt erstellen**. Beim Betreten erscheint oben das Routen-Menü.
+4. **Fertig** → **Welt erstellen**. Beim Betreten erscheinen ein Titel und im
+   Chat das **Routen-Menü** — Route anklicken, fertig.
+
+> **Modus:** **Kreativ** empfohlen (keine Gegner/Hunger, entspanntes Rätseln).
+> **Cheats werden NICHT benötigt** — die Bedienung läuft komplett über
+> anklickbare `/trigger`-Menüs. (Erscheint kein Menü: einmal die Welt neu
+> betreten; das Menü kommt automatisch, sobald du in der Welt bist.)
 
 Alternativ (bestehende Welt): das ZIP in
 `.minecraft/saves/<DEINE_WELT>/datapacks/` legen und im Chat `/reload` tippen.

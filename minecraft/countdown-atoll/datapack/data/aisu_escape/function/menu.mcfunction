@@ -1,0 +1,5 @@
+# Routen-Menue im Chat — per /trigger, funktioniert OHNE Cheats.
+scoreboard players enable @a ak_route
+tellraw @a {"text":"— Countdown auf dem Atoll —","bold":true,"color":"aqua"}
+tellraw @a ["Waehle eine Route:  ",{"text":"[ Zaun – leicht ]","bold":true,"color":"green","clickEvent":{"action":"run_command","value":"/trigger ak_route set 1"},"hoverEvent":{"action":"show_text","contents":"15 Minuten Zeit"}},"  ",{"text":"[ Kanalisation – mittel ]","bold":true,"color":"yellow","clickEvent":{"action":"run_command","value":"/trigger ak_route set 2"},"hoverEvent":{"action":"show_text","contents":"10 Minuten Zeit"}},"  ",{"text":"[ Hauptgebaeude – schwer ]","bold":true,"color":"red","clickEvent":{"action":"run_command","value":"/trigger ak_route set 3"},"hoverEvent":{"action":"show_text","contents":"5 Minuten Zeit"}}]
+tellraw @a {"text":"Tipp: Buecher im Inventar mit Rechtsklick lesen — der gruene Knopf im Buch bereitet den Befehl vor, du tippst nur die Zahl.","color":"dark_gray","italic":true}

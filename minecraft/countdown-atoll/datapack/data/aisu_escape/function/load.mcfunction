@@ -1,19 +1,19 @@
-# Countdown auf dem Atoll — Setup (laeuft bei jedem /reload)
+# Countdown auf dem Atoll — Setup (laeuft bei jedem /reload und beim Weltstart)
 # --------------------------------------------------------------
 # Scoreboard-Objectives anlegen (Fehler still ignorieren wenn schon da)
 scoreboard objectives add ak_time     dummy   {"text":"Zeit"}
 scoreboard objectives add ak_state    dummy
 scoreboard objectives add ak_stage    dummy
+scoreboard objectives add ak_seen     dummy
+scoreboard objectives add ak_route    trigger {"text":"Route"}
 scoreboard objectives add ak_dial     trigger {"text":"Chiffrier-Rad"}
 scoreboard objectives add ak_alarm    trigger {"text":"Alarm-Code"}
 scoreboard objectives add ak_cam      trigger {"text":"Kamera-PIN"}
 scoreboard objectives add ak_log      trigger {"text":"Freie Minute"}
-scoreboard objectives add ak_secret   dummy
 
 # Globaler Zustand liegt auf dem Fake-Spieler #game
 #   ak_state: 0 = bereit, 1 = laeuft, 2 = entkommen, 3 = Zeit abgelaufen
 #   ak_stage: 1 = Caesar, 2 = Alarm, 3 = Kamera, 4 = Log, 9 = geloest
-#   ak_secret (pro Spieler): 1 = geheime Losung "Ken sent me" gefunden
 scoreboard players set #game ak_state 0
 scoreboard players set #game ak_stage 0
 
@@ -26,8 +26,5 @@ bossbar set aisu_escape:countdown color red
 bossbar set aisu_escape:countdown style notched_10
 bossbar set aisu_escape:countdown visible false
 
-# Begruessung
-tellraw @a {"text":"[Atoll] Datapack geladen.","color":"aqua"}
-tellraw @a {"text":"Waehle eine Route und starte:","color":"gray"}
-tellraw @a ["  ",{"text":"[ Zaun – leicht ]","color":"green","clickEvent":{"action":"run_command","value":"/function aisu_escape:route/easy"},"hoverEvent":{"action":"show_text","contents":"15 Minuten Zeit"}},"  ",{"text":"[ Kanalisation – mittel ]","color":"yellow","clickEvent":{"action":"run_command","value":"/function aisu_escape:route/medium"},"hoverEvent":{"action":"show_text","contents":"10 Minuten Zeit"}},"  ",{"text":"[ Hauptgebaeude – schwer ]","color":"red","clickEvent":{"action":"run_command","value":"/function aisu_escape:route/hard"},"hoverEvent":{"action":"show_text","contents":"5 Minuten Zeit"}}]
-tellraw @a ["  ",{"text":"[ ? So wird gespielt ]","color":"gray","clickEvent":{"action":"run_command","value":"/function aisu_escape:hilfe"},"hoverEvent":{"action":"show_text","contents":"Kurze Anleitung"}}]
+# Menue anzeigen (falls schon Spieler da sind; neue Spieler begruesst der tick)
+function aisu_escape:menu
