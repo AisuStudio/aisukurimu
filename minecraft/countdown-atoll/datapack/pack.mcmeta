@@ -1,7 +1,7 @@
 {
   "pack": {
-    "description": "Countdown auf dem Atoll — aisukurimu Escape (Kapitel 1: Ankunft & Recon)",
-    "pack_format": 48,
-    "supported_formats": { "min_inclusive": 48, "max_inclusive": 81 }
+    "description": "Countdown auf dem Atoll — aisukurimu Escape (Kapitel 1)",
+    "pack_format": 61,
+    "supported_formats": [48, 9999]
   }
 }

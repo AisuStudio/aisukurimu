@@ -5,8 +5,8 @@ spielbarer Ausschnitt der aisukurimu-Escape-Mod: ein Countdown läuft, quietsche
 Drohnen-Ambience baut Druck auf, und du musst einen verschlüsselten Funkspruch
 (Caesar-Chiffre) knacken, um das letzte Boot zu erreichen.
 
-> Kein Mod-Loader nötig. Läuft in reinem Vanilla ab **Minecraft 1.21**.
-> Getestetes Ziel: 1.21+ (Datapack `pack_format` 48, Resource Pack `pack_format` 34).
+> Kein Mod-Loader nötig. Läuft in reinem Vanilla ab **Minecraft 1.21** und in
+> allen neueren 1.21.x-Versionen (`supported_formats` weit gesetzt).
 
 Design-Hintergrund und Gesamtkonzept: siehe `docs/minecraft-escape-mod-konzept.md`.
 
