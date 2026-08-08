@@ -1,4 +1,15 @@
-# Laeuft jeden Game-Tick (20x/s). Prueft nur waehrend eines aktiven Laufs.
+# Laeuft jeden Game-Tick (20x/s).
+# --- Neue Spieler begruessen: zeigt das Menue zuverlaessig, sobald man drin ist ---
+execute as @a unless score @s ak_seen matches 1 run function aisu_escape:greet
+
+# --- Routenwahl per Trigger (funktioniert OHNE Cheats). Nur wenn kein Lauf aktiv. ---
+execute unless score #game ak_state matches 1 if entity @a[scores={ak_route=1}] run function aisu_escape:route/easy
+execute unless score #game ak_state matches 1 if entity @a[scores={ak_route=2}] run function aisu_escape:route/medium
+execute unless score #game ak_state matches 1 if entity @a[scores={ak_route=3}] run function aisu_escape:route/hard
+scoreboard players set @a ak_route 0
+scoreboard players enable @a ak_route
+
+# Ab hier nur waehrend eines aktiven Laufs weiter.
 execute unless score #game ak_state matches 1 run return 0
 
 # --- Stufe 1: Caesar-Chiffre (Chiffrier-Rad ak_dial) ---

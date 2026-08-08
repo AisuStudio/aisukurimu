@@ -2,6 +2,7 @@
 scoreboard players set #game ak_state 0
 scoreboard players set #game ak_stage 0
 scoreboard players set #game ak_time 0
+scoreboard players set @a ak_route 0
 scoreboard players set @a ak_dial 0
 scoreboard players set @a ak_alarm 0
 scoreboard players set @a ak_cam 0

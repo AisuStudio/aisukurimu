@@ -20,3 +20,8 @@ tellraw @a {"text":"Was du geknackt hast: Chiffre (Krypto) - Logikgatter - Stand
 execute unless entity @a[scores={ak_secret=1}] run tellraw @a {"text":"(Und irgendwo auf der Insel wartet noch eine geheime Losung …)","color":"dark_gray","italic":true}
 
 playsound minecraft:ui.toast.challenge_complete master @a ~ ~ ~ 1 1
+clear @a written_book
+
+# Nochmal spielen? Menue erneut zeigen (ohne Cheats, per Trigger)
+tellraw @a {"text":"Nochmal? Waehle eine Route:","color":"gray"}
+function aisu_escape:menu
