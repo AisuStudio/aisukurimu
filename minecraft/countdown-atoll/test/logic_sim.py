@@ -255,6 +255,25 @@ def trigger(player, obj, val):
     scores[(player, obj)] = val
     enabled.discard((player, obj))  # MC deaktiviert nach Nutzung
 
+# ---------------- Lint: Mehrfach-Leerzeichen zwischen Argumenten ----------------
+# Minecraft 1.21.x liest mehrfache Leerzeichen zwischen Argumenten als leeres
+# Argument -> "Unknown criterion ''" o.ae. JSON-/String-Inhalt bleibt erlaubt,
+# daher normalisieren wir klammer-/quote-bewusst und vergleichen.
+print("=== 0) Lint: Argument-Leerzeichen ===")
+lint_fail = []
+for fname, flines in functions.items():
+    for i, ln in enumerate(flines, 1):
+        s = ln.strip()
+        if not s or s.startswith("#"):
+            continue
+        if " ".join(smart_split(ln)) != ln:
+            lint_fail.append(f"{fname} Zeile {i}: mehrfache Leerzeichen zwischen Argumenten")
+if lint_fail:
+    print(f" FAIL {len(lint_fail)} Zeile(n) mit problematischen Leerzeichen:")
+    for m in lint_fail: print("   -", m)
+    sys.exit(1)
+print("  OK  keine problematischen Leerzeichen zwischen Argumenten")
+
 # ---------------- Szenario ----------------
 FAIL = []
 def check(cond, msg):

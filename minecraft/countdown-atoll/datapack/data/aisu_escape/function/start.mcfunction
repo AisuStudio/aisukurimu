@@ -4,7 +4,7 @@ scoreboard players set #game ak_stage 1
 scoreboard players set @a ak_secret 0
 
 # Bossbar aufsetzen: max + aktueller Wert = Startzeit
-execute store result bossbar aisu_escape:countdown max   run scoreboard players get #game ak_time
+execute store result bossbar aisu_escape:countdown max run scoreboard players get #game ak_time
 execute store result bossbar aisu_escape:countdown value run scoreboard players get #game ak_time
 bossbar set aisu_escape:countdown players @a
 bossbar set aisu_escape:countdown visible true
