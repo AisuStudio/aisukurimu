@@ -2,6 +2,6 @@
   "pack": {
     "description": "Countdown auf dem Atoll — Sounds (Drohnen-Ambient)",
     "pack_format": 46,
-    "supported_formats": [34, 9999]
+    "supported_formats": { "min_inclusive": 34, "max_inclusive": 9999 }
   }
 }
