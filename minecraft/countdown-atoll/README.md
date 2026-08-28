@@ -17,7 +17,7 @@ Design-Hintergrund und Gesamtkonzept: siehe `docs/minecraft-escape-mod-konzept.m
 > ⚠️ **Wichtig:** Das ist ein **Datapack**, KEINE Mod. Zieh es **nicht** ins
 > „Mods"-Fenster (Fabric/ModMenu) — das funktioniert nicht. Datapacks werden
 > pro Welt geladen. Fertige ZIPs zum Download liegen unter
-> `public/downloads/` (`countdown-atoll-datapack-v4.zip`, `-resourcepack.zip`).
+> `public/downloads/` (`countdown-atoll-datapack-v5.zip`, `-resourcepack.zip`).
 
 ### A) Datapack laden (das eigentliche Spiel)
 
@@ -25,7 +25,7 @@ Am einfachsten über die Welterstellung:
 
 1. Minecraft starten → **Einzelspieler** → **Neue Welt erstellen**.
 2. Im Erstell-Menü auf **Datenpakete** (Data Packs) klicken.
-3. `countdown-atoll-datapack-v4.zip` ins Fenster ziehen → es erscheint links →
+3. `countdown-atoll-datapack-v5.zip` ins Fenster ziehen → es erscheint links →
    mit dem Pfeil **nach rechts** in „Ausgewählt" schieben.
 4. **Fertig** → **Welt erstellen**. Beim Betreten erscheinen ein Titel und im
    Chat das **Routen-Menü** — Route anklicken, fertig.
@@ -43,7 +43,7 @@ so muss ein Datapack aufgebaut sein.
 ### B) Resource Pack aktivieren (optional — nur für den Drohnen-Sound)
 
 1. **Optionen** → **Ressourcenpakete** → **Paket-Ordner öffnen**.
-2. `countdown-atoll-resourcepack-v4.zip` hineinlegen, links auf die rechte Seite
+2. `countdown-atoll-resourcepack-v5.zip` hineinlegen, links auf die rechte Seite
    schieben, **Fertig**.
    - Für den Drohnen-Sound zusätzlich die `.ogg`-Datei ergänzen — siehe
      `resourcepack/assets/aisu_escape/sounds/ambient/PLATZHALTER-drone_squeak.md`.
